@@ -16,6 +16,7 @@ function rpcFileHandler(str,type){
       }); 
   }
   
+  
   return JSON.stringify(result);
 }
 
