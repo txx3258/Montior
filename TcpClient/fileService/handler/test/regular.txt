@@ -1,0 +1,35 @@
+gc.log=>var reg=/(\d\d\d\d-\d\d-\d\d)T(\d\d:\d\d:\d\d).*?\[(ParNew: .*?\),(.*?)secs)\]/g
+
+memcached.log=>var reg=/dump_stats:({.*?})/g 
+
+let mongoose=require('mongoose');
+let Schema=mongoose.Schema;
+
+var Chart=new Schema({
+  x:String,
+  y:String,
+  z:String,
+  l:String,
+  r:String,
+  t:String,
+  d:date
+});
+
+var data = {
+    labels: ["January", "February", "March", "April", "May", "June", "July"],
+    datasets: [{
+        label: "tip:",
+        fillColor: "rgba(220,220,220,0.2)",
+        strokeColor: "rgba(220,220,220,1)",
+        pointColor: "rgba(220,220,220,1)",
+        pointStrokeColor: "#fff",
+        pointHighlightFill: "#fff",
+        pointHighlightStroke: "rgba(220,220,220,1)",
+        data: [65, 59, 80, 81, 56, 55, 40]
+    }],
+	left:"ms:,
+	right:"",
+	tip:"",
+	desc:""
+};
+
