@@ -32,6 +32,7 @@ let config={
       "filename":"./logs/biz.log",
       "maxLogSize":2048000,
       "backups":2,
+      
       "category":"biz"
     }
   ]
