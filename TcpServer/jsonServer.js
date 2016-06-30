@@ -29,6 +29,7 @@ function createJsonServer() {
 
       //添加到数据库
      // addDB(buf);
+     console.log(buf.join('').toString())
 
       // 单线程能确保安全性
       buf = [];
