@@ -15,7 +15,7 @@
   "IP": "127.0.0.1",
   "ALL_COLLECTIONS": "",
   "MIN_LIMIT": 10,
-  "MONGO_URI": "mongodb://127.0.0.1:27017/Montior",
+  "MONGO_URI": "mongodb://127.0.0.1:27017/ReportAndMonitor",
   "HTTP_PORT": 8081,
   "TCP_SERVER_FOR_STREAM": {
     "IP":"",

@@ -1,0 +1,91 @@
+<div id="my-app-nav">
+    <div id="sub-nav">
+        <%var i=0 ;if (roleLeve.leve.charAt(i++)=='1') {%> 
+        <h1 class="show">基础信息管理</h1>
+        <ul class="show-class">
+            <% if (roleLeve.leve.charAt(i++)=='1') {%>
+             <li>
+                <a href="/manage/channellist" class="<% if(mClass=="channellist") { %> active <%}%>">配置管理  </a>
+            </li>
+            <%} %>
+            <% if (roleLeve.leve.charAt(i++)=='1') {%>
+             <li>
+                <a href="/manage/roleLeveList" class="<% if(mClass=="roleLeveList") { %> active <%}%>">权限管理  </a>
+            </li>
+            <%} %>
+        </ul>
+         <%} %>
+         
+        <%var i=0 ;if (roleLeve.leve.charAt(i++)=='1') {%> 
+        <h1 class="show">报表管理</h1>
+        <ul class="show-class">
+            <% if (roleLeve.leve.charAt(i++)=='1') {%>
+             <li>
+                <a href="/manage/channellist" class="<% if(mClass=="channellist") { %> active <%}%>">总报表  </a>
+            </li>
+            <%} %>
+            <% if (roleLeve.leve.charAt(i++)=='1') {%>
+             <li>
+                <a href="/manage/roleLeveList1" class="<% if(mClass=="roleLeveList1") { %> active <%}%>">分报表  </a>
+            </li>
+            <%} %>
+        </ul>
+         <%} %>
+         
+         
+         
+         <% if (roleLeve.leve.charAt(i++)=='1') {%>
+        <h1 class="show" style="border-top-width: 1px;">接口访问</h1>
+        <ul class="show-class">
+            <% if (roleLeve.leve.charAt(i++)=='1') {%>
+            <li><a href="/manage/" class="<% if(mClass=="dispatchInfoList") { %> active <%}%>">biz-menu</a></li>
+            <%} %>
+            <% if (roleLeve.leve.charAt(i++)=='1') {%>
+            <li><a href="javascript:void(0);" class="">biz-applist</a></li>
+            <%} %>
+            <% if (roleLeve.leve.charAt(i++)=='1') {%>
+            <li><a href="javascript:void(0);" class="">biz-applist</a></li>
+            <%} %>
+        </ul>
+        <%} %>
+        <% if (roleLeve.leve.charAt(i++)=='1') {%>
+        <h1 class="show" style="border-top-width: 1px;">资源访问</h1>
+        <ul class="show-class">  
+            <% if (roleLeve.leve.charAt(i++)=='1') {%>
+            <li><a href="/manage/driverInfoList" class="<% if(mClass=="driverInfoList") { %> active <%}%>">数据库</a></li>
+            <%} %>
+            <% if (roleLeve.leve.charAt(i++)=='1') {%>
+            <li><a href="/manage/positionlist" class="<% if(mClass=="positionlist") { %> active <%}%>">redis</a></li>  
+            <%} %>
+            <% if (roleLeve.leve.charAt(i++)=='1') {%>
+            <li><a href="javascript:void(0);" class="">memcache</a></li>
+            <%} %>
+             <% if (roleLeve.leve.charAt(i++)=='1') {%>
+            <li><a href="javascript:void(0);" class="">mq消息</a></li>
+            <%} %>
+        </ul>
+        <%} %>
+        <% if (roleLeve.leve.charAt(i++)=='1') {%>
+        <h1 class="show" style="border-top-width: 1px;">数据监控</h1>
+        <ul class="show-class">
+            <% if (roleLeve.leve.charAt(i++)=='1') {%>
+            <li><a href="/manage/checkupdate?type=show&pf=android" class="<% if(mClass=="checkupdate") { %> active <%}%>">数据监控1</a></li>
+             <%} %>
+             <% if (roleLeve.leve.charAt(i++)=='1') {%>
+            <li><a href="/manage/fileupload" class="<% if(mClass=="fileupload") { %> active <%}%>">数据监控2</a></li>
+             <%} %>
+        </ul>
+        <%} %>
+        <% if (roleLeve.leve.charAt(i++)=='1') {%>
+        <h1 class="show" style="border-top-width: 1px;">报警消息</h1>
+        <ul class="show-class">
+            <% if (roleLeve.leve.charAt(i++)=='1') {%>
+            <li style="position: relative;"><a href="javascript:void(0);" class="">接口1</a><span class="round">●</span></li>
+             <%} %>
+             <% if (roleLeve.leve.charAt(i++)=='1') {%>
+            <li style="position: relative;"><a href="javascript:void(0);" class="">接口2</a><span class="round">●</span></li>
+             <%} %>
+        </ul>
+         <%} %>
+    </div>
+</div>

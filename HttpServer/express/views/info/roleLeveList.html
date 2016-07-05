@@ -1,0 +1,273 @@
+<%- include ../template/_header.html %>
+    <div id="my-app-container">
+        <div id="my-app-content" class="clear">
+            <%- include ../template/_navigator.html %>
+                <style>
+                    .f_l {
+                        float: left
+                    } 
+                    .clear {
+                        clear: both;
+                    }                   
+                    .m_l_50 {
+                        margin-left: 50px;
+                        margin-top: 3px;
+                    }                   
+                    .m_l_5 {
+                        margin: 5px;
+                    }                   
+                    .borer {
+                        font-weight: bolder;
+                        margin: 5px;
+                    }                 
+                    .m_t_10 {
+                        margin-top: 10px;
+                    }
+                    .ml_5{margin-left: 5px;}
+                    .add_city{width:110px;height: 25px;}
+                </style>
+                <div id="my-app-con">
+                    <div class="frame-content">
+                        <h1>权限管理</h1>
+                        <div class="app-title-1" id="app-title">
+                            <ul id="app-title-taps">
+                                <li><a id="tap_s0" href="#0" class="span-2-active">渠道配置</a></li>
+                                <li><a id="tap_s1" href="#0" class="span-2-active">资源配置</a></li>
+                            </ul>
+                            <div id="app-title-bg" class="app-title-bg-1" style="left:0px"></div>
+                        </div>
+                        <div id="bim_app_container">
+
+                           <div id="config_role_lelve">
+                             <form id="roleForm">
+                                <div class="clear">
+                                    <label class="f_l borer">基础管理(*) </label> <input id="my_basic" class="f_l m_l_5" type="checkbox" name="my_basic_0" />
+                                </div>
+                                <div class="clear">
+                                    <label class="f_l m_l_50">配置信息&nbsp;&nbsp;&nbsp;&nbsp;</label> <input class="f_l m_l_5 my_basic" type="checkbox" name="my_basic_1" />
+                                    <label class="f_l m_l_50">权限管理</label> <input class="f_l m_l_5 my_basic" type="checkbox" name="my_basic_2"/>
+                                      <!--  <label class="f_l m_l_50">路线列表</label> <input class="f_l m_l_5 my_basic" type="checkbox" name="my_basic_3" /> 
+                                    <label class="f_l m_l_50">用户列表</label> <input class="f_l m_l_5 my_basic" type="checkbox" name="my_basic_4"/>
+                                    <label class="f_l m_l_50">渠道列表</label> <input class="f_l m_l_5 my_basic" type="checkbox" name="my_basic_5" /> -->
+                                </div>
+
+                                <div class="clear">
+                                    <label class="f_l borer">数据库管理(*) </label> <input id="my_assign" class="f_l m_l_5" type="checkbox" name="my_assign_0"/>
+                                </div>
+                                <div class="clear">
+                                    <label class="f_l m_l_50">数据库1</label> <input class="f_l m_l_5 my_assign" type="checkbox" name="my_assign_1"/>
+                                    <label class="f_l m_l_50">数据库2</label> <input class="f_l m_l_5 my_assign" type="checkbox" name="my_assign_2"/>
+                                    <label class="f_l m_l_50">数据库3</label> <input class="f_l m_l_5 my_assign" type="checkbox" name="my_assign_3"/>
+                                </div>
+
+                                <div class="clear">
+                                    <label class="f_l borer">mq消息管理(*) </label> <input id="my_driver" class="f_l m_l_5" type="checkbox" name="my_driver_0"/>
+                                </div>
+                                <div class="clear">
+                                    <label class="f_l m_l_50">mq1223</label> <input class="f_l m_l_5 my_driver" type="checkbox" name="my_driver_1"/>
+                                    <label class="f_l m_l_50">mq1223</label> <input class="f_l m_l_5 my_driver" type="checkbox" name="my_driver_2"/>
+                                    <label class="f_l m_l_50">mq1223</label> <input class="f_l m_l_5 my_driver" type="checkbox" name="my_driver_3"/>
+                                </div>
+
+                                <div class="clear">
+                                    <label class="f_l borer">应用升级(*) </label> <input id="my_upgrade" class="f_l m_l_5" type="checkbox" name="my_upgrade_0" />
+                                </div>
+                                <div class="clear">
+                                    <label class="f_l m_l_50">版本信息</label> <input class="f_l m_l_5 my_upgrade" type="checkbox" name="my_upgrade_1"/>
+                                    <label class="f_l m_l_50">文件上传</label> <input class="f_l m_l_5 my_upgrade" type="checkbox" name="my_upgrade_2" />
+                                </div>
+
+                                <div class="clear">
+                                    <label class="f_l borer">系统消息(*) </label> <input id="my_msg" class="f_l m_l_5" type="checkbox" name="my_msg_0"/>
+                                </div>
+                                <div class="clear">
+                                    <label class="f_l m_l_50">消息</label> <input class="f_l m_l_5 my_msg" type="checkbox" name="my_msg_1"/>
+                                    <label class="f_l m_l_50">提醒</label> <input class="f_l m_l_5 my_msg" type="checkbox" name="my_msg_2"/>
+                                </div>
+
+                                <div class="clear m_t_10">
+                                    <label class="f_l borer">渠道名称 </label>
+                                    <input class="f_l m_l_5" type="text" name="channelName" style="width:150px;height:22px;" />
+                                    
+                                    <label class="f_l borer" style="margin-left:50px">渠道Code </label>
+                                    <input class="f_l m_l_5" type="text" name="channelCode" style="width:150px;height:22px;" />
+                                    <button id="submitRoleLeve" type="button" name="" style="float:left;width:80px;height:30px;margin:2px 0 0 50px" />确认</button>
+                                </div>
+                            </form>
+                            
+                            <h1>渠道列表</h1>
+                             <table class="app-table-class app-table-class-2">
+                                <thead>
+                                    <tr>
+                                        <th>渠道名称</th>
+                                        <th>渠道Code</th>
+                                        <th>操作Leve</th>
+                                        <th>路线</th>
+                                        <th>描述</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="listToAdd">
+                                 <%var data=[];data.forEach((item)=>{%>
+                                    <tr id="<%=item._id%>">                                       
+                                        <td><%=item.name%> </td>
+                                        <td><%=item.channel%></td>
+                                        <td><%=item.leve%></td>
+                                        <td><%=item.path%></td>
+                                        <td><%=item.desc%></td>
+                                        <td><a href="javascript:void(0)" onclick="delItem('<%=item._id%>')">删除</a></td>
+                                    </tr>
+                                </tbody>
+                                <%})%>
+                            </table>            
+                           </div>
+                        
+                           <div id="resource_leve" style="display:none;">
+                               <form id="resource_form">
+                                <div class="clear">
+                                    <label class="f_l m_l_5">渠道选择</label> 
+                                    <select class="f_l ml_5" name="role">
+                                     <%data.forEach((item)=>{%>   
+                                        <option id="<%=item._id%>"  value="<%=item._id%>"> <%=item.name%> </option> 
+                                     <%})%>
+                                    </select> 
+                                </div>
+                                
+                                 <div class="clear m_t_10">
+                                    <label class="f_l m_l_5">路线</label>                                 
+                                    
+                                   <button id="rSchedule" class="f_l" type="button" name="" style="float:left;width:80px;height:30px;margin:2px 0 0 50px" />
+                                      添加
+                                   </button>
+                                   
+                                   <button id="rScheduleUpdate" class="f_l" type="button" name="" style="float:left;width:80px;height:30px;margin:2px 0 0 30px" />
+                                      配置
+                                   </button>
+                                   
+                                   <div id="rScheduleList" class="clear">           
+                                   </div>
+                                    <div id="rScheduleListDesc" class="clear" style="border-top:1px solid #ccc;display:none">           
+                                   </div>
+                                   
+                                </div>
+                                   
+                                   <div id="accountList" class="clear m_t_10">                                        
+                                         <label class="f_l borer">账号</label>
+                                         <input class="f_l m_l_5" type="text" name="userId" style="width:150px;height:22px;" />
+                                    
+                                        <label class="f_l borer" style="margin-left:50px">密码</label>
+                                        <input class="f_l m_l_5" type="text" name="password" style="width:150px;height:22px;" /> 
+                                        <button id="submitRole" type="button" name="" style="float:left;width:80px;height:30px;margin:2px 0 0 50px" />确认</button>        
+                                   </div>
+                      
+                                 </form>   
+                           </div>
+                        
+                        
+                    </div>
+                </div>
+        </div>
+    </div>  
+
+    <%- include ../template/_footer.html %>
+    <script>
+        $("#my_basic").click(function(){
+            if ($(this).attr("checked")==false){
+                $('.my_basic').attr("checked",false);
+            }
+        })       
+        $('.my_basic').click(function(){
+             if ($(this).attr("checked")==true){
+                $('#my_basic').attr("checked",true);
+            }
+        })
+        $("#my_assign").click(function(){
+            if ($(this).attr("checked")==false){
+                $('.my_assign').attr("checked",false);
+            }
+        })
+        $('.my_assign').click(function(){
+             if ($(this).attr("checked")==true){
+                $('#my_assign').attr("checked",true);
+            }
+        })
+        $("#my_driver").click(function(){
+            if ($(this).attr("checked")==false){
+                $('.my_driver').attr("checked",false);
+            }
+        })
+        $('.my_driver').click(function(){
+             if ($(this).attr("checked")==true){
+                $('#my_driver').attr("checked",true);
+            }
+        })
+        
+        $("#my_upgrade").click(function(){
+            if ($(this).attr("checked")==false){
+                $('.my_upgrade').attr("checked",false);
+            }
+        })
+        $('.my_upgrade').click(function(){
+             if ($(this).attr("checked")==true){
+                $('#my_upgrade').attr("checked",true);
+            }
+        })      
+        $("#my_msg").click(function(){
+            if ($(this).attr("checked")==false){
+                $('.my_msg').attr("checked",false);
+            }
+        })
+        $('.my_msg').click(function(){
+             if ($(this).attr("checked")==true){
+                $('#my_msg').attr("checked",true);
+            }
+        })
+        
+        var refresh=function(){
+            alert('操作成功!');
+            location.href='/manage/roleLeveList';
+        }
+        $('#submitRoleLeve').click(function(){
+            var url='/load/conf?type=channel&action=set&'+$('#roleForm').serialize();
+            $.my_ajax_html(url,'');
+            setTimeout(refresh,500);
+        });
+        
+       function delItem(id){
+         var url='/manage/mongodb?type=channel&action=del&cond="_id":"'+id+'"';          
+         $.my_ajax_html(url,'',refresh);
+       }
+       
+      $('#app-title-taps li a').click(function(){
+         var item=$(this).attr('id');
+         var index=parseInt(item.substring(item.length-1));
+         
+         $('#app-title-bg').css('left',index*110+'px');
+         if (index=='0'){
+             $("#config_role_lelve").show();
+             $("#resource_leve").hide();
+             location.href='/manage/roleLeveList';
+         }else{
+             $("#config_role_lelve").hide();
+             $("#resource_leve").show();
+         }
+     });    
+     var resourceAdd="<label class='f_l m_l_5'>code</label><input class='f_l m_l_5 add_city' name='start'/>" 
+     var resourceAddDesc="<label class='f_l m_l_5'>描述:</label><input class='f_l m_l_5 add_city' name='startDesc'/>"    
+     $("#rSchedule").click(function(){
+        $("#rScheduleList").append(resourceAdd);    
+        $("#rScheduleListDesc").show();
+        $("#rScheduleListDesc").append(resourceAddDesc);
+        
+     });
+     
+     $("#rScheduleUpdate").click(function(){
+          var url='/load/conf?type=channel&action=update&'+$('#resource_form').serialize();         
+         $.my_ajax_html(url,'',refresh);
+     });
+     
+     $("#submitRole").click(function(){
+        var url='/manage/mongodb?type=userinfo&action=add&'+$('#resource_form').serialize();;          
+        $.my_ajax_html(url,'',refresh);
+     })
+    </script>
