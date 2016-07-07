@@ -3,7 +3,7 @@
 let net = require('net');
 let PORT_FOR_JSON = require('../Common/config').TCP_SERVER_FOR_JSON.PORT;
 let IP_FOR_JSON = require('../Common/config').TCP_SERVER_FOR_JSON.IP;
-//let addDB = require('./mongoService/op').addDB;
+let mongoWrap = require('./handler/mongoWrap');
 
 function createJsonServer() {
   let server_for_json = net.createServer(function (socket) {
@@ -28,9 +28,8 @@ function createJsonServer() {
       }
 
       //添加到数据库
-     // addDB(buf);
-     console.log(buf.join('').toString())
-
+     mongoWrap(buf.join('').toString());
+     
       // 单线程能确保安全性
       buf = [];
     });

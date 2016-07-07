@@ -52,7 +52,7 @@ function connectJSONServer() {
     logSys.warn('error:' + err);
 
     //出现错误，下次重启时间
-    setTimeout(connectServer, 60000 * (connectTimes << 3))
+    setTimeout(connectJSONServer, 60000 * (connectTimes << 3))
   });
 }
 
@@ -61,7 +61,7 @@ function connectJSONServer() {
  */
 function sendJson(data) {
   if (!client) {
-    connectServer();
+    connectJSONServer();
     logSys.info('missing data:' + data);
     return;
   }

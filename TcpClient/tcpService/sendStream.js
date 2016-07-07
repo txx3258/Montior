@@ -9,7 +9,7 @@ let PORT = require('../../Common/config.json').TCP_SERVER_FOR_STREAM.PORT;
 let logSys = require('../../Common/log').logSys;
 //连接次数记录
 let connectTimes = 0;
-
+let client = undefined;
 
 /*
  *创建TCP客户端，连接IP和PORT
@@ -52,7 +52,7 @@ function connectStreamServer() {
     logSys.warn('error:' + err);
 
     //下一次重试时间
-    setTimeout(connectServer, 60000 * (connectTimes << 3))
+    setTimeout(connectStreamServer, 60000 * (connectTimes << 3))
   });
 }
 
@@ -61,7 +61,7 @@ function connectStreamServer() {
  */
 function sendStream(data) {
   if (!client) {
-    connectServer();
+    connectStreamServer();
     logSys.info('stream client missing data:' + data);
     return;
   }
