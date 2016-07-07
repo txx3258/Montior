@@ -67,7 +67,7 @@ function* bizCode() {
   }
   //读取新增文件字符串  sb('main.js',75)
   let sendFileContents = handleInfos.map(function (info) {
-    return readFileContent(info);
+    return sendFileContent(info);
   });
 
   //发送文件内容
