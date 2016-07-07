@@ -107,7 +107,6 @@ function buildOldGC(head, content) {
 
   result["ip"] = head.ip;
   result["type"] = "FGC";
-  result["name"] = head.name;
   result["bizCode"] = head.bizCode;
 
   return result;
@@ -118,7 +117,6 @@ function buildYongGC(contents, info) {
   var result = {
     "bizCode":info.bizCode,
     "ip": info.ip,
-    "name": name,
     "type": "YGC",
     "phase": "ParNew",
     "time": contents[1], //时间

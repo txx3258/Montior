@@ -22,7 +22,7 @@ function connect(){
     }
     
     if (err){
-      logSys.warn('mongodb cannot connect!');  
+      logSys.warn('mongodb cannot connect!'+err);  
       reject(false);
       return;
     }
@@ -31,6 +31,8 @@ function connect(){
     //赋值为全局访问
     global.db=mongoose;
     connectTimes=0;
+    
+    logSys.info('mongodb connect success');  
 
     resolve(true);
   });

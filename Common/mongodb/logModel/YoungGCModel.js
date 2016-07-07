@@ -11,7 +11,6 @@ let COLLECTION_NAME = require('../keyUtils').YOUNG_GC;
 let YoungGC = new Schema({
     bizCode:String,
     ip: String,
-    name: String,
     type: String,
     phase: String,
     time: Number,
@@ -28,19 +27,25 @@ let YoungGC = new Schema({
 function add(info) {
     //构建基本信息
     var buildYoungGC = function (info) {
+        let time = parseInt(info.time);
+        let beforeGC = parseInt(info.beforeGC);
+        let afterGC = parseInt(info.afterGC);
+        let youngSize = parseInt(info.youngSize);
+        let pauseTime = parseFloat(info.pauseTime);
+        let heapSize = parseInt(info.heapSize);
+        
         //赋值
         return {
             bizCode:info.bizCode,
             ip: info.ip,
-            name: info.name,
             type: info.type,
             phase: info.phase,
-            time: info.time,
-            beforeGC: info.beforeGC,
-            afterGC: info.afterGC,
-            youngSize: info.youngSize,
-            pauseTime: info.pauseTime,
-            heapSize: info.heapSize
+            time: isNaN(time)?-1:time,
+            beforeGC: isNaN(beforeGC)?-1:beforeGC,
+            afterGC: isNaN(afterGC)?-1:afterGC,
+            youngSize: isNaN(youngSize)?-1:youngSize,
+            pauseTime: isNaN(pauseTime)?-1:pauseTime,
+            heapSize: isNaN(heapSize)?-1:heapSize
         };
     };
 

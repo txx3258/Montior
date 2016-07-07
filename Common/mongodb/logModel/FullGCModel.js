@@ -11,7 +11,6 @@ let COLLECTION_NAME = require('../keyUtils').FULL_GC;
 let FullGC = new Schema({
     bizCode:String,
     ip: String,
-    name: String,
     type: String,
     time: Number,
     heapSize: Number,
