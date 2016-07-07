@@ -114,12 +114,20 @@ function buildOldGC(head, content) {
 
 
 function buildYongGC(contents, info) {
+  let times=/^(\d{4}-\d\d-\d\d)T(\d\d:\d\d:\d\d)/.exec(contents[1]);
+  let time=undefined;
+  if (Array.isArray(times)&&times.length==3){
+    time=new Date(times[1]+' '+times[2]);
+  }else{
+    time=-1;
+  }
+  
   var result = {
     "bizCode":info.bizCode,
     "ip": info.ip,
     "type": "YGC",
     "phase": "ParNew",
-    "time": contents[1], //时间
+    "time": time, //时间
     "beforeGC": contents[2],
     "youngSize": contents[3],
     "afterGC": contents[4],
