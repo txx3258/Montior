@@ -43,10 +43,13 @@ function add(model, data) {
  * 根据不同类型，选择不同model
  */
 let YoungGCModel=require('../../Common/mongodb/logModel/YoungGCModel');
+let NoSqlModel = require('../../Common/mongodb/logModel/NoSqlModel');
 
 function fetchModel(item) {
    switch (item.type){
        case 'YGC':return YoungGCModel;
+       case 'redis':
+       case 'memcached':return NoSqlModel;
        
        default:return undefined;
    } 
