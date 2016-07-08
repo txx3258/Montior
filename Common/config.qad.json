@@ -10,7 +10,7 @@
       "sendBy":"json"
     },{
       "path": "/data/applist/jboss-5.1.0.GA/server/default/log/ams-memcached-monitor.log",
-      "type": "gc",
+      "type": "memcached",
       "offset": 0,
       "bufSize": 163840,
       "ip": "192.168.11.133",
@@ -18,7 +18,7 @@
       "sendBy":"json"
     },{
       "path": "/data/comment/jboss-5.1.0.GA/server/default/log/ams-redis-monitor.log",
-      "type": "gc",
+      "type": "redis",
       "offset": 0,
       "bufSize": 163840,
       "ip": "192.168.11.133",
