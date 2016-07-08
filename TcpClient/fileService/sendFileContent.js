@@ -6,6 +6,7 @@ let gcFileHandler=require('./handler/gcFileHandler');
 let perfFileHandler=require('./handler/perfFileHandler');
 let dalFileHandler=require('./handler/dalFileHandler');
 let memcachedHandler=require('./handler/memcachedHandler');
+let redisFileHandler=require('./handler/redisFileHandler');
 
 let sendJson=require('../tcpService/sendJson');
 let sendStream=require('../tcpService/sendStream');
@@ -45,6 +46,7 @@ function* sendFileContent(info){
     case 'memcached':return sendServer(memcachedHandler(intrFileStr,info));
     case 'dal': return sendServer(dalFileHandler(intrFileStr,info));
     case 'gc': return sendServer(gcFileHandler(intrFileStr,info));
+    case 'redis': return sendServer(redisFileHandler(intrFileStr,info));
     case 'rpc':fn=dalFileHandler;break;
   }
 }
