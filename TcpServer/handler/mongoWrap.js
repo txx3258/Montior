@@ -11,7 +11,7 @@ function mongoWrap(data) {
     try{
        datas = JSON.parse(data);
     }catch(e){
-        logBiz('data is json.data='+data);
+        logBiz.error('data is json.data='+data);
     }
 
     datas.forEach((item)=>{
