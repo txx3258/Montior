@@ -4,39 +4,44 @@ let co = require('co');
 let addMongo = require('../../Common/mongodb/mongoAddHandler');
 let logBiz = require('../../Common/log').logBiz;
 
-let tmpData={};
+let tmpData = {};
 function mongoWrap(data) {
-    let datas = Object.keys(data).map((key)=>{
+    let datas = Object.keys(data).map((key) => {
         let curData = data[key].join('');
         let preData = tmpData[key];
-        if (preData){
-            if (preData.length>100000){
-                logBiz.warn('miss data:'+preData);
+        if (preData) {
+            if (preData.length > 100000) {
+                logBiz.warn('miss data:' + preData);
                 delete item.key;
                 curData = '{}';
             }
             curData = preData + curData;
-        }else{
-            curData = '[{}'+curData;
+        } else {
+            curData = '[{}' + curData;
         }
 
-        try{
-            return JSON.parse(curData+']');
-        }catch(e){
-            if (!tmpData[key]){
-                tmpData[key]='';
+        try {
+            return JSON.parse(curData + ']');
+        } catch (e) {
+            if (!tmpData[key]) {
+                tmpData[key] = '';
             }
             tmpData[key] += curData;
         }
     });
-    
-    datas.forEach((item)=>{
-        let model = fetchModel(item);   
-        if (model){
-            add(model,item); 
-        }else{
-            logBiz.warn("no model:"+JSON.stringify(item));
-        }      
+
+    datas.forEach((items) => {
+        if (!Array.isArray(items)) {
+            return;
+        }
+        items.forEach((item) => {
+            let model = fetchModel(item);
+            if (model) {
+                add(model, item);
+            } else {
+                logBiz.warn("no model:" + JSON.stringify(item));
+            }
+        });
     });
 }
 
@@ -45,18 +50,18 @@ function mongoWrap(data) {
  */
 function add(model, data) {
     co(addMongo(model, data))
-    .then((result) => {
-        logBiz.info(result);
-    }).catch(onerror);
-    
+        .then((result) => {
+            logBiz.info(result);
+        }).catch(onerror);
+
     /**
     *错误日志如理
     */
     function onerror(err) {
         if (!err.stack) {
-            logBiz.error('add error,data='+data+',err='+err);
+            logBiz.error('add error,data=' + data + ',err=' + err);
         } else {
-            logBiz.error('add error,data='+data+',err='+err.stack);
+            logBiz.error('add error,data=' + data + ',err=' + err.stack);
         }
     }
 }
@@ -64,20 +69,20 @@ function add(model, data) {
 /**
  * 根据不同类型，选择不同model
  */
-let YoungGCModel=require('../../Common/mongodb/logModel/YoungGCModel');
+let YoungGCModel = require('../../Common/mongodb/logModel/YoungGCModel');
 let NoSqlModel = require('../../Common/mongodb/logModel/NoSqlModel');
 
 function fetchModel(item) {
-   if (!item){
-       return null;
-   } 
-   switch (item.type){
-       case 'YGC':return YoungGCModel;
-       case 'redis':
-       case 'memcached':return NoSqlModel;
-       
-       default:return null;
-   } 
+    if (!item) {
+        return null;
+    }
+    switch (item.type) {
+        case 'YGC': return YoungGCModel;
+        case 'redis':
+        case 'memcached': return NoSqlModel;
+
+        default: return null;
+    }
 }
 
 module.exports = mongoWrap;
