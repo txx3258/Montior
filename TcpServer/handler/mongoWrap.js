@@ -7,7 +7,13 @@ let logBiz = require('../../Common/log').logBiz;
 function mongoWrap(data) {
     console.log(data);
     
-    let datas = JSON.parse(data);
+    let datas = undefined;
+    try{
+       datas = JSON.parse(data);
+    }catch(e){
+        logBiz('data is json.data='+data);
+    }
+
     datas.forEach((item)=>{
         let model = fetchModel(item);   
         if (model){
