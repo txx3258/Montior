@@ -7,7 +7,7 @@ function redisFileHandler(str,type){
 
   result.push('');
   while((rtn=reg.exec(str))!=null){ 
-      result.push(rtn[1]+",'type':'redis'}");
+      result.push(rtn[1]+',"type":"redis"}');
   }
   
   return result.join(',');

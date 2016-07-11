@@ -7,7 +7,7 @@ function memcachedHandler(str,type){
 
   result.push('');
   while((rtn=reg.exec(str))!=null){ 
-      result.push(rtn[1]+",'type':'memcached'}");
+      result.push(rtn[1]+',"type":"memcached"}');
   }
   
   return result.join(',');

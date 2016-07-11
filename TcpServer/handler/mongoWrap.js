@@ -68,12 +68,15 @@ let YoungGCModel=require('../../Common/mongodb/logModel/YoungGCModel');
 let NoSqlModel = require('../../Common/mongodb/logModel/NoSqlModel');
 
 function fetchModel(item) {
+   if (!item){
+       return null;
+   } 
    switch (item.type){
        case 'YGC':return YoungGCModel;
        case 'redis':
        case 'memcached':return NoSqlModel;
        
-       default:return undefined;
+       default:return null;
    } 
 }
 
