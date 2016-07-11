@@ -4,23 +4,38 @@ let co = require('co');
 let addMongo = require('../../Common/mongodb/mongoAddHandler');
 let logBiz = require('../../Common/log').logBiz;
 
+let tmpData={};
 function mongoWrap(data) {
-    console.log(data);
-    
-    let datas = undefined;
-    try{
-       datas = JSON.parse(data);
-    }catch(e){
-        logBiz.error('data is json.data='+data);
-        return;
-    }
+    let datas = Object.keys(data).map((key)=>{
+        let curData = data[key].join('');
+        let preData = tmpData[key];
+        if (preData){
+            if (preData.length>100000){
+                logBiz.warn('miss data:'+preData);
+                delete item.key;
+                curData = '{}';
+            }
+            curData = preData + curData;
+        }else{
+            curData = '[{}'+curData;
+        }
 
+        try{
+            return JSON.parse(curData+']');
+        }catch(e){
+            if (!tmp[key]){
+                tmp[key]='';
+            }
+            tmp[key] += curData;
+        }
+    });
+    
     datas.forEach((item)=>{
         let model = fetchModel(item);   
         if (model){
             add(model,item); 
         }else{
-            logBiz.info("no model:"+JSON.stringify(item));
+            logBiz.warn("no model:"+JSON.stringify(item));
         }      
     });
 }

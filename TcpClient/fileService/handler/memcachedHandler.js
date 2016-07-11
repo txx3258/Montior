@@ -5,11 +5,12 @@ function memcachedHandler(str,type){
   //正则表达式memcached.log=>
   var reg=/dump_stats:({.*?})/g;
 
+  result.push('');
   while((rtn=reg.exec(str))!=null){ 
       result.push(rtn[1]+",'type':'memcached'}");
   }
   
-  return '['+result.join(',')+']';
+  return result.join(',');
 }
 
 module.exports=memcachedHandler;

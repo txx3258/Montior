@@ -10,12 +10,20 @@ function createJsonServer() {
     socket.setEncoding('utf8');
 
     //暂存Buffer
-    let buf = [];
+    let buf = {};
 
     //接受数据
     socket.on('data', function (buffer) {
-      buf.push(buffer);
-      console.log(buffer);
+      let identify = socket.remoteAddress + '_' + socket.remotePort;
+
+      let id_buf = buf[identify];
+      if (!id_buf) {
+        id_buf = [];
+        buf[identify] = id_buf;
+      }
+
+      id_buf.push(buffer);
+      // console.log(buffer);
 
       //事件机制，写入数据库同时接收数据
       socket.emit('done');
@@ -23,15 +31,12 @@ function createJsonServer() {
 
     //处理数据
     socket.on('done', function () {
-      if (buf.length == 0) {
-        return;
-      }
 
       //添加到数据库
-     mongoWrap(buf.join('').toString());
-     
+      mongoWrap(buf);
+
       // 单线程能确保安全性
-      buf = [];
+      buf = {};
     });
 
     //结束
