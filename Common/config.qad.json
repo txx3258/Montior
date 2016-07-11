@@ -4,24 +4,24 @@
       "path": "/data/applist/jboss-5.1.0.GA/server/default/log/gc.log",
       "type": "gc",
       "offset": 0,
-      "bufSize": 163840,
+      "bufSize": 2097152,
       "ip": "192.168.11.133",
       "bizCode": "applist",
       "sendBy":"json"
     },{
-      "path": "/data/applist/jboss-5.1.0.GA/server/default/log/ams-memcached-monitor.log",
+      "path": "/data/comment/jboss-5.1.0.GA/server/default/log/ams-memcached-monitor.log",
       "type": "memcached",
       "offset": 0,
-      "bufSize": 163840,
-      "ip": "192.168.11.133",
+      "bufSize": 2097152,
+      "ip": "192.168.11.68",
       "bizCode": "applist",
       "sendBy":"json"
     },{
       "path": "/data/comment/jboss-5.1.0.GA/server/default/log/ams-redis-monitor.log",
       "type": "redis",
       "offset": 0,
-      "bufSize": 163840,
-      "ip": "192.168.11.133",
+      "bufSize": 2097152,
+      "ip": "192.168.11.68",
       "bizCode": "comment",
       "sendBy":"json"
     }

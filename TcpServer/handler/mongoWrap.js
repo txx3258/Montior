@@ -23,10 +23,10 @@ function mongoWrap(data) {
         try{
             return JSON.parse(curData+']');
         }catch(e){
-            if (!tmp[key]){
-                tmp[key]='';
+            if (!tmpData[key]){
+                tmpData[key]='';
             }
-            tmp[key] += curData;
+            tmpData[key] += curData;
         }
     });
     
