@@ -2,6 +2,8 @@
 
 let connect = require('./connect');
 
+yield connect();
+
 function* mongoAddHandler(model,data) {
     let isCon = yield connect();
     if (!isCon) {
