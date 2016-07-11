@@ -9,7 +9,7 @@ function redisFileHandler(str,type){
       result.push(rtn[1]+",'type':'redis'}");
   }
   
-  return result.join('');
+  return '['+result.join(',')+']';
 }
 
 module.exports=redisFileHandler

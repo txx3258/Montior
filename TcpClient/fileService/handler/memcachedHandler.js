@@ -9,7 +9,7 @@ function memcachedHandler(str,type){
       result.push(rtn[1]+",'type':'memcached'}");
   }
   
-  return result.join('');
+  return '['+result.join(',')+']';
 }
 
 module.exports=memcachedHandler;
