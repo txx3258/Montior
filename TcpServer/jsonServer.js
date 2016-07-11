@@ -41,7 +41,7 @@ function createJsonServer() {
 
     //结束
     socket.on('end', function () {
-      console.log('connect is end');
+      console.log(socket.remoteAddress + ':' + socket.remotePort+',connect is end');
     });
 
     //错误处理,2秒后重启

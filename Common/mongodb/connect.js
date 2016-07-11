@@ -38,5 +38,11 @@ function connect(){
   });
   });
 }
-connect();
+
+//初始加载数据库
+connect().then((result)=>{
+  logSys.info('init mongodb connect success');  
+},(err)=>{
+  logSys.info('inti mongodb connect failed');  
+});
 module.exports=connect;
