@@ -11,8 +11,8 @@ function mongoWrap(data) {
         let preData = tmpData[key];
         if (preData) {
             if (preData.length > 100000) {
-                logBiz.warn('miss data:' + preData);
-                delete item.key;
+                console.log('miss data:' + preData);
+                delete tmpData.key;
                 curData = '{}';
             }
             curData = preData + curData;
