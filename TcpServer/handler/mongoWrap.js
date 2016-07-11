@@ -13,7 +13,7 @@ function mongoWrap(data) {
             if (preData.length > 5000) {
                 console.log('miss data:' + preData);
                 delete tmpData[key];
-                curData = '{}';
+                curData = '[{}';
             }
             curData = preData + curData;
         } else {
