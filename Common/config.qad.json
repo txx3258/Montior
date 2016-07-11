@@ -34,11 +34,11 @@
   "MONGO_URI": "mongodb://192.168.11.14:27017/ReportAndMonitor",
   "HTTP_PORT": 8081,
   "TCP_SERVER_FOR_STREAM": {
-    "IP":"",
+    "IP":"192.168.11.149",
     "PORT":9090
   },
   "TCP_SERVER_FOR_JSON": {
-    "IP":"",
+    "IP":"192.168.11.149",
     "PORT":9091
   },  
   "TCP_CLIENT_PORT": 9990,
