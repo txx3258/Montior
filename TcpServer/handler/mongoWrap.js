@@ -10,9 +10,9 @@ function mongoWrap(data) {
         let curData = data[key].join('');
         let preData = tmpData[key];
         if (preData) {
-            if (preData.length > 100000) {
+            if (preData.length > 5000) {
                 console.log('miss data:' + preData);
-                delete tmpData.key;
+                delete tmpData[key];
                 curData = '{}';
             }
             curData = preData + curData;
