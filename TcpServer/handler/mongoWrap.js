@@ -15,8 +15,9 @@ function mongoWrap(data) {
                 tmpData[key]=null;
                 delete tmpData[key];
                 curData = '[{}';
+            }else{
+                curData = preData + curData;
             }
-            curData = preData + curData;
         } else {
             curData = '[{}' + curData;
         }
