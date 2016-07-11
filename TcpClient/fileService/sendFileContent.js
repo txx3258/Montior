@@ -14,7 +14,7 @@ let sendStream=require('../tcpService/sendStream');
 //读取文件增加文件  sb('fileService/readFileContent.js',13)
 function readIntrFileStr(fd,len,preOffset,bufSize){
   return new Promise(function(resolve,reject){
-    var buf=new Buffer(bufSize,'utf8');
+    var buf=new Buffer(bufSize);
 
     fs.read(fd,buf,0,len,preOffset,function(err,bytesRead,buffer){
       if (err){
