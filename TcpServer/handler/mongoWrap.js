@@ -11,7 +11,7 @@ function mongoWrap(data) {
         let preData = tmpData[key];
         let isDirty = false;
         if (preData) {
-            if (preData.length > 2097152) {
+            if (preData.length > 5000) {
                 console.log('miss data:' + preData);
                 tmpData[key]=null;
                 delete tmpData[key];
