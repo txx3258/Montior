@@ -15,6 +15,7 @@ function gcFileHandler(str, info,sendTcpServer) {
     return;
   }
 
+  result.push('');
   let contents = str.split('\n');
   contents.forEach((content) => {
     let con = newReg.exec(content);
@@ -55,7 +56,7 @@ function gcFileHandler(str, info,sendTcpServer) {
     isTimeBack=false;
   }
 
-  return JSON.stringify(result);
+  return result.join(',');
 }
 
 
