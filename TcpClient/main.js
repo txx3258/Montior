@@ -66,7 +66,9 @@ function* bizCode() {
     return;
   }
   //读取新增文件字符串  sb('main.js',75)
+  let time = 0;
   let sendFileContents = handleInfos.map(function (info) {
+    info["timeOut"] = (++time)*1500;
     return sendFileContent(info);
   });
 

@@ -1,7 +1,6 @@
 'use strict';
 
 let fs = require("fs");
-let BUFSIZE = require('../../Common/config').BUF_SIZE;
 
  //读取文件信息
 let readFileStat = function (fd) {
@@ -64,11 +63,11 @@ function* readFileInfo(item, index) {
         return rtnOpFile(0, offset, preOffset, fd, item,index);
     }
 
-    //防止超过BUFSIZE
-    if (len > BUFSIZE) {
-        len = BUFSIZE;
-        preOffset = offset - len;
-    }
+    // //防止超过BUFSIZE
+    // if (len > BUFSIZE) {
+    //     len = BUFSIZE;
+    //     preOffset = offset - len;
+    // }
 
     return rtnOpFile(len, offset, preOffset, fd, item, index);
 }
