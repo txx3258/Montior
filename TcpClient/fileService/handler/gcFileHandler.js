@@ -110,7 +110,7 @@ function buildOldGC(head, content) {
   result["type"] = "FGC";
   result["bizCode"] = head.bizCode;
 
-  return result;
+  return JSON.stringify(result);
 }
 
 
@@ -118,7 +118,7 @@ function buildYongGC(contents, info) {
   let times=/^(\d{4}-\d\d-\d\d)T(\d\d:\d\d:\d\d)/.exec(contents[1]);
   let time=undefined;
   if (Array.isArray(times)&&times.length==3){
-    time=new Date(times[1]+' '+times[2]);
+    time=new Date(times[1]+' '+times[2]).getTime();
   }else{
     time=-1;
   }
@@ -136,7 +136,7 @@ function buildYongGC(contents, info) {
     "heapSize": contents[6]//heap大小   
   };
 
-  return result;
+  return JSON.stringify(result);
 }
 
 module.exports = gcFileHandler;
