@@ -39,7 +39,8 @@ function rtnOpFile(len, offset, preOffset, fd, item,index) {
         "bizCode": item.bizCode,
         "index": index,
         "bufSize":item.bufSize,
-        "ip":item.ip
+        "ip":item.ip,
+        "sendBy":item.sendBy
     };
 }
 
@@ -62,13 +63,7 @@ function* readFileInfo(item, index) {
         //第一次读或正常文件未变化或日期新文件
         return rtnOpFile(0, offset, preOffset, fd, item,index);
     }
-
-    // //防止超过BUFSIZE
-    // if (len > BUFSIZE) {
-    //     len = BUFSIZE;
-    //     preOffset = offset - len;
-    // }
-
+    
     return rtnOpFile(len, offset, preOffset, fd, item, index);
 }
 

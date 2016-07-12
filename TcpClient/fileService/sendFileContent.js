@@ -39,7 +39,7 @@ function* sendFileContent(info) {
   let intrFileStr = '';
   let bufSize = info.bufSize;
 
-  if (info.len > bufSize) {
+  if (info.len <= bufSize) {
     intrFileStr = yield readIntrFileStr(info.fd, info.len, info.preOffset, bufSize, info.timeOut);
   } else {
     //向上取整
