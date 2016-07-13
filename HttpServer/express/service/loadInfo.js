@@ -4,9 +4,9 @@ let loadInfoHandler=require('../../../Common/mongodb/mongoHandler');
 
 let userInfoModel=require('../../../Common/mongodb/mangeModel/userInfoModel');
 let roleInfoModel= require('../../../Common/mongodb/mangeModel/roleInfoModel');
-let apiApplistModel= require('../../../Common/mongodb/mangeModel/ApiApplistModel');
-let noSqlModel= require('../../../Common/mongodb/mangeModel/NoSqlModel');
-let youngGCModel= require('../../../Common/mongodb/mangeModel/YoungGCModel');
+let apiApplistModel= require('../../../Common/mongodb/logModel/ApiApplistModel');
+let noSqlModel= require('../../../Common/mongodb/logModel/NoSqlModel');
+let youngGCModel= require('../../../Common/mongodb/logModel/YoungGCModel');
 
 /*
  *处理用户下单
