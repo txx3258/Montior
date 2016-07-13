@@ -27,6 +27,11 @@ function createStreamServer() {
             socket.emit('done');
         });
 
+        setInterval(function(){
+            console.log('setInterval 5s');
+            socket.emit('done');
+        },5000);
+
         //处理数据
         socket.on('done', function () {
             //console.log(JSON.stringify(buf));
