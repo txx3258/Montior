@@ -9,36 +9,27 @@ let zlib = require('zlib');
 function createStreamServer() {
     let server_for_stream = net.createServer(function (socket) {
         socket.setEncoding('utf8');
-
         //暂存Buffer
-        let buf = [];
-
+        let buf = {};
         //接受数据
         socket.on('data', function (buffer) {
-            buf.push(buffer);
+            let identify = socket.remoteAddress + '_' + socket.remotePort;
+            let id_buf = buf[identify];
+            if (!id_buf) {
+                id_buf = [];
+                buf[identify] = id_buf;
+            }
 
+            id_buf.push(buffer);
             socket.emit('done');
         });
 
         //处理数据
         socket.on('done', function () {
-            if (buf.length == 0) {
-                return;
-            }
-
-             zlib.unzip(buf.join(''), function (err, data) {
-                if (!err) {
-                    console.log(data.toString());
-                }
-                
-                //console.log(buffer);
-                //事件机制，写入数据库同时接收数据    
-            });   
-            //添加到数据库
-            //addDB(buf);
+            console.log(JSON.stringify(buf));
 
             // 单线程能确保安全性
-            buf = [];
+            buf = {};
         });
 
         //结束

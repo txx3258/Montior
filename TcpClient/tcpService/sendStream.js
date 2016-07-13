@@ -66,15 +66,16 @@ function sendStream(data) {
     return;
   }
 
-  //数据压缩
-  zlib.deflate(data, function (err, buffer) {
-    if (!err) {
-      console.log(buffer.toString('base64'));
-    }
+  // //数据压缩
+  // zlib.deflate(data, function (err, buffer) {
+  //   if (!err) {
+  //     console.log(buffer.toString('base64'));
+  //   }
 
-    //发送
-    client.write(buffer);
-  });
+  //   //发送
+  //   client.write(buffer);
+  // });
+  client.write(data);
 }
 
 /**
