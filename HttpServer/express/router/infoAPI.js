@@ -36,5 +36,10 @@ router.post('/account',function(req,res,next){
   wrapAPI(req,res,accountInfo);
 });
 
+router.get('/testData',function(req,res,next){
+  var data = require('./data.json');
+
+  res.json(data);
+});
 
 module.exports=router;
