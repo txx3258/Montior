@@ -1,91 +1,54 @@
-<div id="my-app-nav">
-    <div id="sub-nav">
-        <%var i=0 ;if (roleLeve.leve.charAt(i++)=='1') {%> 
-        <h1 class="show">基础信息管理</h1>
-        <ul class="show-class">
-            <% if (roleLeve.leve.charAt(i++)=='1') {%>
-             <li>
-                <a href="/manage/channellist" class="<% if(mClass=="channellist") { %> active <%}%>">配置管理  </a>
-            </li>
-            <%} %>
-            <% if (roleLeve.leve.charAt(i++)=='1') {%>
-             <li>
-                <a href="/manage/roleLeveList" class="<% if(mClass=="roleLeveList") { %> active <%}%>">权限管理  </a>
-            </li>
-            <%} %>
-        </ul>
-         <%} %>
-         
-        <%var i=0 ;if (roleLeve.leve.charAt(i++)=='1') {%> 
-        <h1 class="show">报表管理</h1>
-        <ul class="show-class">
-            <% if (roleLeve.leve.charAt(i++)=='1') {%>
-             <li>
-                <a href="/manage/channellist" class="<% if(mClass=="channellist") { %> active <%}%>">总报表  </a>
-            </li>
-            <%} %>
-            <% if (roleLeve.leve.charAt(i++)=='1') {%>
-             <li>
-                <a href="/manage/roleLeveList1" class="<% if(mClass=="roleLeveList1") { %> active <%}%>">分报表  </a>
-            </li>
-            <%} %>
-        </ul>
-         <%} %>
-         
-         
-         
-         <% if (roleLeve.leve.charAt(i++)=='1') {%>
-        <h1 class="show" style="border-top-width: 1px;">接口访问</h1>
-        <ul class="show-class">
-            <% if (roleLeve.leve.charAt(i++)=='1') {%>
-            <li><a href="/manage/" class="<% if(mClass=="dispatchInfoList") { %> active <%}%>">biz-menu</a></li>
-            <%} %>
-            <% if (roleLeve.leve.charAt(i++)=='1') {%>
-            <li><a href="javascript:void(0);" class="">biz-applist</a></li>
-            <%} %>
-            <% if (roleLeve.leve.charAt(i++)=='1') {%>
-            <li><a href="javascript:void(0);" class="">biz-applist</a></li>
-            <%} %>
-        </ul>
-        <%} %>
-        <% if (roleLeve.leve.charAt(i++)=='1') {%>
-        <h1 class="show" style="border-top-width: 1px;">资源访问</h1>
-        <ul class="show-class">  
-            <% if (roleLeve.leve.charAt(i++)=='1') {%>
-            <li><a href="/manage/driverInfoList" class="<% if(mClass=="driverInfoList") { %> active <%}%>">数据库</a></li>
-            <%} %>
-            <% if (roleLeve.leve.charAt(i++)=='1') {%>
-            <li><a href="/manage/positionlist" class="<% if(mClass=="positionlist") { %> active <%}%>">redis</a></li>  
-            <%} %>
-            <% if (roleLeve.leve.charAt(i++)=='1') {%>
-            <li><a href="javascript:void(0);" class="">memcache</a></li>
-            <%} %>
-             <% if (roleLeve.leve.charAt(i++)=='1') {%>
-            <li><a href="javascript:void(0);" class="">mq消息</a></li>
-            <%} %>
-        </ul>
-        <%} %>
-        <% if (roleLeve.leve.charAt(i++)=='1') {%>
-        <h1 class="show" style="border-top-width: 1px;">数据监控</h1>
-        <ul class="show-class">
-            <% if (roleLeve.leve.charAt(i++)=='1') {%>
-            <li><a href="/manage/checkupdate?type=show&pf=android" class="<% if(mClass=="checkupdate") { %> active <%}%>">数据监控1</a></li>
-             <%} %>
-             <% if (roleLeve.leve.charAt(i++)=='1') {%>
-            <li><a href="/manage/fileupload" class="<% if(mClass=="fileupload") { %> active <%}%>">数据监控2</a></li>
-             <%} %>
-        </ul>
-        <%} %>
-        <% if (roleLeve.leve.charAt(i++)=='1') {%>
-        <h1 class="show" style="border-top-width: 1px;">报警消息</h1>
-        <ul class="show-class">
-            <% if (roleLeve.leve.charAt(i++)=='1') {%>
-            <li style="position: relative;"><a href="javascript:void(0);" class="">接口1</a><span class="round">●</span></li>
-             <%} %>
-             <% if (roleLeve.leve.charAt(i++)=='1') {%>
-            <li style="position: relative;"><a href="javascript:void(0);" class="">接口2</a><span class="round">●</span></li>
-             <%} %>
-        </ul>
-         <%} %>
+<!-- ▼ Main sidebar -->
+    <div id="app-first-sidebar">
+        <div style="transition-timing-function: cubic-bezier(0.1, 0.57, 0.1, 1); transition-duration: 0ms; transform: translate(0px, 0px) translateZ(0px);">
+            <a class="team-logo-wrap" href="//koudaitong.com/v2/setting/store#index">
+                <div class="team-logo" style="background-image: url(https://img.yzcdn.cn/public_files/2016/05/13/8f9c442de8666f82abaf7dd71574e997.png?imageView2/2/w/60/h/60/q/75/format/webp)">
+                </div>
+            </a>
+            <nav>
+                <ul class="clearfix">
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="sidebar-icon sidebar-icon-dashboard"></i> 概况
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="javascript:void(0)">
+                            <i class="sidebar-icon sidebar-icon-stat"></i> 数据
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="sidebar-icon sidebar-icon-order"></i> 报表
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="sidebar-icon sidebar-icon-shop"></i> 预警
+                        </a>
+                    </li>
+
+
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="sidebar-icon sidebar-icon-goods"></i> 监控
+                        </a>
+                    </li>
+
+                    <li style="margin-top: 44px;">
+                        <a href="javascript:void(0)">
+                            <i class="sidebar-icon sidebar-icon-app"></i> 消息
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="sidebar-icon sidebar-icon-setting"></i> 设置
+                        </a>
+                    </li>
+
+                </ul>
+            </nav>
+        </div>
     </div>
-</div>

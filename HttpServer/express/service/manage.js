@@ -13,6 +13,12 @@ function handleResult(req) {
     case 'roleLeveList': fn=roleLeveList; break; 
     case 'login':fn = login;break;
     case 'checklogin': fn = account; break;
+    case 'data': fn = data; break;
+    case 'dataRedis':fn =dataRedis; break;
+    case 'dataMemcache':fn =dataMemcache; break;
+    case 'dataDB':fn =dataDB; break;
+    case 'dataRpc':fn =dataRpc; break;
+    case 'dataJms':fn =dataJms; break;
     default: fn = undefined;
   }
 
@@ -35,6 +41,30 @@ function result(action, data, roleLeve, path, mClass, title, template) {
   };
 }
 
+function* dataJms(query){
+  return result('render', null, null, null, 'dataJms', 'jms访问', 'info/dataJms');
+}
+
+function* dataRpc(query){
+  return result('render', null, null, null, 'dataRpc', 'rpc访问', 'info/dataRpc');
+}
+
+function* dataDB(query){
+  return result('render', null, null, null, 'dataDB', '数据库访问', 'info/dataDB');
+}
+
+function* dataMemcache(query){
+  return result('render', null, null, null, 'dataMemcache', 'memcache访问', 'info/dataMemcache');
+}
+
+function* data(query){
+  return result('render', null, null, null, 'data', '数据概况', 'info/data');
+}
+
+function* dataRedis(req){
+  return result('render', null, null, null, 'dataRedis', 'redis访问', 'info/dataRedis');
+}
+
 function* index(query){
    return result('render', null, null, null, 'index', '管理后台', 'info/index');   
 } 
@@ -47,6 +77,7 @@ function* roleLeveList(req){;
   
   return result('render', null, null, null, 'roleLeveList', '权限列表', 'info/roleLeveList');
 }
+
 
 function* schedulelist(req) {
   let query = req.query;

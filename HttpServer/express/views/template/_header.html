@@ -1,54 +1,24 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=7">
-    <title><%= title %></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <meta name="referrer" content="always">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
 
-    <link rel="stylesheet" type="text/css" href="<%= staticResourceUrl %>/developer/css/jqModal.css"/>
-    <link rel="stylesheet" type="text/css" href="<%= staticResourceUrl %>/developer/css/common.css"/>
-    <link rel="stylesheet" type="text/css" href="<%= staticResourceUrl %>/developer/css/frame.css"/>
-    <link rel="stylesheet" type="text/css" href="<%= staticResourceUrl %>/developer/css/page.css"/>
-    <link href="<%= staticResourceUrl %>/developer/css/style.css" rel="stylesheet" type="text/css"/>
-    <script src="<%= staticResourceUrl %>/developer/js/pv_count.js" language="javascript" type="text/javascript"></script>
-    <link href="<%= staticResourceUrl %>/developer/css/index_style.css" rel="stylesheet" type="text/css"/>
+    <title id="js-meta-title">数据中心</title>
 
-    <style type="text/css">
-        .page{}
-        .page a{display:inline-block;padding:1px 7px;margin:0 1px;background:#fff;border:1px solid #ddd; text-decoration:none;border-radius:2px;}
-        .page a.active{ background:#ea4d88;border-color:#ea4d88;color:#fff; cursor:default;}
-        .page span{ display:inline-block;padding:0 5px;color:#999;}
-        .page.plus a{padding:5px 12px; font-size:14px; border-radius:4px;}
-    </style>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <!-- ▼ Common CSS -->
+    <link rel="stylesheet" href="/jquery.ui.20151022.min.css">
+    <link rel="stylesheet" href="/bootstrap.min.css">
+    <link rel="stylesheet" href="/pc.css">
+    <!-- ▲ Common CSS -->
 
-</head>
-
-<body>
-<div class="idx_headerBox">
-    <div class="idx_centerPanel">
-        <div class="idx_logo">
-            <ul>
-                <li class="my_logo"><img style="padding: 15px 0 5px 0" width="45" height="45" src="<%= staticResourceUrl %>/developer/img/logo.png"/></li>
-                <li><a href="#">报表&监控系统</a></li>
-            </ul>
-        </div>
-        <div class="idx_mainMenu">
-            <ul>
-                <li><a class="" href="/plugStore/index.html">导航盘</a></li>
-                <li class="active"><a class="active" href="/developer/manage">报表</a></li>
-                <li><a href="/developer/help">管理</a></li>
-            </ul>
-        </div>
-
-        <div class="idx_loginMenu">
-       
-
-        </div>
-    </div>
-</div>
-<input type="hidden" id="topFlag" value='null'/>
-
-<div id="msgDiv" style="height: 20px;background-color: #eee;text-align: center;">
-    <span id="msgSpan" style="color: red;font-size: 12px;display: none;">为避免可能存在的浏览器兼容问题，建议您使用Firefox或Chrome浏览器</span>
-</div>
+    <!-- ▼ App CSS -->
+    <link rel="stylesheet" href="/dashboard.css">
+    <!-- ▲ App CSS -->
+    <body class="theme theme--blue theme-new-ui show-help">

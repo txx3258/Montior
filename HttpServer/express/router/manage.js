@@ -31,4 +31,40 @@ router.get('/index', function (req, res, next) {
     manageWrap(req, res, manage);
 });
 
+router.get('/data', function (req, res, next) {
+    req.query.bizCode = 'data';
+
+    manageWrap(req, res, manage);
+});
+
+router.get('/dataRedis', function (req, res, next) {
+    req.query.bizCode = 'dataRedis';
+
+    manageWrap(req, res, manage);
+});
+
+router.get('/dataMemcache', function (req, res, next) {
+    req.query.bizCode = 'dataMemcache';
+
+    manageWrap(req, res, manage);
+});
+
+router.get('/dataDB', function (req, res, next) {
+    req.query.bizCode = 'dataDB';
+
+    manageWrap(req, res, manage);
+});
+
+
+router.get('/dataRpc', function (req, res, next) {
+    req.query.bizCode = 'dataRpc';
+
+    manageWrap(req, res, manage);
+});
+
+router.get('/dataJms', function (req, res, next) {
+    req.query.bizCode = 'dataJms';
+
+    manageWrap(req, res, manage);
+});
 module.exports = router;
