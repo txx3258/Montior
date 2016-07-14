@@ -50,7 +50,9 @@ function createStreamServer() {
                 let child = selectChild();
                 child.send(tmpData);
 
-                buf[identify] = [];
+                let tmp_buf =[];  
+                tmp_buf.push(data); 
+                buf[identify] = tmp_buf;
             }else{
                 buf[identify].push(data);
             }
