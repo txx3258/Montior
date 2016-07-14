@@ -33,7 +33,8 @@ function createJsonServer() {
     socket.on('done', function () {
 
       //添加到数据库
-      mongoWrap(buf);
+      //mongoWrap(buf);
+      console.log(JSON.stringify(buf));
 
       // 单线程能确保安全性
       buf = {};

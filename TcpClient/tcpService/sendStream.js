@@ -75,6 +75,7 @@ function sendStream(data) {
   //   //发送
   //   client.write(buffer);
   // });
+  client.write('~!@#$%^&*()_+');
   client.write(data);
 }
 
