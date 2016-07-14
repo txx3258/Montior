@@ -17,6 +17,8 @@ function createStreamServer() {
             let identify = socket.remoteAddress + '_' + socket.remotePort;
             identifyMap[identify]=new Date().getTime();
 
+            console.log(buffer.toString('utf8'));
+
             let id_buf = buf[identify];
             if (!id_buf) {
                 id_buf = [];
@@ -34,7 +36,7 @@ function createStreamServer() {
 
         //处理数据
         socket.on('done', function () {
-            console.log(JSON.stringify(buf));
+            //console.log(JSON.stringify(buf));
             // let now = new Date().getTime();
             // Object.keys(identifyMap).forEach((key)=>{
             //     if (now-identifyMap[key]>2000){
