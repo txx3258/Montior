@@ -1,10 +1,34 @@
 'use strict';
 
+let child_process = require('child_process');
 let net = require('net');
 let PORT_FOR_STREAM = require('../Common/config').TCP_SERVER_FOR_STREAM.PORT;
 let IP_FOR_STREAM = require('../Common/config').TCP_SERVER_FOR_STREAM.IP;
 //let addDB = require('./mongoService/op').addDB;
-let zlib = require('zlib');
+
+function makeChild() {
+    let child = child_process.fork('child.js',[],{encoding: 'utf8'});
+    return child;
+}
+
+let child_1 = makeChild();
+let child_2 = makeChild();
+let child_3 = makeChild();
+
+let index = 0;
+function selectChild() {
+    index++;
+
+    if (index%3 == 0){
+        return child_1;
+    }
+    if (index%3 == 1){
+        return child_2;
+    }
+    if (index%3 == 2){
+        return child_3;
+    }
+}
 
 function createStreamServer() {
     let server_for_stream = net.createServer(function (socket) {
@@ -12,42 +36,24 @@ function createStreamServer() {
         //暂存Buffer
         let buf = {};
         //接受数据
-        let identifyMap = {};
         socket.on('data', function (buffer) {
             let identify = socket.remoteAddress + '_' + socket.remotePort;
-            identifyMap[identify]=new Date().getTime();
-
-            console.log(buffer.toString('utf8'));
-
             let id_buf = buf[identify];
             if (!id_buf) {
                 id_buf = [];
                 buf[identify] = id_buf;
             }
 
-            id_buf.push(buffer);
-            socket.emit('done');
-        });
+            let data = buffer.toString('utf8');
+            if (data.startsWith('~!@#$%^&*()')){
+                let tmpData = buf[identify];
+                let child = selectChild();
+                child.send(tmpData);
 
-        setInterval(function(){
-            console.log('setInterval 5s');
-            socket.emit('done');
-        },5000);
-
-        //处理数据
-        socket.on('done', function () {
-            //console.log(JSON.stringify(buf));
-            // let now = new Date().getTime();
-            // Object.keys(identifyMap).forEach((key)=>{
-            //     if (now-identifyMap[key]>2000){
-            //         console.log(buf[key].join('').toString('utf8'));
-            //         buf[key]=[];
-            //     }
-            // });
-            console.log('\n\n\n');
-
-            // 单线程能确保安全性
-            buf = {};
+                buf[identify] = [];
+            }else{
+                buf[identify].push(data);
+            }
         });
 
         //结束
