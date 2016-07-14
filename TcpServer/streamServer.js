@@ -45,7 +45,7 @@ function createStreamServer() {
             console.log('\n\n\n');
 
             // 单线程能确保安全性
-            //buf = {};
+            buf = {};
         });
 
         //结束
