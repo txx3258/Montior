@@ -285,7 +285,7 @@
         return {
             name: name,
             values: data.map(function(d) {
-                let val = d[name];
+                var val = d[name];
                 if (!val){
                     val = 0.00;
                 }
