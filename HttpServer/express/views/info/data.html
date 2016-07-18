@@ -226,10 +226,25 @@
                             </style>
 
                             </style>
+
                             <div id="js-user-rank" class="widget widget-user-rank">
                                 <div class="widget-inner">
                                     <div class="ui-block-head">
                                         <h3>历史趋势</h3>
+                                    </div>
+
+                                    <div style="width: 100%;clear :both;height:50px">
+                                        <div style=" float: left; margin-top : 5px"> 起点:</div>
+                                        <input readonly="readonly" id="datepicker1" name="start" style=" float: left; margin-left : 10px; width: 50px; height: 20px"
+                                        />
+
+                                        <div style="float: left; margin-top : 5px; margin-left : 15px">终点: </div>
+                                        <input readonly="readonly" id="datepicker2" name="end" style=" float: left; margin-left: 10px ; width : 50px; height: 20px"
+                                        />
+
+                                        <input id="queryBtn" type="button" value="查询" style=" float: left; margin-left : 50px; width : 50px; height: 25px; margin-top: 0px;"
+                                        />
+
                                     </div>
                                     <div id="historyTend" class="widget-body">
 
@@ -249,9 +264,61 @@
 
     </div>
     <%- include ../template/_footer.html %>
-    <script src="http://120.25.169.11/assets/js/d3.v3.min.js"></script>
-    <script>
-    var margin = {top: 20, right: 80, bottom: 30, left: 50},
+        <script src="http://120.25.169.11/assets/js/d3.v3.min.js"></script>
+        <script type="text/javascript" src="http://120.25.169.11/api/jquery-1.8.3.js"></script>
+        <link rel="stylesheet" href="http://120.25.169.11/api/jq/jquery-ui.css">
+        <script type="text/javascript" src="http://120.25.169.11/api/jq/jquery-ui.js"></script>
+        <script type="text/javascript">
+
+            $("#datepicker1").datepicker({
+		        inline : true
+	        }) 
+
+     $("#datepicker2").datepicker({
+		inline : true
+	}) 
+
+    jQuery(function($) {
+		$.datepicker.regional['zh-CN'] = {
+			closeText : '关闭',
+			prevText : '<上月',  
+	        nextText: '下月>',
+			currentText : '今天',
+			monthNames : [ '一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月',
+					'九月', '十月', '十一月', '十二月' ],
+			monthNamesShort : [ '一', '二', '三', '四', '五', '六', '七', '八', '九',
+					'十', '十一', '十二' ],
+			dayNames : [ '星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六' ],
+			dayNamesShort : [ '周日', '周一', '周二', '周三', '周四', '周五', '周六' ],
+			dayNamesMin : [ '日', '一', '二', '三', '四', '五', '六' ],
+			weekHeader : '周',
+			dateFormat : 'yy-mm-dd',
+			firstDay : 1,
+			isRTL : false,
+			showMonthAfterYear : true,
+			yearSuffix : '年'
+		};
+		$.datepicker.setDefaults($.datepicker.regional['zh-CN']);
+	});
+
+    var start = undefined,end = undefined;
+     $('#queryBtn').click( function(){
+         start=$('#datepicker1').val();
+         end=$('#datepicker2' ).val();
+
+         var startTime=new Date(start).getTime();
+         var endTime=new Date(end).getTime();
+         if (startTime>=endTime){
+            alert( '终点时间小于起点时间!' );
+            return;
+        }
+        start+= ' 00:00:00';
+        end+= ' 23:59:59';
+        
+        start = new Date(start).getTime();
+        end = new Date(end).getTime();
+
+            var margin = {top: 20, right: 80, bottom: 30, left: 50},
     width = 960 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 
@@ -272,10 +339,10 @@
     .attr("height", height + margin.top + margin.bottom)
     .append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    var query = 'bizCode=avgCost&type=noSql&action=find&cond="type":"memcached","systemCode":"biz-applist","roleName":"master"&fields=startTime%20methName%20avgCost';
+    var query = 'bizCode=avgCost&type=noSql&action=find&cond="type":"memcached","systemCode":"biz-applist","roleName":"master","startTime":{"$gt":'+start+',"$lt":'+end+'}&fields=startTime%20methName%20avgCost';
     d3.json("/info/chart/line?"+query, function(error, datas) {
         if (error) throw error;
-        color.domain(d3.keys(datas.key).filter(function(key) { return key !== "startTime"; }));
+        color.domain(datas.key);
         
         var data = datas.value;
         data.forEach(function(d) {
@@ -335,5 +402,9 @@
       .attr("dy", ".35em")
       .text(function(d) { return d.name; });
 });
+    });
+
+
+
 
     </script>
