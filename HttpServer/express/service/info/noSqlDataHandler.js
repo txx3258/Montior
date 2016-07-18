@@ -67,7 +67,7 @@ function noSqlDataHandler(datas,factor) {
         }
     });
 
-    let startTimeKeys = {};
+    let factorKeys = {};
     let result = Object.keys(maps).map((key) => {
         let arrays = maps[key];
         let startTimeObj = arrays[0];
@@ -77,6 +77,10 @@ function noSqlDataHandler(datas,factor) {
         let obj = {
             "startTime": startTimeObj["startTime"]
         };
+
+        if (!factorKeys[keyKey]){
+            factorKeys[keyKey] = true;
+        }
 
         obj[keyKey] = parseFloat(avg(methodObj[keyKey]));
         return obj;
@@ -108,7 +112,7 @@ function noSqlDataHandler(datas,factor) {
         }
     });
 
-    return resultResult 
+    return {"key":Object.keys(factorKeys),"value":resultResult}; 
 }
 
 module.exports = handleResult;
