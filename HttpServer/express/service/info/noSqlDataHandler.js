@@ -26,8 +26,7 @@ function handleResult(req) {
 }
 
 function* loadLine(query,factor) {
-    let params = buildObj2key(query);
-    let datas = yield fetchMongoData(params);
+    let datas = yield fetchMongoData(query);
 
     return noSqlDataHandler(datas,factor);
 }
