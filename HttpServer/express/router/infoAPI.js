@@ -5,6 +5,7 @@ let router=express.Router();
 let loadInfo=require('../service/loadInfo');
 let wrapAPI = require('../service/wrapAPI');
 let accountInfo= require('../service/info/account');
+let noSqlDataHandler = require('../service/info/noSqlDataHandler');
 
 router.get('/loadInfo',function(req,res,next){
   let query=req.query;
@@ -36,10 +37,9 @@ router.post('/account',function(req,res,next){
   wrapAPI(req,res,accountInfo);
 });
 
-router.get('/testData',function(req,res,next){
-  var data = require('./data.json');
+router.get('/chart/line',function(req,res,next){
 
-  res.json(data);
+  wrapAPI(req,res,noSqlDataHandler);
 });
 
 module.exports=router;

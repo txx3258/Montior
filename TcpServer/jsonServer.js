@@ -1,32 +1,49 @@
 'use strict';
 
 let net = require('net');
-let PORT_FOR_JSON = require('../Common/config').TCP_SERVER_FOR_JSON.PORT;
-let IP_FOR_JSON = require('../Common/config').TCP_SERVER_FOR_JSON.IP;
-let mongoWrap = require('./handler/mongoWrap');
+let config = require('../Common/config');
+let PORT_FOR_JSON = config.TCP_SERVER_FOR_JSON.PORT;
+let IP_FOR_JSON = config.TCP_SERVER_FOR_JSON.IP;
+let PROTOCOL_PARTITION = config.PROTOCOL_PARTITION;
+
+function makeChild() {
+    let child = child_process.fork('jsonChild.js',[],{encoding: 'utf8'});
+    return child;
+}
+
+let child_1 = makeChild();
+
+let index = 0;
+function selectChild() {
+   return child_1;
+}
 
 function createJsonServer() {
   let server_for_json = net.createServer(function (socket) {
     socket.setEncoding('utf8');
-
     //暂存Buffer
     let buf = {};
-
     //接受数据
     socket.on('data', function (buffer) {
       let identify = socket.remoteAddress + '_' + socket.remotePort;
-
       let id_buf = buf[identify];
       if (!id_buf) {
         id_buf = [];
         buf[identify] = id_buf;
       }
 
-      id_buf.push(buffer);
-      // console.log(buffer);
+      let data = buffer.toString('utf8');
+      if (data.startsWith(PROTOCOL_PARTITION)) {
+        let tmpData = buf[identify];
+        let child = selectChild();
+        child.send(tmpData);
 
-      //事件机制，写入数据库同时接收数据
-      socket.emit('done');
+        let tmp_buf = [];
+        tmp_buf.push(data);
+        buf[identify] = tmp_buf;
+      } else {
+        buf[identify].push(data);
+      }
     });
 
     //处理数据
@@ -42,7 +59,7 @@ function createJsonServer() {
 
     //结束
     socket.on('end', function () {
-      console.log(socket.remoteAddress + ':' + socket.remotePort+',connect is end');
+      console.log(socket.remoteAddress + ':' + socket.remotePort + ',connect is end');
     });
 
     //错误处理,2秒后重启

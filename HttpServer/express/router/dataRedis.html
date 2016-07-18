@@ -1,0 +1,233 @@
+<%- include ../template/_header.html %>
+<aside id="app-sidebar">
+    <%- include ../template/_navigator.html %>
+    <%- include ../template/_navigator_data.html %>
+</aside>
+<!-- ▲ Main sidebar -->
+
+<!-- ▼ Main container -->
+<div id="app-container" class="container">
+
+    <div id="app-third-sidebar" class="js-app-third-sidebar">
+        <div class="zent-breadcrumb">
+            <span><%= title %></span>
+        </div>
+    </div>
+
+    <div id="app-container-top"></div>
+    <div class="app">
+        <div class="app-inner clearfix" style="width:1030px">
+            <div class="app-init-container">
+                <div data-version="mini" id="js-app-content" class="app__content stat-dashboard">
+                    <div class="js-app-inner app-inner-wrap hide" style="display: block;">
+                        <div id="js-overview-block">
+                            <div class="ui-block-head">
+                                <h3>今日实时</h3>
+                                <span class="c-gray">(更新时间：2016-07-05 08:08:23)</span>
+                                <div class="ui-block-head-help">
+                                    <a href="javascript:;" class="js-help-notes">
+                                        <div class="js-notes-cont hide">
+                                            <p>今日实时数据的统计时间均为今日零时截至当前更新时间。</p>
+                                            <p><strong>浏览UV：</strong>统计时间内，浏览这个店铺所有页面（包括店铺主页、单品页、会员主页等）的浏览人数。</p>
+                                            <p><strong>浏览PV：</strong>统计时间内，浏览这个店铺所有页面（包括店铺主页、单品页、会员主页等）的浏览次数。</p>
+                                            <p><strong>付款订单数：</strong>统计时间内，成功付款的订单数，一个订单对应唯一一个订单号。</p>
+                                            <p><strong>付款金额(元)：</strong>统计时间内，成功付款的交易实付金额。</p>
+                                            <p><strong>付款商品件数：</strong>统计时间内，成功付款订单的商品件数之和。</p>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="ui-overview ui-box">
+                                <ul>
+                                    <li>
+                                        <h5>102|343</h5>
+                                        <h6>访问总数/出错总数(百万|个)</h6>
+                                    </li>
+                                    <li>
+                                        <h5>3209|111</h5>
+                                        <h6>group((百万|个))</h6>
+                                    </li>
+                                    <li>
+                                        <h5><a href="">100|3400</a></h5>
+                                        <h6>applist(百万|个)</h6>
+                                    </li>
+                                    <li>
+                                        <h5>111|534</h5>
+                                        <h6>menu(百万|个)</h6>
+                                    </li>
+                                    <li>
+                                        <h5>121212|12121</h5>
+                                        <h6>typetag(百万|个)</h6>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div id="js-overview" class="widget widget-overview">
+                            <div class="widget-inner">
+                                <div class="ui-block-head">
+                                    <h3>昨日概况</h3>
+                                    <nav>
+                                        <span>
+                                                    <a href="//koudaitong.com/v2/statcenter/order" class="new-window" target="_blank">详细 》</a>
+                                                </span>
+                                    </nav>
+                                    <div class="ui-block-head-help">
+                                        <a href="javascript:void(0);" class="js-help-notes"></a>
+                                        <div class="js-notes-cont hide">
+                                            <p><strong>内部访问PV：</strong>即店铺所有页面的浏览PV减去外部分享PV；</p>
+                                            <p><strong>外部分享PV：</strong>粉丝通过他人分享链接访问产生的流量；</p>
+                                            <p><strong>导出UV：</strong>粉丝访问你的商城跳出到站外产生的访客数；</p>
+                                            <p><strong>导出PV：</strong>粉丝访问你的商城跳出到站外产生的页面数。</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="widget-body">
+                                    <div class="js-body widget-body__inner clearfix">
+                                        <div class="js-body-desc overview-desc">
+
+                                            <ul style="width:1028px">
+                                                <li>
+                                                    <p class="num">0</p>
+                                                    <p class="h4">浏览UV</p>
+                                                </li>
+                                                <li>
+                                                    <p class="num">0</p>
+                                                    <p class="h4">浏览PV</p>
+                                                </li>
+                                                <li>
+                                                    <p class="num">0</p>
+                                                    <p class="h4">访问PV</p>
+                                                </li>
+                                                <li>
+                                                    <p class="num">0</p>
+                                                    <p class="h4">享PV</p>
+                                                </li>
+
+                                                <li>
+                                                    <p class="num">0</p>
+                                                    <p class="h4">分享PV</p>
+                                                </li>
+
+                                                <li>
+                                                    <p class="num">0</p>
+                                                    <p class="h4">外部PV</p>
+                                                </li>
+
+                                                <li>
+                                                    <p class="num">0</p>
+                                                    <p class="h4">外部PV</p>
+                                                </li>
+
+                                                <li style="width:60px">
+                                                    <p class="num">0</p>
+                                                    <p class="h4">外部分</p>
+                                                </li>
+                                            </ul>
+
+                                            <ul style="width:1028px">
+                                                <li>
+                                                    <p class="num">0</p>
+                                                    <p class="h4">导出UV</p>
+                                                </li>
+                                                <li>
+                                                    <p class="num">0</p>
+                                                    <p class="h4">导出PV</p>
+                                                </li>
+                                                <li class="gray">
+                                                    <p class="num">暂无
+                                                        <!--0-->
+                                                    </p>
+                                                    <p class="h4">点击去看看</p>
+                                                </li>
+                                                <li class="gray">
+                                                    <p class="num">暂无
+                                                        <!--0-->
+                                                    </p>
+                                                    <p class="h4">点击立即购买</p>
+                                                </li>
+                                            </ul>
+
+                                            <ul style="width:1028px">
+                                                <li>
+                                                    <p class="num">
+                                                        <a href="//koudaitong.com/v2/trade/order#list&amp;type=all&amp;state=all&amp;keyword[start_time]=2016-07-04 00:00:00&amp;keyword[end_time]=2016-07-04 23:59:59"> 0 </a>
+                                                    </p>
+                                                    <p class="h4">下单笔数</p>
+                                                </li>
+                                                <li>
+                                                    <p class="num">
+                                                        <a href="//koudaitong.com/v2/trade/order#list&amp;type=all&amp;state=tosend&amp;keyword[start_time]=2016-07-04 00:00:00&amp;keyword[end_time]=2016-07-04 23:59:59&amp;time_type=pay_time">0</a>
+                                                    </p>
+                                                    <p class="h4">付款订单</p>
+                                                </li>
+                                                <li>
+                                                    <p class="num">
+                                                        <a href="//koudaitong.com/v2/trade/order#list&amp;type=all&amp;state=send&amp;keyword[start_time]=2016-07-04 00:00:00&amp;keyword[end_time]=2016-07-04 23:59:59&amp;time_type=express_time">0</a>
+                                                    </p>
+                                                    <p class="h4">发货订单</p>
+                                                </li>
+                                                <li class="gray">
+                                                    <p class="num">暂无
+                                                        <!-- 0 -->
+                                                    </p>
+                                                    <p class="h4">被维权数</p>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="js-body-chart overview-chart">
+                                            <div style="position: relative; overflow: hidden; width: 297px; height: 215px;">
+                                                <div width="594" height="430" data-id="bg" style="position: absolute; left: 0px; top: 0px; width: 297px; height: 215px;"></div>
+                                                <canvas width="594" height="430" data-id="0" style="position: absolute; left: 0px; top: 0px; width: 297px; height: 215px;"></canvas>
+                                                <canvas width="594" height="430" data-id="1" style="position: absolute; left: 0px; top: 0px; width: 297px; height: 215px;"></canvas>
+                                                <canvas width="594" height="430" data-id="2" style="position: absolute; left: 0px; top: 0px; width: 297px; height: 215px;"></canvas>
+                                                <canvas width="594" height="430" data-id="3" style="position: absolute; left: 0px; top: 0px; width: 297px; height: 215px;"></canvas>
+                                                <canvas width="594" height="430" data-id="4" style="position: absolute; left: 0px; top: 0px; width: 297px; height: 215px;"></canvas>
+                                                <canvas width="594" height="430" data-id="5" style="position: absolute; left: 0px; top: 0px; width: 297px; height: 215px;"></canvas>
+                                                <canvas width="594" height="430" data-id="6" style="position: absolute; left: 0px; top: 0px; width: 297px; height: 215px;"></canvas>
+                                                <canvas width="594" height="430" data-id="7" style="position: absolute; left: 0px; top: 0px; width: 297px; height: 215px;"></canvas>
+                                                <canvas width="594" height="430" data-id="hover" id="_zrender_hover_"
+                                                    style="position: absolute; left: 0px; top: 0px; width: 297px; height: 215px;"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="js-rank-myself rank-myself" style="display:none;">
+
+                            你刚刚入驻有赞，需要明天才能加入排名哦！
+
+
+                        </div>
+
+                        <div id="js-user-rank" class="widget widget-user-rank">
+                            <div class="widget-inner">
+                                <div class="ui-block-head">
+                                    <h3>历史趋势</h3>
+                                </div>
+                                <div class="widget-body">
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="notify-bar js-notify animated hinge hide">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ▲ Main container -->
+
+
+<div id="app-footer">
+    <a href="//youzan.com/" class="logo" target="_blank"></a>
+</div>
+
+</div>
+<%- include ../template/_footer.html %>

@@ -90,6 +90,25 @@ function sort(collections,item){
   });
 }
 
+function buildObj2key(query){
+  let result = [];
+  Object.keys(query).forEach((key)=>{
+      result.push(key+'='+query[key]);
+  });
+
+  return result.join('&');
+}
+
+function avg(arrays) {
+  let len = arrays.length;
+  let result = 0;
+  for (let i = 0; i < len; i++) {
+    result += parseInt(arrays[i]);
+  }
+
+  return (result / len).toFixed(2);
+}
+
 module.exports={
   "isCollEmpty":isCollEmpty,
   "isNotFloat":isNotFloat,
@@ -97,7 +116,9 @@ module.exports={
   "httpReq2Json":httpReq2Json,
   "httpReq2Str":httpReq2Str,
   "sort":sort,
+  "avg":avg,
   "res2ok":res2ok,
   "res2msg":res2msg,
-  "res2render":res2render
+  "res2render":res2render,
+  "buildObj2key":buildObj2key
 };

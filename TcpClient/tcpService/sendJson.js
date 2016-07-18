@@ -4,8 +4,10 @@
 let net = require('net');
 let client = undefined;
 
-let IP = require('../../Common/config.json').TCP_SERVER_FOR_JSON.IP;
-let PORT = require('../../Common/config.json').TCP_SERVER_FOR_JSON.PORT;
+let config = require('../../Common/config.json');
+let IP = config.TCP_SERVER_FOR_JSON.IP;
+let PORT = config.TCP_SERVER_FOR_JSON.PORT;
+let PROTOCOL_PARTITION = config.PROTOCOL_PARTITION;
 
 let logSys = require('../../Common/log').logSys;
 //连接次数记录
@@ -16,10 +18,13 @@ let connectTimes = 0;
  */
 function connectJSONServer() {
   //connectServer start
-  logSys.info('connectServer is starting');
+  logSys.info('connectJsonServer is starting');
 
   client = new net.Socket();
   client.setEncoding('utf8');
+
+  //立即发送
+  client.setNoDelay(true);
 
   //连接服务器，如果多次失败则程序终止
   client.connect(PORT, IP, () => {
@@ -66,6 +71,7 @@ function sendJson(data) {
     return;
   }
 
+  client.write(PROTOCOL_PARTITION);
   //发送
   client.write(data);
 }
