@@ -273,10 +273,11 @@
     .append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
     var query = 'bizCode=avgCost&type=noSql&action=find&cond="type":"memcached","systemCode":"biz-applist","roleName":"master"&fields=startTime%20methName%20avgCost';
-    d3.json("/info/chart/line?"+query, function(error, data) {
+    d3.json("/info/chart/line?"+query, function(error, datas) {
         if (error) throw error;
-        color.domain(d3.keys(data[0]).filter(function(key) { return key !== "startTime"; }));
-
+        color.domain(d3.keys(datas.key).filter(function(key) { return key !== "startTime"; }));
+        
+        var data = datas.value;
         data.forEach(function(d) {
             d.date = new Date(d.startTime);
         });
