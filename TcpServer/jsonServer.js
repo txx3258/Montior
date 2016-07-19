@@ -36,8 +36,7 @@ function createJsonServer() {
       }
 
       let data = buffer.toString('utf8');
-      console.log("<======parent======>"+data);
-      if (data.startsWith(PROTOCOL_LEN)) {
+      if (data.startsWith(PROTOCOL_PARTITION)) {
         if (PROTOCOL_LEN==data.length){
           return;
         }
@@ -48,7 +47,7 @@ function createJsonServer() {
         }
        
         let tmp_buf = [];
-        tmp_buf.push(data.subString(PROTOCOL_LEN));
+        tmp_buf.push(data.substring(PROTOCOL_LEN));
         buf[identify] = tmp_buf;
       } else {
         buf[identify].push(data);

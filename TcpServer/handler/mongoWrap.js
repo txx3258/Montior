@@ -6,32 +6,15 @@ let logBiz = require('../../Common/log').logBiz;
 
 let tmpData = {};
 function mongoWrap(data) {
-    let datas = Object.keys(data).map((key) => {
-        let curData = data[key].join('');
-        let preData = tmpData[key];
-        if (preData) {
-            if (preData.length > 5000) {
-                console.log(key+',miss data:' + preData);
-                tmpData[key]=null;
-                delete tmpData[key];
-                return {};
-            }else{
-                curData = preData + curData;
-            }
-        } else {
-            curData = '[{}' + curData;
-        }
-
-        try {
-            return JSON.parse(curData + ']');
-        } catch (e) {
-            if (!tmpData[key]) {
-                tmpData[key] = '';
-            }
-            tmpData[key] += curData;
-        }
-    });
-
+    let datas = undefined;
+    let curData = '[{}' + data.join('') + ']';
+    try {
+        datas = JSON.parse(curData + ']');
+    } catch (e) {
+        logBiz.warn('missing data:' + JSON.stringify(data));
+        return;
+    }
+    
     datas.forEach((items) => {
         if (!Array.isArray(items)) {
             return;
