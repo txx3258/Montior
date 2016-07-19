@@ -36,12 +36,13 @@ function createJsonServer() {
       }
 
       let data = buffer.toString('utf8');
+      console.log("<======parent======>"+data);
       if (data.startsWith(PROTOCOL_LEN)) {
         if (PROTOCOL_LEN==data.length){
           return;
         }
 
-        if (data.length>PROTOCOL_LEN){
+        if (id_buf.length>0){
             let child = selectChild();
             child.send(id_buf);
         }
