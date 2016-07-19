@@ -234,17 +234,49 @@
                                     </div>
 
                                     <div style="width: 100%;clear :both;height:50px">
-                                        <div style=" float: left; margin-top : 5px"> 起点:</div>
-                                        <input id="datepicker1" name="start" style=" float: left; margin-left : 10px; width: 50px; height: 20px" type="text"
+                                        <div style="float: left; margin-top : 5px"> 起点:</div>
+                                        <input id="datepicker1" name="start" style=" float: left; margin-left : 8px; width: 95px; height: 20px" type="text"
                                         />
 
-                                        <div style="float: left; margin-top : 5px; margin-left : 15px">终点: </div>
-                                        <input  id="datepicker2" name="end" style=" float: left; margin-left: 10px ; width : 50px; height: 20px" type="text"
+                                        <div style="float: left; margin-top:5px; margin-left : 12px">终点: </div>
+                                        <input  id="datepicker2" name="end" style=" float: left; margin-left: 8px ; width : 95px; height: 20px" type="text"
                                         />
+            
+                                        <div style="float: left; margin-top:5px; margin-left:12px">角色名称: </div>
+                                        <select id="roleName" style="float: left; margin:5px 0 0 8px ; width : 50px; height: 20px" >
+                                            <option value="master">主</option>
+                                            <option value="slave">从</option>    
+                                        </select>
 
-                                        <input id="queryBtn" type="button" value="查询" style=" float: left; margin-left : 50px; width : 50px; height: 25px; margin-top: 0px;"
-                                        />
+                                        <div style="float: left; margin-top:5px; margin-left:12px">systemCode:</div>
+                                        <select id="systemCode" style="float: left; margin:5px 0 0 8px ; width : 50px; height: 20px" >
+                                            <option value="master">主</option>
+                                            <option value="slave">从</option>    
+                                        </select>
 
+                                        <div style="float: left; margin-top:5px; margin-left:12px">机器域名:</div>
+                                        <select id="severHost" style="float: left; margin:5px 0 0 8px ; width : 50px; height: 20px" >
+                                            <option value="-1">全部</option>
+                                            <option value="master">主</option>
+                                            <option value="slave">从</option>    
+                                        </select>
+
+                                        <div style="float: left; margin-top:5px; margin-left:12px">调用方法:</div>
+                                        <select id="methodName" style="float: left; margin:5px 0 0 8px ; width : 50px; height: 20px" >
+                                            <option value="-1">全部</option>
+                                            <option value="master">主</option>
+                                            <option value="slave">从</option>    
+                                        </select>
+
+                                        <div style="float: left; margin-top:5px;margin-left:12px">统计量: </div>
+                                        <select id="statsWay" style="float: left; margin:5px 0 0 8px ; width: 80px; height: 20px" >
+                                            <option value="avgCost">平均耗时</option>
+                                            <option value="maxCost">最大耗时</option>
+                                            <option value="totalCount">访问总数</option> 
+                                            <option value="failCount">失败总数</option>     
+                                        </select>
+
+                                        <input id="queryBtn" type="button" value="查询" style=" float: left; margin-left : 30px; width : 50px; height: 25px; margin-top: 0px;"/>
                                     </div>
                                     <div id="historyTend" class="widget-body">
 
@@ -282,80 +314,97 @@
         $('#datepicker1').datetimepicker({
             dayOfWeekStart : 1,
             lang:'en',
-            disabledDates:['1986/01/08','1986/01/09','1986/01/10'],
-            startDate:	'2016/07/18'
+            startDate:'2016/07/18'
         });
  
         $('#datepicker2').datetimepicker({
             dayOfWeekStart : 1,
             lang:'en',
-            disabledDates:['1986/01/08','1986/01/09','1986/01/10'],
-            startDate:	'2016/07/18'
+            startDate:'2016/07/18'
         }); 
 
         var start = undefined,end = undefined;
         $('#queryBtn').click( function(){
-         start=$('#datepicker1').val()+':00';
-         end=$('#datepicker2').val()+':00';
+            var date1 = $('#datepicker1').val();
+            var date2 = $('#datepicker2').val();
+            if (date1.length<10||date2.length<10){
+                alert('请选择日期！');
+                return;
+            }
 
-         start=new Date(start).getTime();
-         end=new Date(end).getTime();
-         if (start>=end){
-            alert( '终点时间小于起点时间!' );
-            return;
-        }  
+            start=new Date(date1+':00').getTime();
+            end=new Date(date2+':00').getTime();
+            if (start>=end){
+                alert( '终点时间小于起点时间!' );
+                return;
+            }  
 
-    var margin = {top: 20, right: 80, bottom: 30, left: 50},
-    width = 960 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+            var bizCode = $("#statsWay").val();
+            var roleName = $("#roleName").val();
+            var systemCode = $("#systemCode").val();
+            var severHost = $("#severHost").val();
+            var methodName = $("#methodName").val();
+            
+            var query = 'bizCode='+bizCode+'&type=noSql&action=find&cond="type":"memcached","startTime":{"$gt":'+start+',"$lt":'+end+'},"roleName":"'+roleName+'"';
+            if (severHost!=-1){
+                query+=',"severHost":"'+severHost+'"';
+            }
+            if (systemCode!=-1){
+                query+=',"systemCode":"'+systemCode+'"';
+            }
+            if (methodName!=-1){
+                query+=',"methodName":"'+methodName+'"';
+            }
 
-    var parseDate = d3.time.format("%h%m%s").parse;
-    var x = d3.time.scale().range([0, width]);
-    var y = d3.scale.linear().range([height, 0]);
+            query+='&fields=startTime%20methName%20'+bizCode;
+            var margin = {top: 20, right: 80, bottom: 30, left: 50},
+            width = 960 - margin.left - margin.right,
+            height = 500 - margin.top - margin.bottom;
 
-    var color = d3.scale.category10();
-    var xAxis = d3.svg.axis().scale(x).orient("bottom");
-    var yAxis = d3.svg.axis().scale(y).orient("left");
+            var parseDate = d3.time.format("%h%m%s").parse;
+            var x = d3.time.scale().range([0, width]);
+            var y = d3.scale.linear().range([height, 0]);
+            var color = d3.scale.category10();
+            var xAxis = d3.svg.axis().scale(x).orient("bottom");
+            var yAxis = d3.svg.axis().scale(y).orient("left");
 
-    var line = d3.svg.line().interpolate("basis")
-    .x(function(d) { return x(d.date); })
-    .y(function(d) { return y(d.temperature); });
+            var line = d3.svg.line().interpolate("basis")
+            .x(function(d) { return x(d.date); })
+            .y(function(d) { return y(d.temperature); });
+            var svg = d3.select("#historyTend").append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    var svg = d3.select("#historyTend").append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-    .append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-    var query = 'bizCode=avgCost&type=noSql&action=find&cond="type":"memcached","systemCode":"biz-applist","roleName":"master","startTime":{"$gt":'+start+',"$lt":'+end+'}&fields=startTime%20methName%20avgCost';
-    d3.json("/info/chart/line?"+query, function(error, datas) {
-        if (error) throw error;
-        color.domain(datas.key);
+            d3.json("/info/chart/line?"+query, function(error, datas) {
+                if (error) throw error;
+                color.domain(datas.key);
         
-        var data = datas.value;
-        data.forEach(function(d) {
-            d.date = new Date(d.startTime);
-        });
+                var data = datas.value;
+                data.forEach(function(d) {
+                    d.date = new Date(d.startTime);
+                });
     
-        var cities = color.domain().map(function(name) {
-        return {
-            name: name,
-            values: data.map(function(d) {
-                var val = d[name];
-                if (!val){
-                    val = 0.00;
-                }
-                return {date: d.date, temperature: val};
-            })
-        };
-    });
+                var cities = color.domain().map(function(name) {
+                return {
+                    name: name,
+                    values: data.map(function(d) {
+                        var val = d[name];
+                        if (!val){
+                            val = 0.00;
+                        }
+                        return {date: d.date, temperature: val};
+                        })
+                    };
+                });
 
-  x.domain(d3.extent(data, function(d) { return d.date; }));
+            x.domain(d3.extent(data, function(d) { return d.date; }));
 
-  var yy = [
-    d3.min(cities, function(c) { return d3.min(c.values, function(v) { return v.temperature; }); }),
-    d3.max(cities, function(c) { return d3.max(c.values, function(v) { return v.temperature; }); })
-  ]
-  y.domain(yy);
+            var yy = [
+                d3.min(cities, function(c) { return d3.min(c.values, function(v) { return v.temperature; }); }),
+                d3.max(cities, function(c) { return d3.max(c.values, function(v) { return v.temperature; }); })
+            ]
+            y.domain(yy);
 
   svg.append("g").attr("class", "x axis").attr("transform", "translate(0," + height + ")").call(xAxis);
 
