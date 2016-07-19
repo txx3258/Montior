@@ -6,6 +6,7 @@ let PORT_FOR_JSON = config.TCP_SERVER_FOR_JSON.PORT;
 let IP_FOR_JSON = config.TCP_SERVER_FOR_JSON.IP;
 let PROTOCOL_PARTITION = config.PROTOCOL_PARTITION;
 
+let child_process = require('child_process');
 function makeChild() {
     let child = child_process.fork('jsonChild.js',[],{encoding: 'utf8'});
     return child;
