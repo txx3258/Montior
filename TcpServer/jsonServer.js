@@ -41,7 +41,7 @@ function createJsonServer() {
           return;
         }
 
-        if (id_buf.length>PROTOCOL_LEN){
+        if (data.length>PROTOCOL_LEN){
             let child = selectChild();
             child.send(id_buf);
         }
