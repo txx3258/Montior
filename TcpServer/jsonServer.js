@@ -19,6 +19,8 @@ function selectChild() {
    return child_1;
 }
 
+//协议分割字符串长度
+let PROTOCOL_LEN=PROTOCOL_PARTITION.length;
 function createJsonServer() {
   let server_for_json = net.createServer(function (socket) {
     socket.setEncoding('utf8');
@@ -34,13 +36,18 @@ function createJsonServer() {
       }
 
       let data = buffer.toString('utf8');
-      if (data.startsWith(PROTOCOL_PARTITION)) {
-        let tmpData = buf[identify];
-        let child = selectChild();
-        child.send(tmpData);
+      if (data.startsWith(PROTOCOL_LEN)) {
+        if (PROTOCOL_LEN==data.length){
+          return;
+        }
 
+        if (id_buf.length>PROTOCOL_LEN){
+            let child = selectChild();
+            child.send(id_buf);
+        }
+       
         let tmp_buf = [];
-        tmp_buf.push(data);
+        tmp_buf.push(data.subString(PROTOCOL_LEN));
         buf[identify] = tmp_buf;
       } else {
         buf[identify].push(data);
