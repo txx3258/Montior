@@ -13,7 +13,6 @@ function makeChild() {
 }
 
 let child_1 = makeChild();
-
 let index = 0;
 function selectChild() {
    return child_1;

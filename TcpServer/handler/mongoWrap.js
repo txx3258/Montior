@@ -9,24 +9,17 @@ function mongoWrap(data) {
     let datas = undefined;
     let curData = '[{}' + data.join('') + ']';
     try {
-        datas = JSON.parse(curData + ']');
+        datas = JSON.parse(curData);
     } catch (e) {
         logBiz.warn('missing data:' + JSON.stringify(data));
         return;
     }
-    
-    datas.forEach((items) => {
-        if (!Array.isArray(items)) {
-            return;
-        }
-        items.forEach((item) => {
-            let model = fetchModel(item);
-            if (model) {
-                add(model, item);
-            } else {
-                logBiz.warn("no model:" + JSON.stringify(item));
-            }
-        });
+
+    datas.forEach((item) => {
+        let model = fetchModel(item);
+        if (model) {
+            add(model, item);
+        } 
     });
 }
 
@@ -37,7 +30,8 @@ function add(model, data) {
     co(addMongo(model, data))
         .then((result) => {
             logBiz.info(result);
-        }).catch(onerror);
+        }).catch(
+        );
 
     /**
     *错误日志如理
