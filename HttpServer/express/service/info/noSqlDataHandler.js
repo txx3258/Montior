@@ -4,6 +4,7 @@ let commonUtils = require('../commonUtils');
 let res2ok = commonUtils.res2ok;
 let buildObj2key = commonUtils.buildObj2key;
 let avg = commonUtils.avg;
+let sort = commonUtils.sort;
 
 let fetchMongoData = require('../rpc/mongodb').fetchMongoData;
 
@@ -85,6 +86,9 @@ function noSqlDataHandler(datas,factor) {
         obj[keyKey] = parseFloat(avg(methodObj[keyKey]));
         return obj;
     });
+
+    //排序
+    result = sort(result,"startTime");
 
     let resultResult = [];
     let resultIndex = 0;
