@@ -173,7 +173,7 @@ function page(collectName, schema, conditions, si, count, patterns, popu) {
     });
 }
 
-function distinct(collectName, schema, conditions,field,condtions){
+function distinct(collectName, schema, conditions, field){
     let cond = JSON.parse(tr(conditions));
 
     return new Promise((resolve,reject)=>{
