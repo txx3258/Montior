@@ -250,20 +250,16 @@
 
                                         <div style="float: left; margin-top:5px; margin-left:12px">systemCode:</div>
                                         <select id="systemCode" style="float: left; margin:5px 0 0 8px ; width : 50px; height: 20px" >
-                                             <option value="-1">全部</option>
-                                            <option value="master">主</option>
-                                            <option value="slave">从</option>    
+                                             <option value="-1">全部</option>   
                                         </select>
 
                                         <div style="float: left; margin-top:5px; margin-left:12px">机器域名:</div>
-                                        <select id="severHost" style="float: left; margin:5px 0 0 8px ; width : 50px; height: 20px" >
-                                            <option value="-1">全部</option>
-                                            <option value="master">主</option>
-                                            <option value="slave">从</option>    
+                                        <select id="serverHost" style="float: left; margin:5px 0 0 8px ; width : 50px; height: 20px" >
+                                            <option value="-1">全部</option>   
                                         </select>
 
                                         <div style="float: left; margin-top:5px; margin-left:12px">调用方法:</div>
-                                        <select id="methodName" style="float: left; margin:5px 0 0 8px ; width : 50px; height: 20px" >
+                                        <select id="methName" style="float: left; margin:5px 0 0 8px ; width : 50px; height: 20px" >
                                             <option value="-1">全部</option>
          
                                         </select>
@@ -308,10 +304,10 @@
                 $("#systemCode").append('<option value="'+item+'">'+item+'</option>')
             });
             data.methName.forEach(function(item){
-                $("#methodName").append('<option value="'+item+'">'+item+'</option>')
+                $("#methName").append('<option value="'+item+'">'+item+'</option>')
             });
             data.serverHost.forEach(function(item){
-                $("#severHost").append('<option value="'+item+'">'+item+'</option>')
+                $("#serverHost").append('<option value="'+item+'">'+item+'</option>')
             });
         }});
         $.datetimepicker.setLocale('en');
@@ -355,18 +351,18 @@
             var bizCode = $("#statsWay").val();
             var roleName = $("#roleName").val();
             var systemCode = $("#systemCode").val();
-            var severHost = $("#severHost").val();
-            var methodName = $("#methodName").val();
+            var serverHost = $("#serverHost").val();
+            var methName = $("#methName").val();
             
             var query = 'bizCode='+bizCode+'&type=noSql&action=find&cond="type":"memcached","startTime":{"$gt":'+start+',"$lt":'+end+'},"roleName":"'+roleName+'"';
-            if (severHost!=-1){
-                query+=',"severHost":"'+severHost+'"';
+            if (serverHost!=-1){
+                query+=',"serverHost":"'+serverHost+'"';
             }
             if (systemCode!=-1){
                 query+=',"systemCode":"'+systemCode+'"';
             }
-            if (methodName!=-1){
-                query+=',"methodName":"'+methodName+'"';
+            if (methName!=-1){
+                query+=',"methName":"'+methName+'"';
             }
 
             query+='&fields=startTime%20methName%20'+bizCode;
