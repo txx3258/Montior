@@ -302,15 +302,15 @@
 
         
         <script type="text/javascript">
-        $.ajax({url:'/info/chart/line/memDistField?key=["systemCode","methodName","severHost"]&bizCode=memDistinct',
+        $.ajax({url:'/info/chart/line/memDistField?key=["systemCode","methName","serverHost"]&bizCode=memDistinct',
             success:function(data){
             data.systemCode.forEach(function(item){
                 $("#systemCode").append('<option value="'+item+'">'+item+'</option>')
             });
-            data.methodName.forEach(function(item){
+            data.methName.forEach(function(item){
                 $("#methodName").append('<option value="'+item+'">'+item+'</option>')
             });
-            data.severHost.forEach(function(item){
+            data.serverHost.forEach(function(item){
                 $("#severHost").append('<option value="'+item+'">'+item+'</option>')
             });
         }});
