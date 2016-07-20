@@ -116,10 +116,15 @@ function page(query) {
     return op.page(COLLECTION_NAME, NoSqlModel, conditions, si, count, pattern);
 }
 
+function distinct(query) {
+    return op.distinct(COLLECTION_NAME, NoSqlModel, query.field ,query.cond);
+}
+
 module.exports = {
     "add": add,
     "find": find,
     "update": update,
     "del": del,
-    "page": page
+    "page": page,
+    "distinct": distinct
 };

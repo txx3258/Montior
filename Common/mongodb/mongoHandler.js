@@ -17,6 +17,7 @@ function* mongoHandler(query, model) {
         case 'page': fn = model.page(query); break;
         case 'next': fn = model.getNextSeq(query); break;
         case 'popu': fn = model.popu(query); break;
+        case 'distinct': fn = model.distinct(query); break;
     }
 
     return yield fn;

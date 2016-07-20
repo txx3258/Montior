@@ -173,11 +173,29 @@ function page(collectName, schema, conditions, si, count, patterns, popu) {
     });
 }
 
+function distinct(collectName, schema, conditions,field,condtions){
+    let cond = JSON.parse(tr(conditions));
+
+    return new Promise((resolve,reject)=>{
+        global.db.model(collectName, schema, collectName).distinct(field,cond,function (err, result) {
+            if (err){
+                let msg = 'mogodb distinct err.collectName=' + collectName + ',schema=' + schema + ',conditions=' + print(conditions) + ',field=' + field +',err=' + err;
+                logSys.warn(msg);
+                reject(msg);
+            } else {
+                resolve(result);
+            }
+        });
+    });
+    
+}
+
 module.exports = {
     add: add,
     del: del,
     update: update,
     find: find,
     page: page,
-    popu: popu
+    popu: popu,
+    distinct: distinct
 };
