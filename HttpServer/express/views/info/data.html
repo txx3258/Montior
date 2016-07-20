@@ -302,7 +302,7 @@
 
         
         <script type="text/javascript">
-        $.ajax({url:"/chart/line/memDistField?key=['systemCode','methodName','severHost']",
+        $.ajax({url:'/info/chart/line/memDistField?key=["systemCode","methodName","severHost"]&bizCode=memDistinct',
             success:function(data){
             data.systemCode.forEach(function(item){
                 $("#systemCode").append('<option value="'+item+'">'+item+'</option>')

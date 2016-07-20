@@ -41,7 +41,7 @@ function* memDistinct(query) {
 
     let result = {};
     for(let i=0,len = keys.length;i<len;i++){
-        result[keys[i]] = fields[i];
+        result[keys[i]] = fieldVals[i];
     }
 
     return result;
