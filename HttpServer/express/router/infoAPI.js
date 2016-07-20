@@ -6,6 +6,7 @@ let loadInfo=require('../service/loadInfo');
 let wrapAPI = require('../service/wrapAPI');
 let accountInfo= require('../service/info/account');
 let noSqlDataHandler = require('../service/info/noSqlDataHandler');
+let youngGCHandler = require('../service/info/youngGCHandler');
 
 router.get('/loadInfo',function(req,res,next){
   let query=req.query;
@@ -45,6 +46,11 @@ router.get('/chart/line',function(req,res,next){
 router.get('/chart/line/memDistField',function(req,res,next){
 
   wrapAPI(req,res,noSqlDataHandler);
+});
+
+router.get('/chart/line/yongGC',function(req,res,next){
+
+  wrapAPI(req,res,youngGCHandler);
 });
 
 module.exports=router;
