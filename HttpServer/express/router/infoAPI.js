@@ -10,10 +10,10 @@ let noSqlDataHandler = require('../service/info/noSqlDataHandler');
 router.get('/loadInfo',function(req,res,next){
   let query=req.query;
   
-  if (req.ip.indexOf('127.0.0.1')==-1){
-    res.status(401).send('you do not have permission');
-    return;
-  }
+  // if (req.ip.indexOf('127.0.0.1')==-1){
+  //   res.status(401).send('you do not have permission');
+  //   return;
+  // }
   //参数验证
   let type=query.type;
   let action=query.action;
