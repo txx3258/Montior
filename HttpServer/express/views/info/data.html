@@ -1,7 +1,7 @@
 <%- include ../template/_header.html %>
     <aside id="app-sidebar">
         <%- include ../template/_navigator.html %>
-            <%- include ../template/_navigator_data.html %>
+        <%- include ../template/_navigator_data.html %>
     </aside>
     <!-- ▲ Main sidebar -->
 
@@ -265,8 +265,7 @@
                                         <div style="float: left; margin-top:5px; margin-left:12px">调用方法:</div>
                                         <select id="methodName" style="float: left; margin:5px 0 0 8px ; width : 50px; height: 20px" >
                                             <option value="-1">全部</option>
-                                            <option value="master">主</option>
-                                            <option value="slave">从</option>    
+         
                                         </select>
 
                                         <div style="float: left; margin-top:5px;margin-left:12px">统计量: </div>
@@ -300,8 +299,21 @@
         <script src="http://120.25.169.11/assets/js/d3.v3.min.js"></script>
         <script type="text/javascript" src="http://120.25.169.11/api/jquery-1.8.3.js"></script>
         <script type="text/javascript" src="/js/jquery.datetimepicker.full.min.js"></script>
-        <script type="text/javascript">
 
+        
+        <script type="text/javascript">
+        $.ajax({url:"/chart/line/memDistField?key=['systemCode','methodName','severHost']",
+            success:function(data){
+            data.systemCode.forEach(function(item){
+                $("#systemCode").append('<option value="'+item+'">'+item+'</option>')
+            });
+            data.methodName.forEach(function(item){
+                $("#methodName").append('<option value="'+item+'">'+item+'</option>')
+            });
+            data.severHost.forEach(function(item){
+                $("#severHost").append('<option value="'+item+'">'+item+'</option>')
+            });
+        }});
         $.datetimepicker.setLocale('en');
         $('#datetimepicker_format').datetimepicker({value:'2016/07/18 05:03:00', format: $("#datetimepicker_format_value").val()});
             console.log($('#datetimepicker_format').datetimepicker('getValue'));

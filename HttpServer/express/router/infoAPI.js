@@ -42,4 +42,9 @@ router.get('/chart/line',function(req,res,next){
   wrapAPI(req,res,noSqlDataHandler);
 });
 
+router.get('/chart/line/memDistField',function(req,res,next){
+
+  wrapAPI(req,res,noSqlDataHandler);
+});
+
 module.exports=router;

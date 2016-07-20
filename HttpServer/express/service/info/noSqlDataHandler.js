@@ -6,7 +6,9 @@ let buildObj2key = commonUtils.buildObj2key;
 let avg = commonUtils.avg;
 let sort = commonUtils.sort;
 
-let fetchMongoData = require('../rpc/mongodb').fetchMongoData;
+let mongodb = require('../rpc/mongodb');
+let fetchMongoData = mongodb.fetchMongoData;
+let fetchMemDistField = mongodb.fetchMemDistField;
 
 function handleResult(req) {
     let query = req.query;
@@ -15,7 +17,10 @@ function handleResult(req) {
     let fn = undefined;
     switch (bizCode) {
         case 'avgCost': fn = loadLine(query,'avgCost'); break;
-        case 'loginOut': fn = loginOut(query); break;
+        case 'maxCost': fn = loadLine(query,'maxCost'); break;
+        case 'totalCount': fn = loadLine(query,'totalCount'); break;
+        case 'failCount': fn = loadLine(query,'failCount'); break;
+        case 'memDistinct': fn = memDistinct(query); break;
         default: fn = undefined;
     }
 
@@ -24,6 +29,22 @@ function handleResult(req) {
     }
 
     return fn;
+}
+
+function* memDistinct(query) {
+    let keys =JSON.parse(query.key);
+    let fields = keys.map((key)=>{
+        return fetchMemDistField(key);
+    });
+
+    let fieldVals = yield fields;
+
+    let result = {};
+    for(let i=0,len = keys.length;i<len;i++){
+        result[keys[i]] = fields[i];
+    }
+
+    return result;
 }
 
 function* loadLine(query,factor) {

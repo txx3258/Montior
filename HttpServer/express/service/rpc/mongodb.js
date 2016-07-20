@@ -14,6 +14,12 @@ function fetchMongoData(query) {
     return httpReq2Json(url);
 }
 
+function fetchMemDistField(field) {
+  let url = BASE_URL+'type=noSql&action=distinct&cond=&field='+field;
+
+  return httpReq2Json(url);
+}
 module.exports={
-  "fetchMongoData":fetchMongoData
+  "fetchMongoData":fetchMongoData,
+  "fetchMemDistField":fetchMemDistField
 };
