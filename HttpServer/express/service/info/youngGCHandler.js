@@ -131,7 +131,7 @@ function youngGCHandler(datas, factor) {
         }
     });
 
-    return { "key": Object.keys(resultResult), "value": resultResult };
+    return { "key": Object.keys(factorKeys), "value": resultResult };
 }
 
 function youngGCMutiHandler(params) {
