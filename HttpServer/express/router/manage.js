@@ -67,4 +67,11 @@ router.get('/dataJms', function (req, res, next) {
 
     manageWrap(req, res, manage);
 });
+
+router.get('/dataGC', function (req, res, next) {
+    req.query.bizCode = 'dataGC';
+
+    manageWrap(req, res, manage);
+});
+
 module.exports = router;

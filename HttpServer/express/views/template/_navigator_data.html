@@ -28,7 +28,9 @@
                     <li <% if(mClass=="data") { %> class="active" <%}%> >
                         <a href="/manage/data">接口访问</a>
                     </li>
-
+                     <li <% if(mClass=="dataGC") { %> class="active" <%}%>>
+                        <a href="/manage/dataGC">服务器GC</a>
+                    </li>
                     <li <% if(mClass=="dataRedis") { %> class="active" <%}%>>
                         <a href="/manage/dataRedis">redis访问</a>
                     </li>

@@ -15,10 +15,11 @@ function handleResult(req) {
     case 'checklogin': fn = account; break;
     case 'data': fn = data; break;
     case 'dataRedis':fn =dataRedis; break;
-    case 'dataMemcache':fn =dataMemcache; break;
-    case 'dataDB':fn =dataDB; break;
-    case 'dataRpc':fn =dataRpc; break;
-    case 'dataJms':fn =dataJms; break;
+    case 'dataMemcache':fn = dataMemcache; break;
+    case 'dataDB':fn = dataDB; break;
+    case 'dataRpc':fn = dataRpc; break;
+    case 'dataJms':fn = dataJms; break;
+    case 'dataGC':fn = dataGC; break;
     default: fn = undefined;
   }
 
@@ -40,6 +41,9 @@ function result(action, data, roleLeve, path, mClass, title, template) {
     "template": template
   };
 }
+function* dataGC(query){
+  return result('render', null, null, null, 'dataGC', '服务GC', 'info/dataGC');
+} 
 
 function* dataJms(query){
   return result('render', null, null, null, 'dataJms', 'jms访问', 'info/dataJms');
@@ -73,8 +77,7 @@ function* login(query) {
   return result('render', null, null, null, 'login', '用户登录', 'info/login');
 }
 
-function* roleLeveList(req){;
-  
+function* roleLeveList(req){
   return result('render', null, null, null, 'roleLeveList', '权限列表', 'info/roleLeveList');
 }
 
