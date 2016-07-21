@@ -263,13 +263,10 @@ var margin = {top: 30, right: 50, bottom: 30, left: 30},
 var g = svg.append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-d3.requestTsv("/data.tsv", function(d) {
-  d.date = new Date(parseInt(d.date));
-  for (var k in d) if (k !== "date") d[k] = +d[k];
-  return d;
-}, function(error, data) {
+d3.json("/info/chart/line/yongGC?bizCode=pauseTime&type=youngGC&action=find&cond=&fields=time%20bizCode%20pauseTime%20ip", function(error, datas) {
   if (error) throw error;
-
+  
+  let data = datas.value;
   var series = data.columns.slice(1).map(function(key) {
     return data.map(function(d) {
       return {
