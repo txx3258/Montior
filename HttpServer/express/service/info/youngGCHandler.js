@@ -61,7 +61,7 @@ function youngGCHandler(datas, factor) {
         if (!tmp) {
             tmp = [];
             maps[key] = tmp;
-            tmp.push({ "time": time });
+            tmp.push({ "time": item.time});
         }
 
         let flag = false;
@@ -131,7 +131,7 @@ function youngGCHandler(datas, factor) {
         }
     });
 
-    return { "key": Object.keys(result), "value": resultResult };
+    return { "key": Object.keys(resultResult), "value": resultResult };
 }
 
 function youngGCMutiHandler(params) {
