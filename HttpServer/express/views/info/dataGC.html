@@ -266,16 +266,41 @@ var g = svg.append("g")
 d3.json("/info/chart/line/yongGC?bizCode=pauseTime&type=youngGC&action=find&cond=&fields=time%20bizCode%20pauseTime%20ip", function(error, datas) {
   if (error) throw error;
   
-  let data = datas.value;
-  var series = data.columns.slice(1).map(function(key) {
-    return data.map(function(d) {
-      return {
-        key: key,
-        date: d.date,
-        value: d[key]
-      };
-    });
-  });
+  var data = datas.value;
+  var keys = datas.key;
+  var len = keys.length;
+  
+  var series = [];
+  for(var k=0;k<len;k++){
+      series[k]=[];
+  }
+
+  for(var i=0,length=data.length;i<length;i++){
+      var val= data[i];
+      for(var j=0;j<len;j++){
+          var key = keys[j];
+
+          var obj = {};
+          obj["date"] = new Date(val.date);
+          obj["key"]=key;
+          var ref = val[key];
+          if (!ref){
+              obj["value"]=0;
+          }else{
+              obj["value"]=ref;
+          }
+          series[j].push(obj);      
+      }
+  }
+//   var series = data.columns.slice(1).map(function(key) {
+//     return data.map(function(d) {
+//       return {
+//         key: key,
+//         date: d.date,
+//         value: d[key]
+//       };
+//     });
+//  });
 
   var x = d3.scaleTime()
       .domain([data[0].date, data[data.length - 1].date])
