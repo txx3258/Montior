@@ -127,7 +127,7 @@ function youngGCHandler(datas, factor) {
             let key = Object.getOwnPropertyNames(item)[1];
             obj[key] = item[key];
 
-            resultResult[timeCur] = obj;
+            resultResult[key] = obj;
         }
     });
 
