@@ -263,7 +263,7 @@ var margin = {top: 30, right: 50, bottom: 30, left: 30},
 var g = svg.append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-d3.requestTsv("/info/loadinfo?bizCode=pauseTime&type=youngGC&action=find&cond=&fields=time%20methName%20pauseTime", function(d) {
+d3.requestTsv("/data.tsv", function(d) {
   d.date = new Date(parseInt(d.date));
   for (var k in d) if (k !== "date") d[k] = +d[k];
   return d;

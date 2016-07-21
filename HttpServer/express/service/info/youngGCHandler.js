@@ -112,11 +112,11 @@ function youngGCHandler(datas, factor) {
         let time = item.time;
         let timeCur = resultMap[time];
 
-        if (!time) {
+        if (!timeCur) {
             resultMap[time] = resultIndex;
 
             let obj = {};
-            obj["time"] = time;
+            obj["date"] = time;
             let key = Object.getOwnPropertyNames(item)[1];
             obj[key] = item[key];
 
@@ -131,7 +131,7 @@ function youngGCHandler(datas, factor) {
         }
     });
 
-    return { "key": Object.keys(result), "value": result };
+    return { "key": Object.keys(result), "value": resultResult };
 }
 
 function youngGCMutiHandler(params) {
