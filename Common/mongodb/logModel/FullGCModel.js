@@ -19,7 +19,11 @@ let FullGC = new Schema({
     "CMS-initial-mark_pauseTime": Number,
     "CMS-concurrent-mark": Number,
     "CMS-concurrent-preclean":Number,
-    "CMS-concurrent-abortable-preclean":Number
+    "CMS-concurrent-abortable-preclean":Number,
+    "CMS-concurrent-sweep":Number,
+    "CMS-concurrent-reset":Number,
+    "CMS-remark_size":Number,
+    "CMS-remark_pauseTime":Number
 });
 
 /*
@@ -31,16 +35,20 @@ function add(info) {
         //赋值
         return {
             bizCode:info.bizCode,
-            ip: info.ip,
-            name: info.name,
-            type: info.type,
-            phase: info.phase,
-            time: info.time,
-            beforeGC: info.beforeGC,
-            afterGC: info.afterGC,
-            youngSize: info.youngSize,
-            pauseTime: info.pauseTime,
-            heapSize: info.heapSize
+            ip:info.ip,
+            type:info.type,
+            time:info.time,
+            heapSize:info.heapSize||0,
+            oldSize:info.oldSize||0,
+            "CMS-concurrent-mark_size":info["CMS-concurrent-mark_size"]||0,
+            "CMS-initial-mark_pauseTime":info["CMS-initial-mark_pauseTime"]||0,
+            "CMS-concurrent-mark": info["CMS-concurrent-mark"]||0,
+            "CMS-concurrent-preclean":info["CMS-concurrent-preclean"]||0,
+            "CMS-concurrent-abortable-preclean":info["CMS-concurrent-preclean"]||0,
+            "CMS-concurrent-sweep":info["CMS-concurrent-sweep"]||0,
+            "CMS-concurrent-reset":info["CMS-concurrent-reset"]||0,
+            "CMS-remark_size":info["CMS-remark_size"]||0,
+            "CMS-remark_pauseTime":info["CMS-remark_pauseTime"]||0
         };
     };
 

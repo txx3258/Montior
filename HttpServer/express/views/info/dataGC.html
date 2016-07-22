@@ -329,12 +329,13 @@
             }
             var statsWay = $("#statsWay").val();
             var bizCode = $("#bizCode").val();
-            var query ='strategy='+statsWay+'&biz='+statsWay+'&type=youngGC&action=find&cond="time":{"$gt":'+start+',"$lt":'+end+'}';
-            if (bizCode!=-1){
-                query+=',"bizCode":"'+bizCode+'"';
-            }
+            var query ='strategy='+statsWay;
             if (statsWay=='times'){
                 statsWay = 'pauseTime';
+            }
+            query +='&biz='+statsWay+'&type=youngGC&action=find&cond="time":{"$gt":'+start+',"$lt":'+end+'}';
+            if (bizCode!=-1){
+                query+=',"bizCode":"'+bizCode+'"';
             }
 
             query+='&fields=time%20bizCode%20ip%20'+statsWay;

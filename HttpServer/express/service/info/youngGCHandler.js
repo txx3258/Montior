@@ -18,8 +18,8 @@ function handleResult(req) {
     let fn = undefined;
     switch (biz) {
         case 'pauseTime': fn = loadLine(query, 'pauseTime'); break;
-        case 'yongSize': fn = loadLine(query, 'yongSize'); break;
-        case 'heapSize': fn = loadMutiLine(query, 'totalCount'); break;
+        case 'youngSize': fn = loadLine(query, 'youngSize'); break;
+        case 'heapSize': fn = loadLine(query, 'heapSize'); break;
         default: fn = undefined;
     }
 
