@@ -329,7 +329,7 @@
             }
             var statsWay = $("#statsWay").val();
             var bizCode = $("#bizCode").val();
-            var query ='strategy='+statsWay+'&biz='+statsWay+'&type=youngGC&action=find&cond="startTime":{"$gt":'+start+',"$lt":'+end+'}';
+            var query ='strategy='+statsWay+'&biz='+statsWay+'&type=youngGC&action=find&cond="time":{"$gt":'+start+',"$lt":'+end+'}';
             if (bizCode!=-1){
                 query+=',"bizCode":"'+bizCode+'"';
             }
@@ -337,7 +337,7 @@
                 statsWay = 'pauseTime';
             }
 
-            query+='&fields=time%20bizCode%20ip%20"'+statsWay;
+            query+='&fields=time%20bizCode%20ip%20'+statsWay;
             var svg = d3.select("svg");
             var margin = {
                 top: 30,
