@@ -329,9 +329,12 @@
             }
             var statsWay = $("#statsWay").val();
             var bizCode = $("#bizCode").val();
-            var query = 'biz='+statsWay+'&type=yongGC&action=find&cond="type":"memcached","startTime":{"$gt":'+start+',"$lt":'+end+'}';
+            var query ='strategy='+statsWay+'&biz='+statsWay+'&type=yongGC&action=find&cond="startTime":{"$gt":'+start+',"$lt":'+end+'}';
             if (bizCode!=-1){
                 query+=',"bizCode":"'+bizCode+'"';
+            }
+            if (statsWay=='times'){
+                statsWay = pauseTime;
             }
 
             query+='&fields=time%20bizCode%20ip%20"'+statsWay;
