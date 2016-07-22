@@ -283,7 +283,7 @@
         <script type="text/javascript" src="/js/jquery.datetimepicker.full.min.js"></script>
 
         <script type="text/javascript">
-        $.ajax({url:'/info/chart/line/distinctField?type=youngGC&key=["bizCode"]&bizCode=distinct',
+        $.ajax({url:'/info/chart/line/distinctField?type=youngGC&key=["bizCode"]&biz=distinct',
             success:function(data){
             data.bizCode.forEach(function(item){
                 $("#bizCode").append('<option value="'+item+'">'+item+'</option>')

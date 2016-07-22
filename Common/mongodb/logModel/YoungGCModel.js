@@ -91,7 +91,7 @@ function page(query) {
 }
 
 function distinct(query) {
-    return op.distinct(COLLECTION_NAME, NoSqlModel, query.cond, query.field);
+    return op.distinct(COLLECTION_NAME, YoungGC, query.cond, query.field);
 }
 
 module.exports = {
