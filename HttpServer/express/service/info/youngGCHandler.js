@@ -5,10 +5,11 @@ let res2ok = commonUtils.res2ok;
 let buildObj2key = commonUtils.buildObj2key;
 let avg = commonUtils.avg;
 let sort = commonUtils.sort;
+let times = commonUtils.times;
 
 let mongodb = require('../rpc/mongodb');
 let fetchMongoData = mongodb.fetchMongoData;
-let fetchMemDistField = mongodb.fetchMemDistField;
+let fetchDistinctField = mongodb.fetchDistinctField;
 
 function handleResult(req) {
     let query = req.query;
@@ -32,7 +33,7 @@ function handleResult(req) {
 function* memDistinct(query) {
     let keys = JSON.parse(query.key);
     let fields = keys.map((key) => {
-        return fetchMemDistField(key);
+        return fetchDistinctField('youngGC',key);
     });
 
     let fieldVals = yield fields;
@@ -47,11 +48,17 @@ function* memDistinct(query) {
 
 function* loadLine(query, factor) {
     let datas = yield fetchMongoData(query);
+    let strategy = undefined;
+    switch (query.strategy){
+        case 'times':strategy = times;break;
+        case 'avg': strategy = avg;break;
+        default:strategy = avg;
+    }
 
-    return youngGCHandler(datas, factor);
+    return youngGCHandler(datas, factor, strategy);
 }
 
-function youngGCHandler(datas, factor) {
+function youngGCHandler(datas, factor, strategy) {
     let maps = {};
     datas.forEach((item) => {
         let time = new Date(item.time).toISOString().substring(0, 16);
@@ -98,7 +105,7 @@ function youngGCHandler(datas, factor) {
             factorKeys[keyKey] = true;
         }
 
-        obj[keyKey] = parseFloat(avg(methodObj[keyKey]));
+        obj[keyKey] = parseFloat(strategy(methodObj[keyKey]));
         return obj;
     });
 

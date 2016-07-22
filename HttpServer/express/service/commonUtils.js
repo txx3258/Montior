@@ -109,6 +109,14 @@ function avg(arrays) {
   return (result / len).toFixed(2);
 }
 
+//计算次数
+function times(arrays){
+  if (Array.isArray(arrays)){
+    return arrays.length;
+  }else{
+    return 0;
+  }
+}
 module.exports={
   "isCollEmpty":isCollEmpty,
   "isNotFloat":isNotFloat,
@@ -117,6 +125,7 @@ module.exports={
   "httpReq2Str":httpReq2Str,
   "sort":sort,
   "avg":avg,
+  "times":times,
   "res2ok":res2ok,
   "res2msg":res2msg,
   "res2render":res2render,

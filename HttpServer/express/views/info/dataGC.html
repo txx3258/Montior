@@ -202,7 +202,10 @@
 
                             </div>
                             <style>
-                                text {font: 10px sans-serif;}                                
+                                text {
+                                    font: 10px sans-serif;
+                                }
+                                
                                 .axis path,
                                 .axis line {
                                     fill: none;
@@ -227,11 +230,37 @@
                                     font-weight: bold;
                                 }
                             </style>
+                            <link rel="stylesheet" type="text/css" href="/css/jquery.datetimepicker.min.css" />
                             <div id="js-user-rank" class="widget widget-user-rank">
                                 <div class="widget-inner">
                                     <div class="ui-block-head">
                                         <h3>历史趋势</h3>
                                     </div>
+                                    <div style="width: 100%;clear :both;height:50px">
+                                        <div style="float: left; margin-top : 5px"> 起点:</div>
+                                        <input id="datepicker1" name="start" style=" float: left; margin-left : 8px; width: 95px; height: 20px" type="text" />
+
+                                        <div style="float: left; margin-top:5px; margin-left : 12px">终点: </div>
+                                        <input id="datepicker2" name="end" style=" float: left; margin-left: 8px ; width : 95px; height: 20px" type="text" />
+
+                                        <div style="float: left; margin-top:5px; margin-left:12px">bizCode:</div>
+                                        <select id="bizCode" style="float: left; margin:5px 0 0 8px ; width : 50px; height: 20px">
+                                             <option value="-1">全部</option>   
+                                        </select>
+
+                                        <div style="float: left; margin-top:5px;margin-left:12px">统计量: </div>
+                                        <select id="statsWay" style="float: left; margin:5px 0 0 8px ; width: 80px; height: 20px">
+                                             <option value="times">次数</option>
+                                            <option value="pauseTime">pauseTime</option>
+                                            <option value="heapSize">heapSize</option> 
+                                            <option value="PartNew">PartNew</option>      
+                                        </select>
+
+                                        <input id="queryBtn" type="button" value="查询" style=" float: left; margin-left : 30px; width : 50px; height: 25px; margin-top: 0px;"
+                                        />
+                                    </div>
+
+
                                     <svg id="historyTend" width="960" height="500"></svg>
                                 </div>
                             </div>
@@ -250,105 +279,142 @@
     <%- include ../template/_footer.html %>
 
         <script src="/d3.line.js"></script>
+        <script type="text/javascript" src="http://120.25.169.11/api/jquery-1.8.3.js"></script>
+        <script type="text/javascript" src="/js/jquery.datetimepicker.full.min.js"></script>
+
         <script type="text/javascript">
-var parseTime = d3.timeParse("%Y%m%d hh%mm%ss");
+        $.ajax({url:'/info/chart/line/distinctField?type=youngGC&key=["bizCode"]&bizCode=distinct',
+            success:function(data){
+            data.bizCode.forEach(function(item){
+                $("#bizCode").append('<option value="'+item+'">'+item+'</option>')
+            });
+        }});
 
-var svg = d3.select("svg");
+        $.datetimepicker.setLocale('en');
+        $('#datetimepicker_format').datetimepicker({value:'2016/07/18 05:03:00', format: $("#datetimepicker_format_value").val()});
+            console.log($('#datetimepicker_format').datetimepicker('getValue'));
+            $("#datetimepicker_format_change").on("click", function(e){
+	        $("#datetimepicker_format").data('xdsoft_datetimepicker').setOptions({format: $("#datetimepicker_format_value").val()});
+        });
+        $("#datetimepicker_format_locale").on("change", function(e){
+	        $.datetimepicker.setLocale($(e.currentTarget).val());
+        });
 
-var margin = {top: 30, right: 50, bottom: 30, left: 30},
-    width = +svg.attr("width") - margin.left - margin.right,
-    height = +svg.attr("height") - margin.top - margin.bottom,
-    labelPadding = 3;
+        $('#datepicker1').datetimepicker({
+            dayOfWeekStart : 1,
+            lang:'en',
+            startDate:new Date().toLocaleDateString()
+        });
+ 
+        $('#datepicker2').datetimepicker({
+            dayOfWeekStart : 1,
+            lang:'en',
+            startDate:new Date().toLocaleDateString()
+        }); 
 
-var g = svg.append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+        var start = undefined,end = undefined;
+        $('#queryBtn').click(function() {
+            var date1 = $('#datepicker1').val();
+            var date2 = $('#datepicker2').val();
+            if (date1.length < 10 || date2.length < 10) {
+                alert('请选择日期！');
+                return;
+            }
+            start = new Date(date1 + ':00').getTime();
+            end = new Date(date2 + ':00').getTime();
 
-d3.requestJson("/info/chart/line/yongGC?bizCode=pauseTime&type=youngGC&action=find&cond=&fields=time%20bizCode%20pauseTime%20ip", function(error, datas) {
-  if (error) throw error;
-  
-  var data = datas.value;
-  var keys = datas.key;
-  var len = keys.length;
-  
-  var series = [];
-  for(var k=0;k<len;k++){
-      series[k]=[];
-  }
+            if (start >= end) {
+                alert('终点时间小于起点时间!');
+                return;
+            }
+            var statsWay = $("#statsWay").val();
+            var bizCode = $("#bizCode").val();
+            var query = 'biz='+statsWay+'&type=yongGC&action=find&cond="type":"memcached","startTime":{"$gt":'+start+',"$lt":'+end+'}';
+            if (bizCode!=-1){
+                query+=',"bizCode":"'+bizCode+'"';
+            }
 
-  for(var i=0,length=data.length;i<length;i++){
-      var val= data[i];
-      for(var j=0;j<len;j++){
-          var key = keys[j];
+            query+='&fields=time%20bizCode%20ip%20"'+statsWay;
+            var svg = d3.select("svg");
+            var margin = {
+                top: 30,
+                right: 50,
+                bottom: 30,
+                left: 30
+            },
+            width = +svg.attr("width") - margin.left - margin.right,
+            height = +svg.attr("height") - margin.top - margin.bottom,
+            labelPadding = 3;
+            var g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+            d3.requestJson("/info/chart/line/yongGC?"+query,function(error, datas) {
+                if (error) throw error;
+                var data = datas.value;
+                var keys = datas.key;
+                var len = keys.length;
+                var series = [];
+                for (var k = 0; k < len; k++) {
+                    series[k] = [];
+                }
+                for (var i = 0,length = data.length; i < length; i++) {
+                var val = data[i];
+                for (var j = 0; j < len; j++) {
+                    var key = keys[j];
+                    var obj = {};
+                    obj["date"] = new Date(val.date);
+                    obj["key"] = key;
+                    var ref = val[key];
+                    if (!ref) {
+                        obj["value"] = 0;
+                    } else {
+                        obj["value"] = ref;
+                    }
+                    series[j].push(obj);
+                }
+            }
+            var x = d3.scaleTime().domain([data[0].date, data[data.length - 1].date]).range([0, width]);
+            var y = d3.scaleLinear().domain([0, d3.max(series,
+            function(s) {
+                return d3.max(s,function(d) {
+                    return d.value;
+                });
+            })]).range([height, 0]);
+            var z = d3.scaleCategory10();
+            g.append("g").attr("class", "axis axis--x").attr("transform", "translate(0," + height + ")").call(d3.axisBottom(x));
+            var serie = g.selectAll(".serie").data(series).enter().append("g").attr("class", "serie");
+            serie.append("path").attr("class", "line").style("stroke",
+            function(d) {
+                return z(d[0].key);
+            }).attr("d", d3.line().x(function(d) {
+                return x(d.date);
+            }).y(function(d) {
+                return y(d.value);
+            }));
 
-          var obj = {};
-          obj["date"] = new Date(val.date);
-          obj["key"]=key;
-          var ref = val[key];
-          if (!ref){
-              obj["value"]=0;
-          }else{
-              obj["value"]=ref;
-          }
-          series[j].push(obj);      
-      }
-  }
-//   var series = data.columns.slice(1).map(function(key) {
-//     return data.map(function(d) {
-//       return {
-//         key: key,
-//         date: d.date,
-//         value: d[key]
-//       };
-//     });
-//  });
+            var label = serie.selectAll(".label").data(function(d) {
+                return d;
+            }).enter().append("g").attr("class", "label").attr("transform",function(d, i) {
+                return "translate(" + x(d.date) + "," + y(d.value) + ")";
+            });
+            label.append("text").attr("dy", ".35em").text(function(d) {
+                return d.value;
+            }).filter(function(d, i) {
+                return i === data.length - 1;
+            }).append("tspan").attr("class", "label-key").text(function(d) {
+                return " " + d.key;
+            });
 
-  var x = d3.scaleTime()
-      .domain([data[0].date, data[data.length - 1].date])
-      .range([0, width]);
-
-  var y = d3.scaleLinear()
-      .domain([0, d3.max(series, function(s) { return d3.max(s, function(d) { return d.value; }); })])
-      .range([height, 0]);
-
-  var z = d3.scaleCategory10();
-
-  g.append("g")
-      .attr("class", "axis axis--x")
-      .attr("transform", "translate(0," + height + ")")
-      .call(d3.axisBottom(x));
-
-  var serie = g.selectAll(".serie")
-      .data(series)
-    .enter().append("g")
-      .attr("class", "serie");
-
-  serie.append("path")
-      .attr("class", "line")
-      .style("stroke", function(d) { return z(d[0].key); })
-      .attr("d", d3.line()
-          .x(function(d) { return x(d.date); })
-          .y(function(d) { return y(d.value); }));
-
-  var label = serie.selectAll(".label")
-      .data(function(d) { return d; })
-    .enter().append("g")
-      .attr("class", "label")
-      .attr("transform", function(d, i) { return "translate(" + x(d.date) + "," + y(d.value) + ")"; });
-
-  label.append("text")
-      .attr("dy", ".35em")
-      .text(function(d) { return d.value; })
-    .filter(function(d, i) { return i === data.length - 1; })
-    .append("tspan")
-      .attr("class", "label-key")
-      .text(function(d) { return " " + d.key; });
-
-  label.append("rect", "text")
-      .datum(function() { return this.nextSibling.getBBox(); })
-      .attr("x", function(d) { return d.x - labelPadding; })
-      .attr("y", function(d) { return d.y - labelPadding; })
-      .attr("width", function(d) { return d.width + 2 * labelPadding; })
-      .attr("height", function(d) { return d.height + 2 * labelPadding; });
+            label.append("rect", "text").datum(function() {
+                return this.nextSibling.getBBox();
+            }).attr("x",function(d) {
+                return d.x - labelPadding;
+            }).attr("y",function(d) {
+                return d.y - labelPadding;
+            }).attr("width",function(d) {
+                return d.width + 2 * labelPadding;
+            }).attr("height",function(d) {
+                return d.height + 2 * labelPadding;
+            });
+        });
 });
 
 </script>

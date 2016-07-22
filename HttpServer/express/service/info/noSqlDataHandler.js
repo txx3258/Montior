@@ -8,33 +8,34 @@ let sort = commonUtils.sort;
 
 let mongodb = require('../rpc/mongodb');
 let fetchMongoData = mongodb.fetchMongoData;
-let fetchMemDistField = mongodb.fetchMemDistField;
+let fetchDistinctField = mongodb.fetchDistinctField;
 
 function handleResult(req) {
     let query = req.query;
-    let bizCode = query.bizCode;
+    let biz = query.biz;
 
     let fn = undefined;
-    switch (bizCode) {
+    switch (biz) {
         case 'avgCost': fn = loadLine(query,'avgCost'); break;
         case 'maxCost': fn = loadLine(query,'maxCost'); break;
         case 'totalCount': fn = loadLine(query,'totalCount'); break;
         case 'failCount': fn = loadLine(query,'failCount'); break;
-        case 'memDistinct': fn = memDistinct(query); break;
+        case 'distinct': fn = distinct(query); break;
         default: fn = undefined;
     }
 
     if (!fn) {
-        throw new Error('bizCode is wrong.bizCode=' + bizCode);
+        throw new Error('biz is wrong.biz=' + biz);
     }
 
     return fn;
 }
 
-function* memDistinct(query) {
+function* distinct(query) {
     let keys =JSON.parse(query.key);
+    let type = query.type;
     let fields = keys.map((key)=>{
-        return fetchMemDistField(key);
+        return fetchDistinctField(type,key);
     });
 
     let fieldVals = yield fields;

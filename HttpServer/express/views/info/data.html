@@ -298,7 +298,7 @@
 
         
         <script type="text/javascript">
-        $.ajax({url:'/info/chart/line/memDistField?key=["systemCode","methName","serverHost"]&bizCode=memDistinct',
+        $.ajax({url:'/info/chart/line/distinctField?type=noSql&key=["systemCode","methName","serverHost"]&bizCode=distinct',
             success:function(data){
             data.systemCode.forEach(function(item){
                 $("#systemCode").append('<option value="'+item+'">'+item+'</option>')
@@ -348,13 +348,13 @@
                 return;
             }  
 
-            var bizCode = $("#statsWay").val();
+            var statsWay = $("#statsWay").val();
             var roleName = $("#roleName").val();
             var systemCode = $("#systemCode").val();
             var serverHost = $("#serverHost").val();
             var methName = $("#methName").val();
             
-            var query = 'bizCode='+bizCode+'&type=noSql&action=find&cond="type":"memcached","startTime":{"$gt":'+start+',"$lt":'+end+'},"roleName":"'+roleName+'"';
+            var query = 'biz='+bizCode+'&type=noSql&action=find&cond="type":"memcached","startTime":{"$gt":'+start+',"$lt":'+end+'},"roleName":"'+roleName+'"';
             if (serverHost!=-1){
                 query+=',"serverHost":"'+serverHost+'"';
             }
@@ -364,8 +364,7 @@
             if (methName!=-1){
                 query+=',"methName":"'+methName+'"';
             }
-
-            query+='&fields=startTime%20methName%20'+bizCode;
+            query+='&fields=startTime%20methName%20'+statsWay;
             var margin = {top: 20, right: 80, bottom: 30, left: 50},
             width = 960 - margin.left - margin.right,
             height = 500 - margin.top - margin.bottom;
