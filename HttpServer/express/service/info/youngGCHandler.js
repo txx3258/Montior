@@ -13,10 +13,10 @@ let fetchDistinctField = mongodb.fetchDistinctField;
 
 function handleResult(req) {
     let query = req.query;
-    let bizCode = query.bizCode;
+    let biz = query.biz;
 
     let fn = undefined;
-    switch (bizCode) {
+    switch (biz) {
         case 'pauseTime': fn = loadLine(query, 'pauseTime'); break;
         case 'yongSize': fn = loadLine(query, 'yongSize'); break;
         case 'heapSize': fn = loadMutiLine(query, 'totalCount'); break;
@@ -24,7 +24,7 @@ function handleResult(req) {
     }
 
     if (!fn) {
-        throw new Error('bizCode is wrong.bizCode=' + bizCode);
+        throw new Error('biz is wrong.biz=' + biz);
     }
 
     return fn;
