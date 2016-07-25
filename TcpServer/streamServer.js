@@ -7,7 +7,7 @@ let IP_FOR_STREAM = require('../Common/config').TCP_SERVER_FOR_STREAM.IP;
 //let addDB = require('./mongoService/op').addDB;
 
 function makeChild() {
-    let child = child_process.fork('child.js',[],{encoding: 'utf8'});
+    let child = child_process.fork('streamChild.js',[],{encoding: 'utf8'});
     return child;
 }
 

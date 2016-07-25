@@ -5,5 +5,6 @@ module.exports={
   "ROLE_INFO":"roleinfos",
   "YOUNG_GC":"younggcs",
   "FULL_GC":"fullgcs",
-  "NO_SQL":"nosqls"
+  "NO_SQL":"nosqls",
+  "PERF":"perfs"
 };

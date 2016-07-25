@@ -7,6 +7,7 @@ let roleInfoModel= require('../../../Common/mongodb/mangeModel/roleInfoModel');
 let apiApplistModel= require('../../../Common/mongodb/logModel/ApiApplistModel');
 let noSqlModel= require('../../../Common/mongodb/logModel/NoSqlModel');
 let youngGCModel= require('../../../Common/mongodb/logModel/YoungGCModel');
+let perfModel= require('../../../Common/mongodb/logModel/perfModel');
 
 /*
  *处理用户下单
@@ -18,6 +19,7 @@ function handleResult(req){
 
   let fn=undefined;
   switch (type){
+    case 'perf':fn= loadInfoHandler(query,perfModel);break;
     case 'userInfo':fn=loadInfoHandler(query,userInfoModel);break;
     case 'userRole':fn=loadInfoHandler(query,roleInfoModel);break;
     case 'apiApplist':fn=loadInfoHandler(query,apiApplistModel);break;
