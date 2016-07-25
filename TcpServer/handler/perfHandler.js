@@ -4,7 +4,7 @@ let logBiz = require('../../Common/log').logBiz;
 let add = require('./mongoUtils').add;
 
 function perfHandler(data) {
-    let datas = data.split('\n');
+    let datas = data.join('').split('\n');
     let container = {};
     let len = datas.length;
 
@@ -88,7 +88,7 @@ function perfHandler(data) {
         });
 
         console.log(JSON.stringify(tmpChain));
-        
+
         add(tmpChain);
     });
 }

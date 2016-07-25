@@ -2,12 +2,16 @@
 
 let child_process = require('child_process');
 let net = require('net');
-let PORT_FOR_STREAM = require('../Common/config').TCP_SERVER_FOR_STREAM.PORT;
-let IP_FOR_STREAM = require('../Common/config').TCP_SERVER_FOR_STREAM.IP;
+let config = require('../Common/config');
+let PORT_FOR_STREAM = config.TCP_SERVER_FOR_STREAM.PORT;
+let IP_FOR_STREAM = config.TCP_SERVER_FOR_STREAM.IP;
 //let addDB = require('./mongoService/op').addDB;
+let PROTOCOL_PARTITION = config.PROTOCOL_PARTITION;
+//协议分割字符串长度
+let PROTOCOL_LEN = PROTOCOL_PARTITION.length;
 
 function makeChild() {
-    let child = child_process.fork('streamChild.js',[],{encoding: 'utf8'});
+    let child = child_process.fork('streamChild.js', [], { encoding: 'utf8' });
     return child;
 }
 
@@ -19,13 +23,13 @@ let index = 0;
 function selectChild() {
     index++;
 
-    if (index%3 == 0){
+    if (index % 3 == 0) {
         return child_1;
     }
-    if (index%3 == 1){
+    if (index % 3 == 1) {
         return child_2;
     }
-    if (index%3 == 2){
+    if (index % 3 == 2) {
         return child_3;
     }
 }
@@ -45,15 +49,20 @@ function createStreamServer() {
             }
 
             let data = buffer.toString('utf8');
-            if (data.startsWith('~!@#$%^&*()')){
-                let tmpData = buf[identify];
-                let child = selectChild();
-                child.send(tmpData);
+            if (data.startsWith(PROTOCOL_PARTITION)) {
+                if (PROTOCOL_LEN == data.length) {
+                    return;
+                }
 
-                let tmp_buf =[];  
-                tmp_buf.push(data); 
+                if (id_buf.length > 0) {
+                    let child = selectChild();
+                    child.send(id_buf);
+                }
+
+                let tmp_buf = [];
+                tmp_buf.push(data.substring(PROTOCOL_LEN));
                 buf[identify] = tmp_buf;
-            }else{
+            } else {
                 buf[identify].push(data);
             }
         });
