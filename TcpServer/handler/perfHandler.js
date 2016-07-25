@@ -2,6 +2,7 @@
 
 let logBiz = require('../../Common/log').logBiz;
 let add = require('./mongoUtils').add;
+let perfModel = require('../../Common/mongodb/logModel/PerfModel');
 
 function perfHandler(data) {
     let datas = data.join('').split('\n');
@@ -14,6 +15,7 @@ function perfHandler(data) {
         let pos = item.indexOf('{"ts":');
 
         if (pos == -1) {
+            logBiz.warn('missing perf data for pos:'+item);
             continue;
         }
 
@@ -22,7 +24,12 @@ function perfHandler(data) {
             continue;
         }
 
-        let apiJson = JSON.parse(perfApi);
+        let apiJson = undefined;
+        try{
+            apiJson = JSON.parse(perfApi);
+        }catch(e){
+            logBiz.warn('missing perf data for JSON:'+item);
+        }
         let url = apiJson.url;
         let urlMap = container[url];
         if (!urlMap) {
@@ -85,11 +92,12 @@ function perfHandler(data) {
         tmpChain['cs'] = tmpChain['cs'] / len;
         tmpChain['sps'].forEach((item) => {
             item.cs = item.cs / item.cnt;
+            delete item.cnt;
         });
 
         console.log(JSON.stringify(tmpChain));
 
-        add(tmpChain);
+        add(perfModel,tmpChain);
     });
 }
 
