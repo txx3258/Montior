@@ -19,17 +19,19 @@ let child_1 = makeChild();
 let child_2 = makeChild();
 let child_3 = makeChild();
 
-let index = 0;
-function selectChild() {
-    index++;
+function selectChild(identify) {
+    let char = 0;
+    for (let i = 0; i < identify.length; i++) {
+        char += identify.charCodeAt(i);
+    }
 
-    if (index % 3 == 0) {
+    if (char % 3 == 0) {
         return child_1;
     }
-    if (index % 3 == 1) {
+    if (char % 3 == 1) {
         return child_2;
     }
-    if (index % 3 == 2) {
+    if (char % 3 == 2) {
         return child_3;
     }
 }
@@ -55,7 +57,7 @@ function createStreamServer() {
                 }
 
                 if (id_buf.length > 0) {
-                    let child = selectChild();
+                    let child = selectChild(identify);
                     child.send(id_buf);
                 }
 
