@@ -30,7 +30,7 @@ function perfHandler(data) {
         }catch(e){
             logBiz.warn('missing perf data for JSON:'+item);
         }
-        let url = apiJson.url;
+        let url = apiJson.url.split('?')[0];
         let urlMap = container[url];
         if (!urlMap) {
             urlMap = [];
@@ -44,6 +44,7 @@ function perfHandler(data) {
         let len = chains.length;
 
         let tmpChain = chains[0];
+        tmpChain['url'] = key;
         tmpChain['ec'] = 0;
         tmpChain['c'] = len;
 
