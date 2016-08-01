@@ -33,14 +33,20 @@
   "MIN_LIMIT": 10,
   "MONGO_URI": "mongodb://192.168.11.149:27017/ReportAndMonitor",
   "HTTP_PORT": 8088,
-  "TCP_SERVER_FOR_STREAM": {
+  "TCP_SERVER_FOR_STREAM": [{
     "IP":"192.168.11.149",
     "PORT":9090
-  },
-  "TCP_SERVER_FOR_JSON": {
+  },{
+    "IP":"192.168.11.149",
+    "PORT":9089
+  }],
+  "TCP_SERVER_FOR_JSON": [{
     "IP":"192.168.11.149",
     "PORT":9091
-  },  
+  },{
+    "IP":"192.168.11.149",
+    "PORT":9092
+  }], 
   "TCP_CLIENT_PORT": 9990,
   "PROTOCOL_PARTITION":"~!@#$%^&*()_+",
   "TCP_CLIENT_INTERVAL": 60000
