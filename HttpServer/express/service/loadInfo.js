@@ -7,7 +7,7 @@ let roleInfoModel= require('../../../Common/mongodb/mangeModel/roleInfoModel');
 let apiApplistModel= require('../../../Common/mongodb/logModel/ApiApplistModel');
 let noSqlModel= require('../../../Common/mongodb/logModel/NoSqlModel');
 let youngGCModel= require('../../../Common/mongodb/logModel/YoungGCModel');
-let perfModel= require('../../../Common/mongodb/logModel/perfModel');
+let perfModel= require('../../../Common/mongodb/logModel/PerfModel');
 
 /*
  *处理用户下单
