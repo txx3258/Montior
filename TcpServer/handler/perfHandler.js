@@ -4,7 +4,8 @@ let logBiz = require('../../Common/log').logBiz;
 let add = require('./mongoUtils').add;
 let perfModel = require('../../Common/mongodb/logModel/PerfModel');
 
-function perfHandler(data) {
+function perfHandler(result) {
+    let data = result.data;
     let datas = data.join('').split('\n');
     let container = {};
     let len = datas.length;
@@ -47,6 +48,7 @@ function perfHandler(data) {
         tmpChain['url'] = key;
         tmpChain['ec'] = 0;
         tmpChain['c'] = len;
+        tmpChain['ip'] = result['ipPort'];
 
         let tmpSps = tmpChain['sps'];
         if (!Array.isArray(tmpSps)) {

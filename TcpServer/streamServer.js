@@ -58,7 +58,11 @@ function createStreamServer() {
 
                 if (id_buf.length > 0) {
                     let child = selectChild(identify);
-                    child.send(id_buf);
+                    let result = {
+                        "ipPort":identify,
+                        "data":id_buf
+                    }
+                    child.send(result);
                 }
 
                 let tmp_buf = [];

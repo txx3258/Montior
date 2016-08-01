@@ -244,14 +244,20 @@
                                         <input id="datepicker2" name="end" style=" float: left; margin-left: 8px ; width : 95px; height: 20px" type="text" />
 
                                         <div style="float: left; margin-top:5px; margin-left:12px">bizCode:</div>
-                                        <select id="bizCode" style="float: left; margin:5px 0 0 8px ; width : 50px; height: 20px">
+                                        <select id="bizCode" style="float: left; margin:5px 0 0 8px ; width : 150px; height: 20px">
+                                             <option value="-1">全部</option>   
+                                        </select>
+
+                                        
+                                        <div style="float: left; margin-top:5px; margin-left:12px">IP:</div>
+                                        <select id="IP" style="float: left; margin:5px 0 0 8px ; width : 150px; height: 20px">
                                              <option value="-1">全部</option>   
                                         </select>
 
                                         <div style="float: left; margin-top:5px;margin-left:12px">统计量: </div>
-                                        <select id="statsWay" style="float: left; margin:5px 0 0 8px ; width: 80px; height: 20px">
-                                             <option value="times">次数</option>
-                                            <option value="pauseTime">pauseTime</option>
+                                        <select id="statsWay" style="float: left; margin:5px 0 0 8px ; width: 150px; height: 20px">
+                                             <option value="cs">耗时</option>
+                                            <option value="c">次数</option>
                                             <option value="heapSize">heapSize</option> 
                                             <option value="PartNew">PartNew</option>      
                                         </select>
@@ -283,7 +289,7 @@
         <script type="text/javascript" src="/js/jquery.datetimepicker.full.min.js"></script>
 
         <script type="text/javascript">
-        $.ajax({url:'/info/chart/line/distinctField?type=youngGC&key=["bizCode"]&biz=distinct',
+        $.ajax({url:'/info/chart/line/distinctField?type=perf&key=["url"]&biz=distinct',
             success:function(data){
             data.bizCode.forEach(function(item){
                 $("#bizCode").append('<option value="'+item+'">'+item+'</option>')

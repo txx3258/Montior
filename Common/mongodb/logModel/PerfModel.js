@@ -18,6 +18,7 @@ let Perf = new Schema({
     c:Number,//count
     ce:Number,//countError
     cs:Number,//cost
+    ip:String,
     url: String,
     sps:[
         step
@@ -37,6 +38,7 @@ function add(info) {
             cs:info.cs,
             ce:info.ce,
             url:info.url,
+            ip:info.ip,
             sps:info.sps
         };
     };

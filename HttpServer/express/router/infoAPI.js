@@ -53,4 +53,9 @@ router.get('/chart/line/yongGC',function(req,res,next){
   wrapAPI(req,res,youngGCHandler);
 });
 
+router.get('/chart/line/perf',function(req,res,next){
+
+  wrapAPI(req,res,youngGCHandler);
+});
+
 module.exports=router;
