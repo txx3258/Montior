@@ -3,11 +3,11 @@
 //let zlib=require('zlib');
 let net = require('net');
 let client = undefined;
-let PROTOCOL_PARTITION = config.PROTOCOL_PARTITION;
 let logSys = require('../../Common/log').logSys;
 
 let config = require('../../Common/config.json');
 let SERVER_CONFIG = config.TCP_SERVER_FOR_JSON;
+let PROTOCOL_PARTITION = config.PROTOCOL_PARTITION;
 let IP = undefined;
 let PORT = undefined;
 

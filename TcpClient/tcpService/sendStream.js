@@ -4,9 +4,30 @@ let zlib = require('zlib');
 
 let net = require('net');
 let config = require('../../Common/config.json');
-let IP = config.TCP_SERVER_FOR_STREAM.IP;
-let PORT = config.TCP_SERVER_FOR_STREAM.PORT;
+let SERVER_CONFIG = config.TCP_SERVER_FOR_STREAM;
 let PROTOCOL_PARTITION = config.PROTOCOL_PARTITION;
+
+let IP = undefined;
+let PORT = undefined;
+
+//随机选择机器
+function randomIP() {
+  let hostIPLen = SERVER_CONFIG.length;
+  let random = Math.floor(Math.random(47)*hostIPLen);
+
+  let times = 10,_ip,_port;
+  while((times--)>=0){
+    _ip = SERVER_CONFIG[random].IP;
+    _port = SERVER_CONFIG[random].PORT;
+
+    if (_ip!=IP){
+      break;
+    }
+  }
+
+  IP = _ip;
+  PORT = _port;
+}
 
 let logSys = require('../../Common/log').logSys;
 //连接次数记录
@@ -17,6 +38,8 @@ let client = undefined;
  *创建TCP客户端，连接IP和PORT
  */
 function connectStreamServer() {
+  randomIP();
+
   //connectServer start
   logSys.info('connectStreamServer is starting');
 
