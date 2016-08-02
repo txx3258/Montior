@@ -29,7 +29,7 @@ function doBiz() {
 
 function* bizCode() {
   //装配，读取新增文件信息  sb('main.js',33)
-  let readFileInfos = paths.map(function (item, index) {
+  let readFileInfos = paths.map((item, index)=> {
     logBiz.info('fd offset=' + item.offset);
     return readFileInfo(item, index);
   });

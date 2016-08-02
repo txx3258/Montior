@@ -4,8 +4,8 @@ let fs = require("fs");
 
  //读取文件信息
 let readFileStat = function (fd) {
-    return new Promise(function (resolve, reject) {
-        fs.fstat(fd, function (err, stats) {
+    return new Promise((resolve, reject)=> {
+        fs.fstat(fd, (err, stats)=> {
             if (err) {
                 reject(new Error('readFileStat is wrong.path=' + fd));
             } else {
@@ -17,8 +17,8 @@ let readFileStat = function (fd) {
 
 //读取文件fd
 let readFileFd = function (path) {
-    return new Promise(function (resolve, reject) {
-        fs.open(path, 'r', function (err, fd) {
+    return new Promise((resolve, reject)=> {
+        fs.open(path, 'r', (err, fd)=> {
             if (err) {
                 reject(new Error('readFileFd is wrong.path=' + path));
             } else {

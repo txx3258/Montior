@@ -14,20 +14,19 @@ let sendStream = require('../tcpService/sendStream');
 
 //读取文件增加文件  sb('fileService/readFileContent.js',13)
 function readIntrFileStr(fd, len, preOffset, bufSize, timeOut) {
-  return new Promise(function (resolve, reject) {
+  return new Promise((resolve, reject) =>{
     var buf = new Buffer(bufSize);
 
-    fs.read(fd, buf, 0, len, preOffset, function (err, bytesRead, buffer) {
-      if (err) {
-        reject(new Error("readIntrFileStr is wrong.fd=" + fd + ",len=" + len + ",preOffset=" + preOffset));
-      } else {
-        let result = buffer.slice(0, len);
-
-        setTimeout(function () {
+    setTimeout(()=> {
+      fs.read(fd, buf, 0, len, preOffset, (err, bytesRead, buffer)=> {
+        if (err) {
+          reject(new Error("readIntrFileStr is wrong.fd=" + fd + ",len=" + len + ",preOffset=" + preOffset));
+        } else {
+          let result = buffer.slice(0, len);
           resolve(result.toString('utf8'));
-        }, timeOut);
-      }
-    });
+        }
+      });
+    }, timeOut);
   });
 }
 
@@ -43,14 +42,14 @@ function* sendFileContent(info) {
     intrFileStr = yield readIntrFileStr(info.fd, info.len, info.preOffset, bufSize, info.timeOut);
   } else {
     //向上取整
-    let len=Math.ceil(info.len/bufSize);
-    for(let i=0;i<len-1;i++){
-      intrFileStr += yield readIntrFileStr(info.fd, bufSize, info.preOffset+(i*bufSize), bufSize, info.timeOut);
+    let len = Math.ceil(info.len / bufSize);
+    for (let i = 0; i < len - 1; i++) {
+      intrFileStr += yield readIntrFileStr(info.fd, bufSize, info.preOffset + (i * bufSize), bufSize, info.timeOut);
     }
 
-    let lastLen = info.len - (len - 1)*bufSize;
-    let lastOffset = info.preOffset + (len-1)*bufSize;
-    intrFileStr += yield readIntrFileStr(info.fd, lastLen,lastOffset,bufSize,info.timeOut);
+    let lastLen = info.len - (len - 1) * bufSize;
+    let lastOffset = info.preOffset + (len - 1) * bufSize;
+    intrFileStr += yield readIntrFileStr(info.fd, lastLen, lastOffset, bufSize, info.timeOut);
   }
 
   console.log(intrFileStr);

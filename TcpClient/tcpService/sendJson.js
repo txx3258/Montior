@@ -3,13 +3,35 @@
 //let zlib=require('zlib');
 let net = require('net');
 let client = undefined;
+let PROTOCOL_PARTITION = config.PROTOCOL_PARTITION;
+let logSys = require('../../Common/log').logSys;
 
 let config = require('../../Common/config.json');
-let IP = config.TCP_SERVER_FOR_JSON.IP;
-let PORT = config.TCP_SERVER_FOR_JSON.PORT;
-let PROTOCOL_PARTITION = config.PROTOCOL_PARTITION;
+let SERVER_CONFIG = config.TCP_SERVER_FOR_JSON;
+let IP = undefined;
+let PORT = undefined;
 
-let logSys = require('../../Common/log').logSys;
+//随机选择机器
+function randomIP() {
+  let hostIPLen = SERVER_CONFIG.length;
+  let random = Math.floor(Math.random(47)*hostIPLen);
+
+  let times = 10,_ip,_port;
+  while((times--)>=0){
+    _ip = SERVER_CONFIG[random].IP;
+    _port = SERVER_CONFIG[random].PORT;
+
+    if (_ip!=IP){
+      break;
+    }
+  }
+
+  IP = _ip;
+  PORT = _port;
+}
+// let IP = config.TCP_SERVER_FOR_JSON.IP;
+// let PORT = config.TCP_SERVER_FOR_JSON.PORT;
+
 //连接次数记录
 let connectTimes = 0;
 
@@ -17,6 +39,7 @@ let connectTimes = 0;
  *创建TCP客户端，连接IP和PORT
  */
 function connectJSONServer() {
+  randomIP();
   //connectServer start
   logSys.info('connectJsonServer is starting');
 
@@ -34,9 +57,9 @@ function connectJSONServer() {
   });
 
   //连接次数记录
-  if (connectTimes++ == 4) {
-    logSys.info('connect timeS beyond 3 times,process is exit');
-    process.exit(0);
+  if (connectTimes++ >4 ) {
+    logSys.warn('connect timeS beyond 3 times,process is exit');
+    //process.exit(0);
   }
 
   //连接结束
@@ -53,6 +76,7 @@ function connectJSONServer() {
 
   //处理错误
   client.on('error', function (err) {
+    client = undefined;
     connectTimes++;
     logSys.warn('error:' + err);
 

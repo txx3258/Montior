@@ -34,9 +34,9 @@ function connectStreamServer() {
   });
 
   //连接次数记录
-  if (connectTimes++ == 4) {
-    logSys.info('stream client connect timeS beyond 3 times,process is exit');
-    process.exit(0);
+  if (connectTimes++ > 4) {
+    logSys.warn('stream client connect timeS beyond 3 times,process is exit');
+    //process.exit(0);
   }
 
   //连接结束
