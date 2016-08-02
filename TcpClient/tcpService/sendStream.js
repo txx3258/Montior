@@ -75,7 +75,7 @@ function connectStreamServer() {
   });
 
   //处理错误
-  client.on('error', function (err) {
+  client.on('error',(err)=> {
     connectTimes++;
     logSys.warn('error:' + err);
 

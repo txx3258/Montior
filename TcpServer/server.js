@@ -1,49 +1,27 @@
 'use strict';
 
-let child_process = require('child_process');
 let net = require('net');
 let config = require('../Common/config');
-let PORT_FOR_STREAM = config.TCP_SERVER_FOR_STREAM.PORT;
-let IP_FOR_STREAM = config.TCP_SERVER_FOR_STREAM.IP;
-//let addDB = require('./mongoService/op').addDB;
+let strategy = require('./strategy');
+
+//协议分割
 let PROTOCOL_PARTITION = config.PROTOCOL_PARTITION;
 //协议分割字符串长度
 let PROTOCOL_LEN = PROTOCOL_PARTITION.length;
 
+let times=0;
 /**
  * 
  */
-function makeChild() {
-    let child = child_process.fork('streamChild.js', [], { encoding: 'utf8' });
-    return child;
-}
-
-let child_1 = makeChild();
-let child_2 = makeChild();
-let child_3 = makeChild();
-
-function selectChild(identify) {
-    let char = 0;
-    for (let i = 0; i < identify.length; i++) {
-        char += identify.charCodeAt(i);
+function createServer(type) {
+    let server = strategy.selectIp(type);
+    if (!server){
+        console.warn('server ip config is wrong!type='+type);
+        return;
     }
 
-    if (char % 3 == 0) {
-        return child_1;
-    }
-    if (char % 3 == 1) {
-        return child_2;
-    }
-    if (char % 3 == 2) {
-        return child_3;
-    }
-}
-
-/**
- * 
- */
-function createStreamServer() {
-    let server_for_stream = net.createServer(function (socket) {
+    strategy.makeChild(server,type);
+    net.createServer(function (socket) {
         socket.setEncoding('utf8');
         //暂存Buffer
         let buf = {};
@@ -63,12 +41,13 @@ function createStreamServer() {
                 }
 
                 if (id_buf.length > 0) {
-                    let child = selectChild(identify);
+                    let child = strategy.selectChild(identify,type);
                     let result = {
                         "ipPort":identify,
                         "data":id_buf
                     }
                     child.send(result);
+                    socket.emit('done');
                 }
 
                 let tmp_buf = [];
@@ -79,6 +58,10 @@ function createStreamServer() {
             }
         });
 
+        socket.on('done', function () {
+             process.send({type:type,times:++times,action:'count'});
+        });
+
         //结束
         socket.on('end', function () {
             console.log('connect is end');
@@ -86,16 +69,14 @@ function createStreamServer() {
 
         //错误处理,2秒后重启
         socket.on('error', function () {
-            setTimeout(function () {
-                createStreamServer();
-            }, 2000);
+            process.send({type:type,action:'error'});
         });
-    });
-
-    server_for_stream.listen(PORT_FOR_STREAM, IP_FOR_STREAM);
+    }).listen(server.PORT, server.IP);
 }
 
+createServer(process.argv[2]);
 
-console.info(process.argv);
-createStreamServer();
-
+//父子进程通信出路
+process.on('message', function(m) {
+ 
+});

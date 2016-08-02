@@ -312,7 +312,7 @@
             });
         }});
         $.datetimepicker.setLocale('en');
-        $('#datetimepicker_format').datetimepicker({value:'2016/07/18 05:03:00', format: $("#datetimepicker_format_value").val()});
+        $('#datetimepicker_format').datetimepicker({value:new Date().toLocaleDateString()+' 05:03:00', format: $("#datetimepicker_format_value").val()});
             console.log($('#datetimepicker_format').datetimepicker('getValue'));
             $("#datetimepicker_format_change").on("click", function(e){
 	        $("#datetimepicker_format").data('xdsoft_datetimepicker').setOptions({format: $("#datetimepicker_format_value").val()});
@@ -324,13 +324,13 @@
         $('#datepicker1').datetimepicker({
             dayOfWeekStart : 1,
             lang:'en',
-            startDate:'2016/07/18'
+            startDate:new Date().toLocaleDateString()
         });
  
         $('#datepicker2').datetimepicker({
             dayOfWeekStart : 1,
             lang:'en',
-            startDate:'2016/07/18'
+            startDate:new Date().toLocaleDateString()
         }); 
 
         var start = undefined,end = undefined;
