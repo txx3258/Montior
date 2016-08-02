@@ -48,7 +48,7 @@ function makeChild(server,type) {
 }
 
 function selectChild(identify,type) {
-    let childs = children(type);
+    let childs = children[type];
     let char = 0;
     for (let i = 0; i < identify.length; i++) {
         char += identify.charCodeAt(i);
