@@ -98,8 +98,6 @@ function perfHandler(result) {
             delete item.cnt;
         });
 
-        console.log(JSON.stringify(tmpChain));
-
         add(perfModel,tmpChain);
     });
 }

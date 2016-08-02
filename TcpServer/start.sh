@@ -1,2 +1,3 @@
-nohup node jsonServer.js  &
-nohup node streamServer.js  & 
+ killall -9  ams_report_node
+
+ nohup ams_report_node ./main.js &
