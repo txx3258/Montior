@@ -59,7 +59,10 @@ function createServer(type) {
         });
 
         socket.on('done', function () {
-             process.send({type:type,times:++times,action:'count'});
+            var data = JSON.stringify({type:type,times:++times,action:'count'});
+            console.log(data);
+
+            process.send(data);
         });
 
         //结束

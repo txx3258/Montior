@@ -22,6 +22,7 @@ function perfHandler(result) {
 
         let perfApi = item.substring(pos);
         if (!perfApi.endsWith('}')) {
+             logBiz.warn('missing perf data for }:'+item);
             continue;
         }
 
