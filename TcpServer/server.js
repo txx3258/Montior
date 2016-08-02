@@ -47,7 +47,9 @@ function createServer(type) {
                         "data":id_buf
                     }
                     child.send(result);
-                    socket.emit('done');
+
+                    //计数
+                    process.send({type:type,times:++times,action:'count'});
                 }
 
                 let tmp_buf = [];
@@ -56,13 +58,6 @@ function createServer(type) {
             } else {
                 buf[identify].push(data);
             }
-        });
-
-        socket.on('done', function () {
-            var data = JSON.stringify({type:type,times:++times,action:'count'});
-            console.log(data);
-
-            process.send(data);
         });
 
         //结束
@@ -81,5 +76,7 @@ createServer(process.argv[2]);
 
 //父子进程通信出路
 process.on('message', function(m) {
- 
+    if (m.action=='heart'){
+        process.send(m);
+    }
 });
