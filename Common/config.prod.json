@@ -1,37 +1,64 @@
 {
   "PATHS": [
     {
-      "path": "E:\\AMS\\gc.log",
+      "path": "/data/biz-ad/jboss-5.1.0.GA/server/default/log/gc.log",
       "type": "gc",
       "offset": 0,
       "bufSize": 2097152,
-      "ip": "192.168.11.133",
-      "bizCode": "applist",
+      "ip": "172.25.109.54",
+      "bizCode": "biz-ad",
+      "sendBy":"json"
+    },
+    {
+      "path": "/data/biz-amsnew/jboss-5.1.0.GA/server/default/log/gc.log",
+      "type": "gc",
+      "offset": 0,
+      "bufSize": 2097152,
+      "ip": "172.25.109.39",
+      "bizCode": "biz-amsnew",
+      "sendBy":"json"
+    },
+    {
+      "path": "/data/jifen/jboss-5.1.0.GA/server/default/log/gc.log",
+      "type": "gc",
+      "offset": 0,
+      "bufSize": 2097152,
+      "ip": "172.25.109.62",
+      "bizCode": "jifen",
+      "sendBy":"json"
+    },
+    {
+      "path": "/data/biz-guard/jboss-5.1.0.GA/server/default/log/gc.log",
+      "type": "gc",
+      "offset": 0,
+      "bufSize": 2097152,
+      "ip": "172.25.109.72",
+      "bizCode": "biz-guard",
       "sendBy":"json"
     }
   ],
   "BUF_SIZE": 2097152,
   "OFFSET": 0,
-  "IP": "127.0.0.1",
+  "IP": "172.25.109.74",
   "ALL_COLLECTIONS": "",
   "MIN_LIMIT": 10,
   "MONGO_URI": "mongodb://172.25.109.56:7400/ReportAndMonitor",
   "HTTP_PORT": 8081,
   "TCP_SERVER_FOR_STREAM": [{
-    "IP":"192.168.11.149",
+    "IP":"172.25.109.75",
     "PORT":9090
   },{
-    "IP":"192.168.11.149",
-    "PORT":9089
+    "IP":"172.25.109.75",
+    "PORT":9090
   }],
   "TCP_SERVER_FOR_JSON": [{
-    "IP":"192.168.11.149",
+    "IP":"172.25.109.75",
     "PORT":9091
   },{
-    "IP":"192.168.11.149",
-    "PORT":9092
-  }], 
-  "PROTOCOL_PARTITION":"~!@#$%^&*()_+",
+    "IP":"172.25.109.75",
+    "PORT":9090
+  }],
+  "PROTOCOL_PARTITION":"~!@#$%^&*()_+",  
   "TCP_CLIENT_PORT": 9990,
   "TCP_CLIENT_INTERVAL": 60000
 }
