@@ -3,7 +3,8 @@
 let logBiz = require('../../Common/log').logBiz;
 let add = require('./mongoUtils').add;
 
-function mongoWrap(data) {
+function mongoWrap(result) {
+    let data = result.data;
     let datas = undefined;
     let curData = '[{}' + data.join('') + ']';
     try {
