@@ -1,6 +1,6 @@
 'use strict';
 
-let MIN_LIMIT=require('../../../Common/config').MIN_LIMIT; 
+let MIN_LIMIT=require('../../../config').MIN_LIMIT; 
 
 function perfFileHandler(str){
   var result=[],rtn,i=0;

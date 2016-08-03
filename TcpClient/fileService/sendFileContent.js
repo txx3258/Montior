@@ -1,7 +1,7 @@
 'use strict';
 
 let fs = require('fs');
-let BUFSIZE = require('../../Common/config').BUF_SIZE;
+let BUFSIZE = require('../../config').BUF_SIZE;
 
 let gcFileHandler = require('./handler/gcFileHandler');
 let perfFileHandler = require('./handler/perfFileHandler');

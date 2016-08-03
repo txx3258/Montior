@@ -1,0 +1,58 @@
+{
+  "PATHS": [
+    {
+      "path": "/data/applist/jboss-5.1.0.GA/server/default/log/gc.log",
+      "type": "gc",
+      "ip": "192.168.11.133",
+      "bizCode": "applist",
+      "offset": 0,
+      "bufSize": 2097152,
+      "sendBy": "json"
+    },
+    {
+      "path": "/data/comment/jboss-5.1.0.GA/server/default/log/ams-memcached-monitor.log",
+      "type": "memcached",
+      "ip": "192.168.11.68",
+      "bizCode": "applist",
+      "offset": 0,
+      "bufSize": 2097152,
+      "sendBy": "json"
+    },
+    {
+      "path": "/data/comment/jboss-5.1.0.GA/server/default/log/ams-redis-monitor.log",
+      "type": "redis",
+      "ip": "192.168.11.68",
+      "bizCode": "comment",
+      "offset": 0,
+      "bufSize": 2097152,
+      "sendBy": "json"
+    }
+  ],
+  "BUF_SIZE": 2097152,
+  "MONGO_URI": "mongodb://192.168.11.149:27017/ReportAndMonitor",
+  "HTTP_SERVER": {
+    "IP": "127.0.0.1",
+    "HTTP_PORT": 8088
+  },
+  "TCP_SERVER_FOR_STREAM": [
+    {
+      "IP": "192.168.11.149",
+      "PORT": 9090
+    },
+    {
+      "IP": "127.0.0.1",
+      "PORT": 9089
+    }
+  ],
+  "TCP_SERVER_FOR_JSON": [
+    {
+      "IP": "192.168.11.149",
+      "PORT": 9091
+    },
+    {
+      "IP": "127.0.0.1",
+      "PORT": 9092
+    }
+  ],
+  "TCP_CLIENT_INTERVAL": 60000
+}

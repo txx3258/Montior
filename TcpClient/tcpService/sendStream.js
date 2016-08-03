@@ -3,9 +3,9 @@
 let zlib = require('zlib');
 
 let net = require('net');
-let config = require('../../Common/config.json');
+let config = require('../../config.json');
 let SERVER_CONFIG = config.TCP_SERVER_FOR_STREAM;
-let PROTOCOL_PARTITION = config.PROTOCOL_PARTITION;
+let PROTOCOL_PARTITION = '~!@#$%^&*()_+';
 
 let IP = undefined;
 let PORT = undefined;

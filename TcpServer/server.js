@@ -1,11 +1,11 @@
 'use strict';
 
 let net = require('net');
-let config = require('../Common/config');
+let config = require('../config');
 let strategy = require('./strategy');
 
 //协议分割
-let PROTOCOL_PARTITION = config.PROTOCOL_PARTITION;
+let PROTOCOL_PARTITION = '~!@#$%^&*()_+';
 //协议分割字符串长度
 let PROTOCOL_LEN = PROTOCOL_PARTITION.length;
 

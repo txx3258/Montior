@@ -5,9 +5,9 @@ let net = require('net');
 let client = undefined;
 let logSys = require('../../Common/log').logSys;
 
-let config = require('../../Common/config.json');
+let config = require('../../config.json');
 let SERVER_CONFIG = config.TCP_SERVER_FOR_JSON;
-let PROTOCOL_PARTITION = config.PROTOCOL_PARTITION;
+let PROTOCOL_PARTITION = '~!@#$%^&*()_+';
 let IP = undefined;
 let PORT = undefined;
 

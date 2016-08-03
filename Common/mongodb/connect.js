@@ -1,7 +1,7 @@
 'use strict';
 
 let mongoose=require('mongoose');
-let config=require("../config");
+let config=require("../../config");
 let uri=config.MONGO_URI;
 let connectTimes=0;
 let logSys=require('../log').logSys;

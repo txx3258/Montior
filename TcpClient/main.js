@@ -2,7 +2,7 @@
 
 let co = require('co');
 
-let config = require('../Common/config.json');
+let config = require('../config.json');
 let myLog4js = require('../Common/log');
 let logIndex = myLog4js.logIndex;
 let logBiz = myLog4js.logBiz;

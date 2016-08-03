@@ -1,1 +1,0 @@
-curl http://127.0.0.1:8081/info/loadInfo?type=userInfo&action=add&userId=18200113292&password=txx3258

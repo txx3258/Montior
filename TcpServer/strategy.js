@@ -1,7 +1,9 @@
 'use strict';
 
-let config = require('../Common/config');
+let config = require('../config');
 let child_process = require('child_process');
+let STREAM_CHILED_NUM = 2;
+let JSON_CHILED_NUM = 2;
 
 /**
  * 选择配置文件中IP与机器IP一致
@@ -10,10 +12,20 @@ function selectIp(type) {
     let os = require('os');
     let ips = os.networkInterfaces();
     let servers = undefined;
-    if (type!='json'){
+    if (type=='stream'){
         servers = config.TCP_SERVER_FOR_STREAM;
+        servers.map((item)=>{
+            item["SRC"]="./TcpServer/streamChild.js";
+            item["CHILD_NUM"]= STREAM_CHILED_NUM;
+            return item;
+        })
     }else{
         servers = config.TCP_SERVER_FOR_JSON;
+        servers = servers.map((item)=>{
+            item["SRC"]="./TcpServer/jsonChild.js";
+            item["CHILD_NUM"]= JSON_CHILED_NUM;
+            return item;
+        })
     }
    
 

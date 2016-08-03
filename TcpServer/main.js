@@ -3,8 +3,8 @@
 let child_process = require('child_process');
 
 let child = require('child_process');
-let jsonServer = child_process.fork('./server.js', ['json'], {encoding:'utf8' });
-let streamServer = child_process.fork('./server.js', ['stream'], {encoding:'utf8'});
+let jsonServer = child_process.fork('./TcpServer/server.js', ['json'], {encoding:'utf8' });
+let streamServer = child_process.fork('./TcpServer/server.js', ['stream'], {encoding:'utf8'});
 
 let jsonCount ={time:new Date().getTime()};
 let streamCount ={time:new Date().getTime()};

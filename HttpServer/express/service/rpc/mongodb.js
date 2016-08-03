@@ -1,6 +1,6 @@
 'use strict';
 
-let config = require('../../../../Common/config');
+let config = require('../../../../config');
 let BASE_URL = 'http://127.0.0.1:' + config.HTTP_PORT + '/info/loadinfo?';
 
 let commonUtils = require('../commonUtils');
