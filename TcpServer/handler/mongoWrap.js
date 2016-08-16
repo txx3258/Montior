@@ -18,11 +18,11 @@ function mongoWrap(result) {
     }
 
     let curData = '[{}' + data + ']';
-    console.log(curData);
+    let datas =undefined;
     try {
         datas = JSON.parse(curData);
     } catch (e) {
-        logBiz.warn('missing data:' + curData);
+        logBiz.warn('missing data:' + curData+"/n"+e);
         return;
     }
 
