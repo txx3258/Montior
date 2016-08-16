@@ -22,7 +22,7 @@ function mongoWrap(result) {
     try {
         datas = JSON.parse(curData);
     } catch (e) {
-        logBiz.warn('missing data:' + JSON.stringify(data));
+        logBiz.warn('missing data:' + curData);
         return;
     }
 
