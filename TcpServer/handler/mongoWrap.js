@@ -3,29 +3,34 @@
 let logBiz = require('../../Common/log').logBiz;
 let add = require('./mongoUtils').add;
 
-let PROTOCOL_PARTITION = require('../config').PROTOCOL_PARTITION
+let config = require('../config');
+let PROTOCOL_PARTITION = config.PROTOCOL_PARTITION
 let PROTOCOL_PARTITION_LEN = PROTOCOL_PARTITION.length;
 
 function mongoWrap(result) {
     let rawDate = result.data.join().toString('utf8');
-    let data = rawDate.substring(PROTOCOL_PARTITION_LEN);
-    let datas = undefined;
+    let data = "";
+    if (rawDate.startsWith(PROTOCOL_PARTITION)){
+        data = rawDate.substring(PROTOCOL_PARTITION_LEN);
+    }else{
+        logBiz.warn('no start with PROTOCOL_PARTITION:' + rawDate);
+        return;
+    }
 
-    console.log(data);
-    // let curData = '[{}' + data.join('') + ']';
-    // try {
-    //     datas = JSON.parse(curData);
-    // } catch (e) {
-    //     logBiz.warn('missing data:' + JSON.stringify(data));
-    //     return;
-    // }
+    let curData = '[{}' + data.join('') + ']';
+    try {
+        datas = JSON.parse(curData);
+    } catch (e) {
+        logBiz.warn('missing data:' + JSON.stringify(data));
+        return;
+    }
 
-    // datas.forEach((item) => {
-    //     let model = fetchModel(item);
-    //     if (model) {
-    //         add(model, item);
-    //     } 
-    // });
+    datas.forEach((item) => {
+        let model = fetchModel(item);
+        if (model) {
+            add(model, item);
+        } 
+    });
 }
 
 /**

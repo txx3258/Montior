@@ -10,9 +10,13 @@ function perfHandler(result) {
     let data = result.data;
     let datas = data.join('');
 
-    let  rtn = addon.compute(datas);
-    
-    console.log(JSON.stringify(rtn));
+    let  rtn = addon.compute(datas);   
+    if (Array.isArray(rtn)){
+        rtn.forEach((item)=>{
+            add(perfModel,item);
+        });
+    }
+   
 
     // let container = {};
     // let len = datas.length;
@@ -106,7 +110,7 @@ function perfHandler(result) {
     //         delete item.cnt;
     //     });
 
-    //     add(perfModel,tmpChain);
+    //      
     // });
 }
 
