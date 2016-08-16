@@ -3,23 +3,29 @@
 let logBiz = require('../../Common/log').logBiz;
 let add = require('./mongoUtils').add;
 
-function mongoWrap(result) {
-    let data = result.data;
-    let datas = undefined;
-    let curData = '[{}' + data.join('') + ']';
-    try {
-        datas = JSON.parse(curData);
-    } catch (e) {
-        logBiz.warn('missing data:' + JSON.stringify(data));
-        return;
-    }
+let PROTOCOL_PARTITION = require('../config').PROTOCOL_PARTITION
+let PROTOCOL_PARTITION_LEN = PROTOCOL_PARTITION.length;
 
-    datas.forEach((item) => {
-        let model = fetchModel(item);
-        if (model) {
-            add(model, item);
-        } 
-    });
+function mongoWrap(result) {
+    let rawDate = result.data.join().toString('utf8');
+    let data = rawDate.substring(PROTOCOL_PARTITION_LEN);
+    let datas = undefined;
+
+    console.log(data);
+    // let curData = '[{}' + data.join('') + ']';
+    // try {
+    //     datas = JSON.parse(curData);
+    // } catch (e) {
+    //     logBiz.warn('missing data:' + JSON.stringify(data));
+    //     return;
+    // }
+
+    // datas.forEach((item) => {
+    //     let model = fetchModel(item);
+    //     if (model) {
+    //         add(model, item);
+    //     } 
+    // });
 }
 
 /**

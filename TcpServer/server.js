@@ -4,8 +4,10 @@ let net = require('net');
 let config = require('../config');
 let strategy = require('./strategy');
 
+let conf = require('./config');
+
 //协议分割
-let PROTOCOL_PARTITION = '~!@#$%^&*()_+';
+let PROTOCOL_PARTITION = conf.PROTOCOL_PARTITION;
 //协议分割字符串长度
 let PROTOCOL_LEN = PROTOCOL_PARTITION.length;
 
@@ -34,11 +36,8 @@ function createServer(type) {
                 buf[identify] = id_buf;
             }
 
-            let data = buffer.toString('utf8');
+            let data = buffer.slice(0,PROTOCOL_LEN).toString('utf8');
             if (data.startsWith(PROTOCOL_PARTITION)) {
-                if (PROTOCOL_LEN == data.length) {
-                    return;
-                }
 
                 if (id_buf.length > 0) {
                     let child = strategy.selectChild(identify,type);
@@ -53,10 +52,10 @@ function createServer(type) {
                 }
 
                 let tmp_buf = [];
-                tmp_buf.push(data.substring(PROTOCOL_LEN));
+                tmp_buf.push(buffer);
                 buf[identify] = tmp_buf;
             } else {
-                buf[identify].push(data);
+                buf[identify].push(buffer);
             }
         });
 

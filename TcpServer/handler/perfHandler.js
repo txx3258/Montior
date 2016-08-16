@@ -4,103 +4,110 @@ let logBiz = require('../../Common/log').logBiz;
 let add = require('./mongoUtils').add;
 let perfModel = require('../../Common/mongodb/logModel/PerfModel');
 
+let addon = require('../build/Release/addon.node');
+
 function perfHandler(result) {
     let data = result.data;
-    let datas = data.join('').split('\n');
-    let container = {};
-    let len = datas.length;
+    let datas = data.join('');
 
-    //通过url接口
-    for (let i = 0; i < len; i++) {
-        let item = datas[i];
-        let pos = item.indexOf('{"ts":');
+    let  rtn = addon.compute(datas);
+    
+    console.log(JSON.stringify(rtn));
 
-        if (pos == -1) {
-            logBiz.warn('missing perf data for pos:'+item);
-            continue;
-        }
+    // let container = {};
+    // let len = datas.length;
 
-        let perfApi = item.substring(pos);
-        if (!perfApi.endsWith('}')) {
-             logBiz.warn('missing perf data for }:'+item);
-            continue;
-        }
+    // //通过url接口
+    // for (let i = 0; i < len; i++) {
+    //     let item = datas[i];
+    //     let pos = item.indexOf('{"ts":');
 
-        let apiJson = undefined;
-        try{
-            apiJson = JSON.parse(perfApi);
-        }catch(e){
-            logBiz.warn('missing perf data for JSON:'+item);
-        }
-        let url = apiJson.url.split('?')[0];
-        let urlMap = container[url];
-        if (!urlMap) {
-            urlMap = [];
-            container[url] = urlMap;
-        }
-        urlMap.push(apiJson);
-    }
+    //     if (pos == -1) {
+    //         logBiz.warn('missing perf data for pos:'+item);
+    //         continue;
+    //     }
 
-    Object.keys(container).forEach((key) => {
-        let chains = container[key];
-        let len = chains.length;
+    //     let perfApi = item.substring(pos);
+    //     if (!perfApi.endsWith('}')) {
+    //          logBiz.warn('missing perf data for }:'+item);
+    //         continue;
+    //     }
 
-        let tmpChain = chains[0];
-        tmpChain['url'] = key;
-        tmpChain['ec'] = 0;
-        tmpChain['c'] = len;
-        tmpChain['ip'] = result['ipPort'];
+    //     let apiJson = undefined;
+    //     try{
+    //         apiJson = JSON.parse(perfApi);
+    //     }catch(e){
+    //         logBiz.warn('missing perf data for JSON:'+item);
+    //     }
+    //     let url = apiJson.url.split('?')[0];
+    //     let urlMap = container[url];
+    //     if (!urlMap) {
+    //         urlMap = [];
+    //         container[url] = urlMap;
+    //     }
+    //     urlMap.push(apiJson);
+    // }
 
-        let tmpSps = tmpChain['sps'];
-        if (!Array.isArray(tmpSps)) {
-            tmpSps = [];
-            tmpChain['sps'] = tmpSps;
-        } else {
-            tmpSps.forEach((item) => {
-                item["cnt"] = 1;
-            })
-        }
+    // Object.keys(container).forEach((key) => {
+    //     let chains = container[key];
+    //     let len = chains.length;
 
-        for (let i = 1; i < len; i++) {
-            let chain = chains[i];
-            tmpChain['cs'] += chain.cs;
-            if (!chain.ok) {
-                tmpChain['ce'] += 1;
-            }
+    //     let tmpChain = chains[0];
+    //     tmpChain['url'] = key;
+    //     tmpChain['ec'] = 0;
+    //     tmpChain['c'] = len;
+    //     tmpChain['ip'] = result['ipPort'];
 
-            let sps = chain.sps;
-            if (!Array.isArray(sps)) {
-                continue;
-            }
+    //     let tmpSps = tmpChain['sps'];
+    //     if (!Array.isArray(tmpSps)) {
+    //         tmpSps = [];
+    //         tmpChain['sps'] = tmpSps;
+    //     } else {
+    //         tmpSps.forEach((item) => {
+    //             item["cnt"] = 1;
+    //         })
+    //     }
 
-            let len_0 = tmpSps.length;
-            let len_1 = sps.length;
-            for (let j = 0; j < len_1; j++) {
-                let isExist = false;
-                for (let k = 0; k < len_0; k++) {
-                    if (sps[j].sp == tmpSps[k].sp) {
-                        tmpSps[k].cs += sps[j].cs;
-                        tmpSps[k]["cnt"] += 1;
-                        isExist = true;
-                        continue;
-                    }
-                }
+    //     for (let i = 1; i < len; i++) {
+    //         let chain = chains[i];
+    //         tmpChain['cs'] += chain.cs;
+    //         if (!chain.ok) {
+    //             tmpChain['ce'] += 1;
+    //         }
 
-                if (!isExist) {
-                    sps[j]['cnt'] = 1;
-                    tmpSps.push(sps[j]);
-                }
-            }
-        }
-        //计算平均数
-        tmpChain['cs'] = tmpChain['cs'] / len;
-        tmpChain['sps'].forEach((item) => {
-            item.cs = item.cs / item.cnt;
-            delete item.cnt;
-        });
+    //         let sps = chain.sps;
+    //         if (!Array.isArray(sps)) {
+    //             continue;
+    //         }
 
-        add(perfModel,tmpChain);
-    });
+    //         let len_0 = tmpSps.length;
+    //         let len_1 = sps.length;
+    //         for (let j = 0; j < len_1; j++) {
+    //             let isExist = false;
+    //             for (let k = 0; k < len_0; k++) {
+    //                 if (sps[j].sp == tmpSps[k].sp) {
+    //                     tmpSps[k].cs += sps[j].cs;
+    //                     tmpSps[k]["cnt"] += 1;
+    //                     isExist = true;
+    //                     continue;
+    //                 }
+    //             }
+
+    //             if (!isExist) {
+    //                 sps[j]['cnt'] = 1;
+    //                 tmpSps.push(sps[j]);
+    //             }
+    //         }
+    //     }
+    //     //计算平均数
+    //     tmpChain['cs'] = tmpChain['cs'] / len;
+    //     tmpChain['sps'].forEach((item) => {
+    //         item.cs = item.cs / item.cnt;
+    //         delete item.cnt;
+    //     });
+
+    //     add(perfModel,tmpChain);
+    // });
 }
 
 module.exports = perfHandler;
