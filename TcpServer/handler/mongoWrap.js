@@ -8,7 +8,7 @@ let PROTOCOL_PARTITION = config.PROTOCOL_PARTITION
 let PROTOCOL_PARTITION_LEN = PROTOCOL_PARTITION.length;
 
 function mongoWrap(result) {
-    let rawDate = result.data.join().toString('utf8');
+    let rawDate = result.data.join('').toString('utf8');
     let data = "";
     if (rawDate.startsWith(PROTOCOL_PARTITION)){
         data = rawDate.substring(PROTOCOL_PARTITION_LEN);

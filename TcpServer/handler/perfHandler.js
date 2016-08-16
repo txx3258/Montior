@@ -13,6 +13,7 @@ function perfHandler(result) {
     let  rtn = addon.compute(datas);   
     if (Array.isArray(rtn)){
         rtn.forEach((item)=>{
+            console.log(JSON.stringify(item));
             add(perfModel,item);
         });
     }
