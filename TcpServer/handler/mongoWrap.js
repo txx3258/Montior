@@ -17,7 +17,8 @@ function mongoWrap(result) {
         return;
     }
 
-    let curData = '[{}' + data.join('') + ']';
+    let curData = '[{}' + data + ']';
+    console.log(curData);
     try {
         datas = JSON.parse(curData);
     } catch (e) {
