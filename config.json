@@ -26,6 +26,15 @@
       "offset": 0,
       "bufSize": 2097152,
       "sendBy": "json"
+    },
+    {
+      "path": "/data/biz-amsnew/jboss-5.1.0.GA/server/default/log/access-perf-format.log",
+      "type": "perf",
+      "ip": "192.168.11.68",
+      "bizCode": "applist",
+      "offset": 0,
+      "bufSize": 2097152,
+      "sendBy": "stream"
     }
   ],
   "BUF_SIZE": 2097152,

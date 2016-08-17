@@ -1,3 +1,5 @@
 {
-    "PROTOCOL_PARTITION":"~!@#$%^&*()_+"
+    "PROTOCOL_PARTITION":"~!@#$%^&*()_+",
+    "STREAM_CHILED_NUM":3,
+    "JSON_CHILED_NUM":2
 }

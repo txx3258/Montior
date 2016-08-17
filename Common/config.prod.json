@@ -44,30 +44,14 @@
   "HTTP_PORT": 8081,
   "TCP_SERVER_FOR_STREAM": [
     {
-      "IP": "172.25.109.75",
-      "PORT": 9090,
-      "CHILD_NUM": 1,
-      "SRC": "streamChild.js"
-    },
-    {
-      "IP": "172.25.109.75",
-      "PORT": 9090,
-      "CHILD_NUM": 1,
-      "SRC": "streamChild.js"
+      "IP": "172.25.109.198",
+      "PORT": 9090
     }
   ],
   "TCP_SERVER_FOR_JSON": [
     {
-      "IP": "172.25.109.75",
-      "PORT": 9091,
-      "CHILD_NUM": 1,
-      "SRC": "jsonChild.js"
-    },
-    {
-      "IP": "172.25.109.75",
-      "PORT": 9090,
-      "CHILD_NUM": 1,
-      "SRC": "jsonChild.js"
+       "IP": "172.25.109.198",
+       "PORT": 9090
     }
   ],
   "PROTOCOL_PARTITION": "~!@#$%^&*()_+",
