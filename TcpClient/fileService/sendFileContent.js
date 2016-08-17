@@ -52,7 +52,7 @@ function* sendFileContent(info) {
     intrFileStr += yield readIntrFileStr(info.fd, lastLen, lastOffset, bufSize, info.timeOut);
   }
 
-  console.log(intrFileStr);
+//  console.log(intrFileStr);
 
   //发送不同类别服务器
   let sendServer = info.sendBy === 'stream' ? sendStream : sendJson;
