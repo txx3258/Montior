@@ -45,7 +45,7 @@
   "TCP_SERVER_FOR_STREAM": [
     {
       "IP": "172.25.109.198",
-      "PORT": 9090
+      "PORT": 9091
     }
   ],
   "TCP_SERVER_FOR_JSON": [

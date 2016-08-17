@@ -1,5 +1,6 @@
 'use strict';
 
+let config = require('../config');
 let conf = require('./config');
 let child_process = require('child_process');
 let STREAM_CHILED_NUM = conf.STREAM_CHILED_NUM;
