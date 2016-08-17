@@ -30,11 +30,13 @@ streamServer.on('message', function(m) {
 setInterval(()=>{
   let time = new Date().getTime();
   if (time - jsonCount.time>10000){
-    jsonServer = child_process.fork('./server.js', ['json'], {encoding:'utf8' });
+    jsonServer = child_process.fork('./TcpServer/server.js', ['json'], {encoding:'utf8' });
+    console.log('restart json server');
   }
 
   if (time - jsonCount.time>10000){
-     streamServer = child_process.fork('./server.js', ['stream'], {encoding:'utf8'});
+     streamServer = child_process.fork('./TcpServer/server.js', ['stream'], {encoding:'utf8'});
+     console.log('restart stream server');
   } 
 
   jsonServer.send({time:time,action:'heart'});
