@@ -2,8 +2,8 @@
 
 let config = require('../config');
 let child_process = require('child_process');
-let STREAM_CHILED_NUM = 2;
-let JSON_CHILED_NUM = 2;
+let STREAM_CHILED_NUM = 1;
+let JSON_CHILED_NUM = 1;
 
 /**
  * 选择配置文件中IP与机器IP一致
