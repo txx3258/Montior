@@ -26,25 +26,25 @@
             <nav>
                 <ul>
                     <li <% if(mClass=="data") { %> class="active" <%}%> >
-                        <a href="/manage/data">接口访问</a>
+                        <a href="<%= CONTEXT%>/manage/data">接口访问</a>
                     </li>
                      <li <% if(mClass=="dataGC") { %> class="active" <%}%>>
-                        <a href="/manage/dataGC">服务器GC</a>
+                        <a href="<%= CONTEXT%>/manage/dataGC">服务器GC</a>
                     </li>
                     <li <% if(mClass=="dataRedis") { %> class="active" <%}%>>
-                        <a href="/manage/dataRedis">redis访问</a>
+                        <a href="<%= CONTEXT%>/manage/dataRedis">redis访问</a>
                     </li>
                     <li <% if(mClass=="dataMemcache") { %> class="active" <%}%>>
-                        <a href="/manage/dataMemcache">memcache访问</a>
+                        <a href="<%= CONTEXT%>/manage/dataMemcache">memcache访问</a>
                     </li>
                     <li <% if(mClass=="dataDB") { %> class="active" <%}%> >
-                        <a href="/manage/dataDB">数据库</a>
+                        <a href="<%= CONTEXT%>/manage/dataDB">数据库</a>
                     </li>
                     <li <%if(mClass=="dataRpc") { %> class="active" <%}%> >
-                        <a href="/manage/dataRpc">远程rpc</a>
+                        <a href="<%= CONTEXT%>/manage/dataRpc">远程rpc</a>
                     </li>
                     <li <%if(mClass=="dataJms") { %> class="active" <%}%> >
-                        <a href="/manage/dataJms">JMS消息</a>
+                        <a href="<%= CONTEXT%>/manage/dataJms">JMS消息</a>
                     </li>
                 </ul>
             </nav>

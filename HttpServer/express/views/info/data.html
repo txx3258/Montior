@@ -226,7 +226,7 @@
                             </style>
 
                             </style>
-                            <link rel="stylesheet" type="text/css" href="/css/jquery.datetimepicker.min.css" />
+                           
                             <div id="js-user-rank" class="widget widget-user-rank">
                                 <div class="widget-inner">
                                     <div class="ui-block-head">
@@ -293,13 +293,11 @@
     </div>
     <%- include ../template/_footer.html %>
         <script src="http://120.25.169.11/assets/js/d3.v3.min.js"></script>
-        <script type="text/javascript" src="http://120.25.169.11/api/jquery-1.8.3.js"></script>
-        <script type="text/javascript" src="/js/jquery.datetimepicker.full.min.js"></script>
-        <script type="text/javascript" src="/js/d3.of.mine.tip.js"></script>
+        <script type="text/javascript" src="<%= STATIC_URL%>/js/d3.of.mine.tip.js"></script>
 
         
         <script type="text/javascript">
-        $.ajax({url:'/info/chart/line/distinctField?type=noSql&key=["systemCode","methName","serverHost"]&bizCode=distinct',
+        $.ajax({url:'<%= CONTEXT%>/info/chart/line/distinctField?type=noSql&key=["systemCode","methName","serverHost"]&bizCode=distinct',
             success:function(data){
             data.systemCode.forEach(function(item){
                 $("#systemCode").append('<option value="'+item+'">'+item+'</option>')
@@ -380,7 +378,7 @@
 
             svg.call(tip);
 
-            d3.json("/chart/line/perf?"+query, type, function(error, data) {
+            d3.json("<%= CONTEXT%>/chart/line/perf?"+query, type, function(error, data) {
                 x.domain(data.map(function(d) { return d.time; }));
                 y.domain([0, d3.max(data, function(d) { return d.c; })]);
 

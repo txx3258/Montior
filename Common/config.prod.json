@@ -41,7 +41,10 @@
   "OFFSET": 0,
   "IP": "172.25.109.74",
   "MONGO_URI": "mongodb://172.25.109.56:7400/ReportAndMonitor",
-  "HTTP_PORT": 8081,
+   "HTTP_SERVER": {
+    "IP": "127.0.0.1",
+    "HTTP_PORT": 8088
+  },
   "TCP_SERVER_FOR_STREAM": [
     {
       "IP": "172.25.109.198",

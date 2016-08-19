@@ -2,6 +2,9 @@
 
 let co=require('co');
 
+let config = require('../../config');
+let STATIC_URL = config.STATIC_URL;
+let CONTEXT = config.CONTEXT;
 /*
  *封装业务处理 sb('src/express/service/manageWrap.js',12)
  */
@@ -14,7 +17,8 @@ function manageWrap(req,res,handleResult){
     }else if (result.action=='render'){
       return res.render(result.template,{
           title: result.title,
-          staticResourceUrl: 'http://120.25.169.11/assets',
+          STATIC_URL: STATIC_URL,
+          CONTEXT:CONTEXT,
           mClass: result.mClass,
           data:result.data,
           roleLeve:req.roleLeve||{'leve':'11111111111111111111111111111111111111111'}

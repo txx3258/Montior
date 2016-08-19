@@ -1,0 +1,4 @@
+{
+      "STATIC_URL":"http://192.168.11.149:8880/public",
+      "CONTEXT":"/ams/report"
+}

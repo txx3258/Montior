@@ -230,7 +230,7 @@
                                     font-weight: bold;
                                 }
                             </style>
-                            <link rel="stylesheet" type="text/css" href="/css/jquery.datetimepicker.min.css" />
+                            
                             <div id="js-user-rank" class="widget widget-user-rank">
                                 <div class="widget-inner">
                                     <div class="ui-block-head">
@@ -284,12 +284,9 @@
     </div>
     <%- include ../template/_footer.html %>
 
-        <script src="/d3.line.js"></script>
-        <script type="text/javascript" src="http://120.25.169.11/api/jquery-1.8.3.js"></script>
-        <script type="text/javascript" src="/js/jquery.datetimepicker.full.min.js"></script>
-
+        <script src="<%= STATIC_URL%>/d3.line.js"></script>
         <script type="text/javascript">
-        $.ajax({url:'/info/chart/line/distinctField?type=perf&key=["url"]&biz=distinct',
+        $.ajax({url:'<%= CONTEXT%>/info/chart/line/distinctField?type=perf&key=["url"]&biz=distinct',
             success:function(data){
             data.bizCode.forEach(function(item){
                 $("#bizCode").append('<option value="'+item+'">'+item+'</option>')
@@ -356,7 +353,7 @@
             height = +svg.attr("height") - margin.top - margin.bottom,
             labelPadding = 3;
             var g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-            d3.requestJson("/info/chart/line/yongGC?"+query,function(error, datas) {
+            d3.requestJson("<%= CONTEXT%>/info/chart/line/yongGC?"+query,function(error, datas) {
                 if (error) throw error;
                 var data = datas.value;
                 var keys = datas.key;
