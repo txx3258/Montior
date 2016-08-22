@@ -5,7 +5,7 @@ let fs = require('fs');
 let config = require('../config');
 let templates = config.templates;
 let templateLen = templates.length;
-let ipFrom = templates.ipfile;
+let ipFrom = config.ipfile;
 
 function handeFilePaths(contexts) {
     let result = [];
