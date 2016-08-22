@@ -13,7 +13,8 @@ let logSys = myLog4js.logSys;
  */
 let readFileInfo = require('./fileService/readFileInfo');
 let sendFileContent = require('./fileService/sendFileContent');
-let paths = config.PATHS;
+let handleFilePaths = require('./filePathsService/handleFilePaths');
+let paths = handleFilePaths(config.PATHS);
 
 /*
  *业务处理

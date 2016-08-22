@@ -1,0 +1,41 @@
+{
+    "templates": [
+        {
+            "path": "/data/%s/jboss-5.1.0.GA/server/default/log/gc.log",
+            "type": "gc",
+            "ip": "%s",
+            "bizCode": "%s",
+            "offset": 0,
+            "bufSize": 2097152,
+            "sendBy": "json"
+        },
+        {
+            "path": "/data/%s/jboss-5.1.0.GA/server/default/log/ams-memcached-monitor.log",
+            "type": "memcached",
+            "ip": "%s",
+            "bizCode": "%s",
+            "offset": 0,
+            "bufSize": 2097152,
+            "sendBy": "json"
+        },
+        {
+            "path": "/data/%s/jboss-5.1.0.GA/server/default/log/ams-redis-monitor.log",
+            "type": "redis",
+            "ip": "%s",
+            "bizCode": "%s",
+            "offset": 0,
+            "bufSize": 2097152,
+            "sendBy": "json"
+        },
+        {
+            "path": "/data/%s/jboss-5.1.0.GA/server/default/log/access-perf-format.log",
+            "type": "perf",
+            "ip": "%s",
+            "bizCode": "%s",
+            "offset": 0,
+            "bufSize": 2097152,
+            "sendBy": "stream"
+        }
+    ],
+    "ipfile":"/data/%s/jboss-5.1.0.GA/pkgconfig"
+}

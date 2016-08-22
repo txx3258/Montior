@@ -1,7 +1,8 @@
 'use strict';
 
 let config = require('../../../../config');
-let BASE_URL = 'http://127.0.0.1:' + config.HTTP_PORT + '/info/loadinfo?type=userInfo&';
+let HTTP_SERVER = config.HTTP_SERVER;
+let BASE_URL ="http://"+HTTP_SERVER.IP +':'+  HTTP_SERVER.HTTP_PORT+'/info/loadinfo?type=userInfo&';
 
 let commonUtils = require('../commonUtils');
 let httpReq2Json = commonUtils.httpReq2Json;

@@ -296,7 +296,7 @@
 
         
         <script type="text/javascript">
-        $.ajax({url:'<%= CONTEXT%>/info/chart/line/distinctField?type=noSql&key=["systemCode","methName","serverHost"]&bizCode=distinct',
+        $.ajax({url:'<%= CONTEXT%>/info/chart/line/distinctField?type=noSql&key=["systemCode","methName","serverHost"]&biz=distinct',
             success:function(data){
             data.systemCode.forEach(function(item){
                 $("#systemCode").append('<option value="'+item+'">'+item+'</option>')
