@@ -5,20 +5,18 @@ let fs = require('fs');
 let config = require('../config');
 let templates = config.templates;
 let templateLen = templates.length;
-
-let conf = require('../../config');
-
+let ipFrom = templates.ipfile;
 
 function handeFilePaths(contexts) {
     let result = [];
 
     for (let i = 0; i < contexts.length; i++) {
         let context = contexts[i];
-        let ipFile = context.ipfile.replace(/%s/, context);
+        let ipFile = ipFrom.replace(/%s/, context);
         if (fs.existsSync(ipFile)){
             continue;   
         }
-        
+
         let ipFileContent = fs.readFileSync(ipFile).toString();
         let ipRegs = /BIND_IP="(.*?)"/.exec(ipFileContent);
         if (!Array.isArray(ipRegs)){
