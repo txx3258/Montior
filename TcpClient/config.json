@@ -37,5 +37,5 @@
             "sendBy": "stream"
         }
     ],
-    "ipfile":"/data/%s/jboss-5.1.0.GA/pkgconfig"
+    "ipfile":"/data/%s/pkgconfig"
 }

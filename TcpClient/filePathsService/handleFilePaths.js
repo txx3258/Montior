@@ -13,7 +13,7 @@ function handeFilePaths(contexts) {
     for (let i = 0; i < contexts.length; i++) {
         let context = contexts[i];
         let ipFile = ipFrom.replace(/%s/, context);
-        if (fs.existsSync(ipFile)){
+        if (!fs.existsSync(ipFile)){
             continue;   
         }
 
