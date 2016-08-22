@@ -1,6 +1,6 @@
 {
   "PATHS": [
-    "biz-applist","jifen"
+    "Monitor","jifen"
   ],
   "BUF_SIZE": 2097152,
   "MONGO_URI": "mongodb://192.168.11.149:27017/ReportAndMonitor",

@@ -15,6 +15,10 @@ function handeFilePaths(contexts) {
     for (let i = 0; i < contexts.length; i++) {
         let context = contexts[i];
         let ipFile = context.ipfile.replace(/%s/, context);
+        if (fs.existsSync(ipFile)){
+            continue;   
+        }
+        
         let ipFileContent = fs.readFileSync(ipFile).toString();
         let ipRegs = /BIND_IP="(.*?)"/.exec(ipFileContent);
         if (!Array.isArray(ipRegs)){
