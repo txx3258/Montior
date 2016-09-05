@@ -10,8 +10,9 @@ function add(model, data) {
     co(addMongo(model, data))
         .then((result) => {
             logBiz.info(result);
-        }).catch(
-        );
+        }).catch((err)=>{
+            onerror(err);
+        });
 
     /**
     *错误日志如理
