@@ -37,6 +37,8 @@ function createServer(type) {
                 buf[identify] = id_buf;
             }
 
+            console.log(buffer.toString());
+
             let data = buffer.slice(0,PROTOCOL_LEN).toString('utf8');
             let isStart = data.startsWith(S_PROTOCOL_PARTITION);
             let isEnd = data.startsWith(E_PROTOCOL_PARTITION);
