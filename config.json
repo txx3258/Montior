@@ -3,20 +3,14 @@
     "Monitor","jifen"
   ],
   "BUF_SIZE": 2097152,
-  "MONGO_URI": "mongodb://192.168.11.149:27017/ReportAndMonitor",
+  "MONGO_URI": "mongodb://172.25.109.56:7400/ReportAndMonitor",
   "HTTP_SERVER": {
-    "IP": "127.0.0.1",
-    "HTTP_PORT": 8088
+    "IP": "172.25.109.198",
+    "HTTP_PORT": 10011
   },
-  "TCP_SERVER_FOR_STREAM": [
-    {
-      "IP": "192.168.11.149",
-      "PORT": 9091
-    }
-  ],
   "TCP_SERVER_FOR_JSON": [
     {
-      "IP": "192.168.11.149",
+      "IP": "172.25.109.198",
       "PORT": 9090
     }
   ],
