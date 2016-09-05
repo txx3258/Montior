@@ -23,7 +23,7 @@ function readIntrFileStr(fd, len, preOffset, bufSize, timeOut) {
           reject(new Error("readIntrFileStr is wrong.fd=" + fd + ",len=" + len + ",preOffset=" + preOffset));
         } else {
           let result = buffer.slice(0, len);
-          resolve(result.toString('utf8'));
+          resolve(result);
         }
       });
     }, timeOut);
@@ -60,11 +60,11 @@ function* sendFileContent(info) {
   let fn = undefined;
   //处理字符串
   switch (info.type) {
-    case 'perf': return sendServer(intrFileStr);
-    case 'memcached': return sendServer(memcachedHandler(intrFileStr, info));
-    case 'dal': return sendServer(dalFileHandler(intrFileStr, info));
-    case 'gc': return sendServer(gcFileHandler(intrFileStr, info));
-    case 'redis': return sendServer(redisFileHandler(intrFileStr, info));
+    case 'perf': return sendServer(perfFileHandler(intrFileStr));
+    case 'memcached': return sendServer(memcachedHandler(intrFileStr.toString(), info));
+    case 'dal': return sendServer(dalFileHandler(intrFileStr.toString(), info));
+    case 'gc': return sendServer(gcFileHandler(intrFileStr.toString(), info));
+    case 'redis': return sendServer(redisFileHandler(intrFileStr.toString(), info));
     case 'rpc': fn = dalFileHandler; break;
   }
 }
