@@ -40,11 +40,17 @@ function mongoWrap(result) {
  */
 let YoungGCModel = require('../../Common/mongodb/logModel/YoungGCModel');
 let NoSqlModel = require('../../Common/mongodb/logModel/NoSqlModel');
+let perfModel = require('../../Common/mongodb/logModel/PerfModel');
 
 function fetchModel(item) {
     if (!item) {
         return null;
     }
+
+    if (item.url){
+        return perfModel;
+    }
+
     switch (item.type) {
         case 'YGC': return YoungGCModel;
         case 'redis':

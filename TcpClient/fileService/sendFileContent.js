@@ -60,7 +60,7 @@ function* sendFileContent(info) {
   let fn = undefined;
   //处理字符串
   switch (info.type) {
-    case 'perf': return sendServer(perfFileHandler(intrFileStr));
+    case 'perf': return sendServer(perfFileHandler(intrFileStr,info));
     case 'memcached': return sendServer(memcachedHandler(intrFileStr.toString(), info));
     case 'dal': return sendServer(dalFileHandler(intrFileStr.toString(), info));
     case 'gc': return sendServer(gcFileHandler(intrFileStr.toString(), info));

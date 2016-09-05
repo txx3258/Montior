@@ -34,7 +34,7 @@
             "bizCode": "%s",
             "offset": 0,
             "bufSize": 2097152,
-            "sendBy": "stream"
+            "sendBy": "json"
         }
     ],
     "ipfile":"/data/%s/pkgconfig"
