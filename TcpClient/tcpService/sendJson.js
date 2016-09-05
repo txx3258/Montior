@@ -7,7 +7,8 @@ let logSys = require('../../Common/log').logSys;
 
 let config = require('../../config.json');
 let SERVER_CONFIG = config.TCP_SERVER_FOR_JSON;
-let PROTOCOL_PARTITION = '~!@#$%^&*()_+';
+let S_PROTOCOL_PARTITION = '~!@#$%^&*()_+';
+let E_PROTOCOL_PARTITION = '+(*&^%$#@!)~_';
 let IP = undefined;
 let PORT = undefined;
 
@@ -95,9 +96,11 @@ function sendJson(data) {
     return;
   }
 
-  client.write(PROTOCOL_PARTITION);
+  client.write(S_PROTOCOL_PARTITION);
   //发送
   client.write(data);
+
+  client.write(E_PROTOCOL_PARTITION);
 }
 
 /**

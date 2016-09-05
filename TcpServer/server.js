@@ -7,9 +7,10 @@ let strategy = require('./strategy');
 let conf = require('./config');
 
 //协议分割
-let PROTOCOL_PARTITION = conf.PROTOCOL_PARTITION;
+let S_PROTOCOL_PARTITION = conf.S_PROTOCOL_PARTITION;
+let E_PROTOCOL_PARTITION = conf.E_PROTOCOL_PARTITION;
 //协议分割字符串长度
-let PROTOCOL_LEN = PROTOCOL_PARTITION.length;
+let PROTOCOL_LEN = S_PROTOCOL_PARTITION.length;
 
 let times=0;
 /**
@@ -29,7 +30,7 @@ function createServer(type) {
         let buf = {};
         //接受数据
         socket.on('data', function (buffer) {
-            let identify = socket.remoteAddress + '_' + socket.remotePort;
+            let identify = socket.remoteAddress;
             let id_buf = buf[identify];
             if (!id_buf) {
                 id_buf = [];
@@ -37,8 +38,13 @@ function createServer(type) {
             }
 
             let data = buffer.slice(0,PROTOCOL_LEN).toString('utf8');
-            if (data.startsWith(PROTOCOL_PARTITION)) {
-
+            let isStart = data.startsWith(S_PROTOCOL_PARTITION);
+            let isEnd = data.startsWith(E_PROTOCOL_PARTITION);
+            if (isStart) {
+                let tmp_buf = [];
+                tmp_buf.push(buffer);
+                buf[identify] = tmp_buf;
+            }else if (isEnd){
                 if (id_buf.length > 0) {
                     let child = strategy.selectChild(identify,type);
                     let result = {
@@ -49,12 +55,12 @@ function createServer(type) {
 
                     //计数
                     process.send({type:type,times:++times,action:'count'});
+                }else if (buffer.length>PROTOCOL_LEN){
+                    let tmp_buf = [];
+                    tmp_buf.push(buffer);
+                    buf[identify] = tmp_buf;
                 }
-
-                let tmp_buf = [];
-                tmp_buf.push(buffer);
-                buf[identify] = tmp_buf;
-            } else {
+            }else {
                 buf[identify].push(buffer);
             }
         });

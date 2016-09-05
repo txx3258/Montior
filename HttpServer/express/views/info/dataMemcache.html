@@ -243,29 +243,29 @@
                                         />
             
                                         <div style="float: left; margin-top:5px; margin-left:12px">角色名称: </div>
-                                        <select id="roleName" style="float: left; margin:5px 0 0 8px ; width : 50px; height: 20px" >
+                                        <select id="roleName" style="float: left; margin:0px 0 0 8px ; width : 50px; height: 30px" >
                                             <option value="master">主</option>
                                             <option value="slave">从</option>    
                                         </select>
 
                                         <div style="float: left; margin-top:5px; margin-left:12px">systemCode:</div>
-                                        <select id="systemCode" style="float: left; margin:5px 0 0 8px ; width : 50px; height: 20px" >
+                                        <select id="systemCode" style="float: left; margin:0px 0 0 8px ; width : 50px; height: 30px" >
                                              <option value="-1">全部</option>   
                                         </select>
 
                                         <div style="float: left; margin-top:5px; margin-left:12px">机器域名:</div>
-                                        <select id="serverHost" style="float: left; margin:5px 0 0 8px ; width : 50px; height: 20px" >
+                                        <select id="serverHost" style="float: left; margin:0px 0 0 8px ; width : 50px; height: 30px" >
                                             <option value="-1">全部</option>   
                                         </select>
 
                                         <div style="float: left; margin-top:5px; margin-left:12px">调用方法:</div>
-                                        <select id="methName" style="float: left; margin:5px 0 0 8px ; width : 50px; height: 20px" >
+                                        <select id="methName" style="float: left; margin:0px 0 0 8px ; width : 50px; height: 30px" >
                                             <option value="-1">全部</option>
          
                                         </select>
 
                                         <div style="float: left; margin-top:5px;margin-left:12px">统计量: </div>
-                                        <select id="statsWay" style="float: left; margin:5px 0 0 8px ; width: 80px; height: 20px" >
+                                        <select id="statsWay" style="float: left; margin:0px 0 0 8px ; width: 80px; height: 30px" >
                                             <option value="avgCost">平均耗时</option>
                                             <option value="maxCost">最大耗时</option>
                                             <option value="totalCount">访问总数</option> 
@@ -296,18 +296,42 @@
 
         
         <script type="text/javascript">
-        $.ajax({url:'<%= CONTEXT%>/info/chart/line/distinctField?type=noSql&key=["systemCode","methName","serverHost"]&biz=distinct',
+        $.ajax({url:'<%= CONTEXT%>/info/chart/line/distinctField?type=noSql&key=["systemCode"]&biz=distinct',
             success:function(data){
             data.systemCode.forEach(function(item){
                 $("#systemCode").append('<option value="'+item+'">'+item+'</option>')
             });
-            data.methName.forEach(function(item){
-                $("#methName").append('<option value="'+item+'">'+item+'</option>')
-            });
-            data.serverHost.forEach(function(item){
-                $("#serverHost").append('<option value="'+item+'">'+item+'</option>')
-            });
         }});
+
+	$("#systemCode").change(function(){
+		  var date1 = $('#datepicker1').val();
+            var date2 = $('#datepicker2').val();
+            if (date1.length<10||date2.length<10){
+                alert('请选择日期！');
+                return;
+            }
+
+            start=new Date(date1+':00').getTime();
+            end=new Date(date2+':00').getTime();
+            if (start>=end){
+                alert( '终点时间小于起点时间!' );
+                return;
+            }  
+		var systemCode = $(this).children('option:selected').val();
+		 $.ajax({url:'<%= CONTEXT%>/info/chart/line/distinctField?type=noSql&key=["serverHost","methName"]&biz=distinct&cond="type":"memcached","systemCode":"'+systemCode+'","startTime":{"$gt":'+start+',"$lt":'+end+'}',
+            success:function(data){ 
+	    $("#methName").html('<option value="-1">全部</option>');
+            data.methName.forEach(function(item){ 
+                $("#methName").append('<option value="'+item+'">'+item+'</option>') 
+            }); 
+	    $("#serverHost").html('<option value="-1">全部</option>');
+            data.serverHost.forEach(function(item){ 
+                $("#serverHost").append('<option value="'+item+'">'+item+'</option>') 
+            }); 
+        }});
+	
+
+	});
         $.datetimepicker.setLocale('en');
         $('#datetimepicker_format').datetimepicker({value:'2016/07/18 05:03:00', format: $("#datetimepicker_format_value").val()});
             console.log($('#datetimepicker_format').datetimepicker('getValue'));

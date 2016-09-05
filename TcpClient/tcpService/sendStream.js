@@ -5,7 +5,8 @@ let zlib = require('zlib');
 let net = require('net');
 let config = require('../../config.json');
 let SERVER_CONFIG = config.TCP_SERVER_FOR_STREAM;
-let PROTOCOL_PARTITION = '~!@#$%^&*()_+';
+let S_PROTOCOL_PARTITION = '~!@#$%^&*()_+';
+let E_PROTOCOL_PARTITION = '+(*&^%$#@!)~_';
 
 let IP = undefined;
 let PORT = undefined;
@@ -57,9 +58,9 @@ function connectStreamServer() {
   });
 
   //连接次数记录
-  if (connectTimes++ > 4) {
+  if (connectTimes++ > 10) {
     logSys.warn('stream client connect timeS beyond 3 times,process is exit');
-    //process.exit(0);
+    process.exit(0);
   }
 
   //连接结束
@@ -103,8 +104,11 @@ function sendStream(data) {
   //   //发送
   //   client.write(buffer);
   // });
-  client.write(PROTOCOL_PARTITION);
+  client.write(S_PROTOCOL_PARTITION);
+  //发送
   client.write(data);
+
+  client.write(E_PROTOCOL_PARTITION);
 }
 
 /**

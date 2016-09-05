@@ -16,9 +16,9 @@ let step = new Schema({
 let Perf = new Schema({
     ts:Number,//timespan
     c:Number,//count
-    ce:Number,//countError
     cs:Number,//cost
     ip:String,
+    en:Number,//errorNumber
     url: String,
     sps:[
         step
@@ -36,7 +36,7 @@ function add(info) {
             ts:info.ts,
             c:info.c,
             cs:info.cs,
-            ce:info.ce,
+            en:info.en,
             url:info.url,
             ip:info.ip,
             sps:info.sps

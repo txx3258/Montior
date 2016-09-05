@@ -34,8 +34,9 @@ function handleResult(req) {
 function* distinct(query) {
     let keys =JSON.parse(query.key);
     let type = query.type;
+    let cond = query.cond;
     let fields = keys.map((key)=>{
-        return fetchDistinctField(type,key);
+        return fetchDistinctField(type,key,cond);
     });
 
     let fieldVals = yield fields;

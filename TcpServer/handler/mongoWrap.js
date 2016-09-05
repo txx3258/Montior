@@ -4,13 +4,14 @@ let logBiz = require('../../Common/log').logBiz;
 let add = require('./mongoUtils').add;
 
 let config = require('../config');
-let PROTOCOL_PARTITION = config.PROTOCOL_PARTITION
-let PROTOCOL_PARTITION_LEN = PROTOCOL_PARTITION.length;
+let S_PROTOCOL_PARTITION = config.S_PROTOCOL_PARTITION;
+let E_PROTOCOL_PARTITION = config.E_PROTOCOL_PARTITION
+let PROTOCOL_PARTITION_LEN = S_PROTOCOL_PARTITION.length;
 
 function mongoWrap(result) {
     let rawDate = result.data.join('').toString('utf8');
     let data = "";
-    if (rawDate.startsWith(PROTOCOL_PARTITION)){
+    if (rawDate.startsWith(S_PROTOCOL_PARTITION)||rawDate.startsWith(E_PROTOCOL_PARTITION)){
         data = rawDate.substring(PROTOCOL_PARTITION_LEN);
     }else{
         logBiz.warn('no start with PROTOCOL_PARTITION:' + rawDate);

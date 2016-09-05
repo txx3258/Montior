@@ -15,8 +15,8 @@ function fetchMongoData(query) {
     return httpReq2Json(url);
 }
 
-function fetchDistinctField(type,field) {
-  let url = BASE_URL+`type=${type}&action=distinct&cond=&field=${field}`;
+function fetchDistinctField(type,field,cond) {
+  let url = BASE_URL+`type=${type}&action=distinct&cond=${cond}&field=${field}`;
 
   return httpReq2Json(url);
 }

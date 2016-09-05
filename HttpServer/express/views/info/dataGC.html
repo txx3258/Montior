@@ -244,24 +244,28 @@
                                         <input id="datepicker2" name="end" style=" float: left; margin-left: 8px ; width : 95px; height: 20px" type="text" />
 
                                         <div style="float: left; margin-top:5px; margin-left:12px">bizCode:</div>
-                                        <select id="bizCode" style="float: left; margin:5px 0 0 8px ; width : 150px; height: 20px">
+                                        <select id="bizCode" style="float: left; margin:0px 0 0 8px ; width : 100px; height: 30px">
                                              <option value="-1">全部</option>   
                                         </select>
 
                                         
                                         <div style="float: left; margin-top:5px; margin-left:12px">IP:</div>
-                                        <select id="IP" style="float: left; margin:5px 0 0 8px ; width : 150px; height: 20px">
+                                        <select id="IP" style="float: left; margin:0px 0 0 8px ; width : 100px; height: 30px">
                                              <option value="-1">全部</option>   
                                         </select>
 
                                         <div style="float: left; margin-top:5px;margin-left:12px">统计量: </div>
-                                        <select id="statsWay" style="float: left; margin:5px 0 0 8px ; width: 150px; height: 20px">
-                                             <option value="cs">耗时</option>
-                                            <option value="c">次数</option>
-                                            <option value="heapSize">heapSize</option> 
-                                            <option value="PartNew">PartNew</option>      
+                                        <select id="statsWay" style="float: left; margin:0px 0 0 8px ; width: 100px; height: 30px">
+                                            <option value="pauseTime">pauseTime</option>
+                                            <option value="youngSize">youngSize</option> 
+                                            <option value="heapSize">heapSize</option>      
                                         </select>
 
+                                        <div style="float: left; margin-top:5px;margin-left:12px">统计方式: </div>
+                                        <select id="strategy" style="float: left; margin:0px 0 0 8px ; width: 100px; height: 30px">
+                                             <option value="avg">平均数</option>
+                                            <option value="times">次数</option>
+                                        </select>
                                         <input id="queryBtn" type="button" value="查询" style=" float: left; margin-left : 30px; width : 50px; height: 25px; margin-top: 0px;"
                                         />
                                     </div>
@@ -291,7 +295,33 @@
             data.bizCode.forEach(function(item){
                 $("#bizCode").append('<option value="'+item+'">'+item+'</option>')
             });
+
         }});
+	$("#bizCode").change(function(){
+		var bizcode = $(this).children('option:selected').val();
+		var date1 = $('#datepicker1').val();
+            var date2 = $('#datepicker2').val();
+            if (date1.length < 10 || date2.length < 10) {
+                alert('请选择日期！');
+                return;
+            }
+            start = new Date(date1 + ':00').getTime();
+            end = new Date(date2 + ':00').getTime();
+
+            if (start >= end) {
+                alert('终点时间小于起点时间!');
+                return;
+            }
+	      $.ajax({url:'<%= CONTEXT%>/info/chart/line/distinctField?type=youngGC&key=["ip"]&biz=distinct&cond="bizCode":"'+bizcode+'","time":{"$gt":'+start+',"$lt":'+end+'}',
+            success:function(data){
+	    $("#IP").html('<option value="-1">全部</option>');
+            data.ip.forEach(function(item){
+                $("#IP").append('<option value="'+item+'">'+item+'</option>');
+            });
+        }});
+
+	});	
+
 
         $.datetimepicker.setLocale('en');
         $('#datetimepicker_format').datetimepicker({value:'2016/07/18 05:03:00', format: $("#datetimepicker_format_value").val()});
@@ -314,7 +344,8 @@
             lang:'en',
             startDate:new Date().toLocaleDateString()
         }); 
-
+	
+	var svg = undefined;
         var start = undefined,end = undefined;
         $('#queryBtn').click(function() {
             var date1 = $('#datepicker1').val();
@@ -330,19 +361,27 @@
                 alert('终点时间小于起点时间!');
                 return;
             }
+
+	
+	    if (svg){
+		svg.html('');
+	    }
+
             var statsWay = $("#statsWay").val();
             var bizCode = $("#bizCode").val();
-            var query ='strategy='+statsWay;
-            if (statsWay=='times'){
-                statsWay = 'pauseTime';
-            }
+            var query ='strategy='+$('#strategy').val();
             query +='&biz='+statsWay+'&type=youngGC&action=find&cond="time":{"$gt":'+start+',"$lt":'+end+'}';
             if (bizCode!=-1){
                 query+=',"bizCode":"'+bizCode+'"';
             }
 
+  	    var IP = $("#IP").val();
+            if (IP!=-1){
+                query+=',"ip":"'+IP+'"';
+            }
+
             query+='&fields=time%20bizCode%20ip%20'+statsWay;
-            var svg = d3.select("svg");
+            svg = d3.select("svg");
             var margin = {
                 top: 30,
                 right: 50,

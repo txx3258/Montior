@@ -8,12 +8,14 @@ let addon = require('../build/Release/addon.node');
 
 function perfHandler(result) {
     let data = result.data;
+    let ip = result.ipPort;
     let datas = data.join('');
 
     let  rtn = addon.compute(datas);   
     if (Array.isArray(rtn)){
         rtn.forEach((item)=>{
             console.log(JSON.stringify(item));
+            item["ip"] = ip;
             add(perfModel,item);
         });
     }
