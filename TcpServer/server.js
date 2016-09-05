@@ -8,22 +8,22 @@ let conf = require('./config');
 
 //协议分割
 let S_PROTOCOL_PARTITION = conf.S_PROTOCOL_PARTITION;
-let E_PROTOCOL_PARTITION = conf.E_PROTOCOL_PARTITION;
+//let E_PROTOCOL_PARTITION = conf.E_PROTOCOL_PARTITION;
 //协议分割字符串长度
 let PROTOCOL_LEN = S_PROTOCOL_PARTITION.length;
 
-let times=0;
+let times = 0;
 /**
  * 
  */
 function createServer(type) {
     let server = strategy.selectIp(type);
-    if (!server){
-        console.warn('server ip config is wrong!type='+type);
+    if (!server) {
+        console.warn('server ip config is wrong!type=' + type);
         return;
     }
 
-    strategy.makeChild(server,type);
+    strategy.makeChild(server, type);
     net.createServer(function (socket) {
         socket.setEncoding('utf8');
         //暂存Buffer
@@ -39,30 +39,24 @@ function createServer(type) {
 
             console.log(buffer.toString());
 
-            let data = buffer.slice(0,PROTOCOL_LEN).toString('utf8');
-            let isStart = data.startsWith(S_PROTOCOL_PARTITION);
-            let isEnd = data.startsWith(E_PROTOCOL_PARTITION);
-            if (isStart) {
-                let tmp_buf = [];
-                tmp_buf.push(buffer);
-                buf[identify] = tmp_buf;
-            }else if (isEnd){
+            let data = buffer.slice(0, PROTOCOL_LEN).toString('utf8');
+            if (data.startsWith(S_PROTOCOL_PARTITION)) {
                 if (id_buf.length > 0) {
-                    let child = strategy.selectChild(identify,type);
+                    let child = strategy.selectChild(identify, type);
                     let result = {
-                        "ipPort":identify,
-                        "data":id_buf
+                        "ipPort": identify,
+                        "data": id_buf
                     }
                     child.send(result);
 
                     //计数
-                    process.send({type:type,times:++times,action:'count'});
-                }else if (buffer.length>PROTOCOL_LEN){
-                    let tmp_buf = [];
-                    tmp_buf.push(buffer);
-                    buf[identify] = tmp_buf;
+                    process.send({ type: type, times: ++times, action: 'count' });
                 }
-            }else {
+
+                let tmp_buf = [];
+                tmp_buf.push(buffer);
+                buf[identify] = tmp_buf;
+            } else {
                 buf[identify].push(buffer);
             }
         });
@@ -74,7 +68,7 @@ function createServer(type) {
 
         //错误处理,2秒后重启
         socket.on('error', function () {
-            process.send({type:type,action:'error'});
+            process.send({ type: type, action: 'error' });
         });
     }).listen(server.PORT, server.IP);
 }
@@ -82,8 +76,8 @@ function createServer(type) {
 createServer(process.argv[2]);
 
 //父子进程通信出路
-process.on('message', function(m) {
-    if (m.action=='heart'){
+process.on('message', function (m) {
+    if (m.action == 'heart') {
         process.send(m);
     }
 });
