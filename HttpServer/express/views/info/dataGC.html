@@ -290,7 +290,7 @@
 
         <script src="<%= STATIC_URL%>/d3.line.js"></script>
         <script type="text/javascript">
-        $.ajax({url:'<%= CONTEXT%>/info/chart/line/distinctField?type=youngGC&key=["bizCode"]&biz=distinct',
+        $.ajax({url:'<%= CONTEXT%>/info/chart/line/distinctField?type=youngGC&key=["bizCode"]&biz=distinct&cond=,
             success:function(data){
             data.bizCode.forEach(function(item){
                 $("#bizCode").append('<option value="'+item+'">'+item+'</option>')
